@@ -102,10 +102,13 @@
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-23T05:06:02.227Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面2.png">
+<meta property="og:updated_time" content="2018-06-23T07:56:37.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop(3.0.3)安装和配置过程（Mac）">
 <meta name="twitter:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面1.png">
 
 
 
@@ -377,7 +380,7 @@
 <h2 id="Java环境检查"><a href="#Java环境检查" class="headerlink" title="Java环境检查"></a>Java环境检查</h2><h3 id="Java版本号检查"><a href="#Java版本号检查" class="headerlink" title="Java版本号检查"></a>Java版本号检查</h3><p>在terminal里输入如下指令可以查看Java版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br></pre></td></tr></table></figure></p>
 <p>如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br></pre></td></tr></table></figure>
-<h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><p>Java安装网址</p>
+<h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><p>如果你没有Java，在这网址里可以安装<br><a href="https://www.java.com/zh_CN/" target="_blank" rel="noopener">Java安装网址</a><br>JDK的安装就搜索一下就有</p>
 <h3 id="Java的的系统环境变量"><a href="#Java的的系统环境变量" class="headerlink" title="Java的的系统环境变量"></a>Java的的系统环境变量</h3><p>Java的系统环境变量是如下指令查询的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure></p>
 <p>查询成功会反馈类似的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure></p>
 <p>该路径一会配置环境变量会用得上</p>
@@ -399,25 +402,110 @@
 <h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>生成一个ssh key并储存和拷贝，方法比较笨</p>
 <hr>
 <ol>
-<li>先输入如下指令，生成ssh key<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure>
+<li><p>先输入如下指令，生成ssh key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure>
+<p> 然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa</span><br></pre></td></tr></table></figure>
+<p> 其中id_rsa就是我们要的文件。</p>
 </li>
 </ol>
-<p>然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa</span><br></pre></td></tr></table></figure></p>
-<p>其中id_rsa就是我们要的文件。</p>
 <hr>
 <ol start="2">
-<li>键入如下指令</li>
+<li><p>键入如下指令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p> 其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key</p>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-<p>其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key</p>
 <hr>
 <ol start="3">
-<li>最后我们再试着输入</li>
+<li><p>最后我们再试着输入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure>
+<p> 此时应该就可以成功了</p>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure>
-<p>此时应该就可以成功了</p>
 <hr>
 <p>参考网址：<a href="https://stackoverflow.com/questions/15211848/hadoop-start-dfs-sh-permission-denied" target="_blank" rel="noopener">Hadoop: start-dfs.sh permission denied</a></p>
+<h4 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h4><p>此方法还未经过验证（未完成）</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><h4 id="总环境变量配置"><a href="#总环境变量配置" class="headerlink" title="总环境变量配置"></a>总环境变量配置</h4><p>打开terminal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br><span class="line">$ vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>执行以上代码可以进入Vim编辑器，编辑环境变量。<br>添加如下代码<br>键入 i 可以开始编辑（详情可以搜索Vim的命令）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Hadoop</span><br><span class="line">export HADOOP_HOME=/Users/Oliver/Documents/hadoop-3.0.3(这个是Hadoop distribution的路径，根据自己设定的来调)</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br></pre></td></tr></table></figure></p>
+<p>然后保存再退出，以下是部分Vim的指令，其余指令可以自行搜索一下</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>简单说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>保存编辑后的文件内容，但不退出vim编辑器</td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>保存文件内容后退出vim编辑器</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>在未做任何编辑处理而准备退出vim时，可以使用此命令</td>
+</tr>
+</tbody>
+</table>
+<p>退出Vim界面之后，在terminal里输入如下命令使变量立即生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>我们就成功的配置好了Hadoop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop version</span><br></pre></td></tr></table></figure></p>
+<p>用该语句来确认Hadoop配置,此时可以查看</p>
+<h4 id="Hadoop文件配置"><a href="#Hadoop文件配置" class="headerlink" title="Hadoop文件配置"></a>Hadoop文件配置</h4><p>打开如下路径里的文件进行更改, 将代码复制进去</p>
+<ol>
+<li><p>etc/hadoop/core-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>etc/hadoop/hdfs-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>etc/hadoop/mapred-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>etc/hadoop/yarn-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p> 参考网址：<a href="http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html" target="_blank" rel="noopener">Setting up Hadoop 2.6 on Mac OS X Yosemite</a></p>
+</li>
+</ol>
+<ol start="5">
+<li><p>/etc/hadoop/hadoop-env.sh handoop环境<br>添加这段代码就可以了，注意就是Java的系统环境变量的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
+<p> 可以看到前面一开始提到的用如下指令查询</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="执行-start-hdfs-and-yarn"><a href="#执行-start-hdfs-and-yarn" class="headerlink" title="执行 start hdfs and yarn"></a>执行 start hdfs and yarn</h3><ol>
+<li><p>在terminal里进入hadoop distribution的文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd 到hadoop的文件夹，比如下面路径就是我的Hadoop</span><br><span class="line">$ cd /users/Oliver/documents/hadoop-3.0.3/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对Namenode执行格式化操作 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop namenode -format</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动hadoop</p>
+<p> 启动NameNode和DataNode</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-dfs.sh</span><br></pre></td></tr></table></figure>
+<p> 成功后出现</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [localhost]</span><br><span class="line">Starting datanodes</span><br><span class="line">Starting secondary namenodes [xiaohuobandeMBP.local]</span><br></pre></td></tr></table></figure>
+<p> 启动ResourceManager和NodeManager</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
+<p> 成功后出现</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Starting resourcemanager</span><br><span class="line">Starting nodemanagers</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查hadoop是否启动成功</p>
+<p> 在terminal里输入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jps</span><br></pre></td></tr></table></figure>
+<p> 会显示</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">18739 Jps</span><br><span class="line">18133 NameNode</span><br><span class="line">18375 SecondaryNameNode</span><br><span class="line">18568 ResourceManager</span><br><span class="line">18665 NodeManager</span><br></pre></td></tr></table></figure>
+<p> 则表示启动成功。<br> 此时在浏览器中访问localhost:8088和localhost:9870(hadoop3.x版本)，可以看到Hadoop的界面<br> localhost:50070(Hadoop2.x版本)</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面1.png" alt="hadoop界面"><br><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面2.png" alt="hadoop界面"></p>
+<hr>
+<p>到此为止，Hadoop就已经完成配置了，接下来就是使用Hadoop了</p>
 
       
     </div>
@@ -543,7 +631,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -554,7 +642,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -565,7 +653,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -635,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-3-0-3"><span class="nav-number">1.</span> <span class="nav-text">Hadoop(3.0.3)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java环境检查"><span class="nav-number">1.1.</span> <span class="nav-text">Java环境检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java版本号检查"><span class="nav-number">1.1.1.</span> <span class="nav-text">Java版本号检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java安装"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java的的系统环境变量"><span class="nav-number">1.1.3.</span> <span class="nav-text">Java的的系统环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop下载"><span class="nav-number">1.2.</span> <span class="nav-text">Hadoop下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Mac-os环境"><span class="nav-number">1.3.</span> <span class="nav-text">配置Mac os环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-3-0-3"><span class="nav-number">1.</span> <span class="nav-text">Hadoop(3.0.3)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java环境检查"><span class="nav-number">1.1.</span> <span class="nav-text">Java环境检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java版本号检查"><span class="nav-number">1.1.1.</span> <span class="nav-text">Java版本号检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java安装"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java的的系统环境变量"><span class="nav-number">1.1.3.</span> <span class="nav-text">Java的的系统环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop下载"><span class="nav-number">1.2.</span> <span class="nav-text">Hadoop下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Mac-os环境"><span class="nav-number">1.3.</span> <span class="nav-text">配置Mac os环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法三"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">方法三</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总环境变量配置"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">总环境变量配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hadoop文件配置"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Hadoop文件配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行-start-hdfs-and-yarn"><span class="nav-number">1.3.3.</span> <span class="nav-text">执行 start hdfs and yarn</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
