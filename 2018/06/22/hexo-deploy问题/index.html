@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub 12345678910111213INFO  Deploying: gitINFO  Clearing .deploy_git folder...INFO  Copying files from public folder...INFO  Copying files from extend dirs..">
+<meta name="description" content="Hexo deploy的问题">
 <meta name="keywords" content="初次使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo deploy问题">
 <meta property="og:url" content="http://yoursite.com/2018/06/22/hexo-deploy问题/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub 12345678910111213INFO  Deploying: gitINFO  Clearing .deploy_git folder...INFO  Copying files from public folder...INFO  Copying files from extend dirs..">
+<meta property="og:description" content="Hexo deploy的问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-22T07:43:18.549Z">
+<meta property="og:updated_time" content="2018-06-23T05:08:32.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo deploy问题">
-<meta name="twitter:description" content="一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub 12345678910111213INFO  Deploying: gitINFO  Clearing .deploy_git folder...INFO  Copying files from public folder...INFO  Copying files from extend dirs..">
+<meta name="twitter:description" content="Hexo deploy的问题">
 
 
 
@@ -211,6 +211,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -227,6 +237,16 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -352,7 +372,7 @@
       
 
       
-        <p>一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub</p>
+        <p>Hexo deploy的问题<br><a id="more"></a><br>一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">To github.com:OliverLPH/OliverLPH.github.io</span><br><span class="line"> + a8ea0df...bc3e952 HEAD -&gt; master (forced update)</span><br><span class="line">Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;git@github.com:OliverLPH/OliverLPH.github.io&apos;.</span><br><span class="line">INFO  Deploy done: git</span><br><span class="line">xiaohuobandeMBP:source Oliver$ hexo clean</span><br><span class="line">INFO  Deleted database.</span><br><span class="line">INFO  Deleted public folder.</span><br></pre></td></tr></table></figure>
 <p>然后如上面的代码所示，hexo显示nothing to commit, working tree clean。</p>
 <p>在网上搜索后发现有的几种方案</p>
@@ -399,8 +419,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/22/逻辑回归/" rel="prev" title="逻辑回归知识点总结（未完成）">
-                逻辑回归知识点总结（未完成） <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/22/逻辑回归/" rel="prev" title="逻辑回归知识点总结">
+                逻辑回归知识点总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -478,7 +498,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -489,7 +509,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -500,7 +520,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -525,12 +545,12 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://stackoverflow.com/users/story/9633995" target="_blank" title="Stackoverflow">
+                <a href="https://stackoverflow.com/users/story/9633995" target="_blank" title="StackOverflow">
                   
-                    <i class="fa fa-fw fa-globe"></i>
+                    <i class="fa fa-fw fa-stack-overflow"></i>
                   
                     
-                      Stackoverflow
+                      StackOverflow
                     
                 </a>
               </span>

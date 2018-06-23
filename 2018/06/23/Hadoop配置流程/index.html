@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)Java环境检查Java版本号检查在terminal里输入如下指令可以查看Java版本1$ java -version 如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样 1234$ j">
+<meta name="description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)">
 <meta name="keywords" content="Hadoop,数据挖掘,分布式计算,工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop(3.0.3)安装和配置过程（Mac）">
 <meta property="og:url" content="http://yoursite.com/2018/06/23/Hadoop配置流程/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)Java环境检查Java版本号检查在terminal里输入如下指令可以查看Java版本1$ java -version 如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样 1234$ j">
+<meta property="og:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-23T04:19:45.464Z">
+<meta property="og:updated_time" content="2018-06-23T05:06:02.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop(3.0.3)安装和配置过程（Mac）">
-<meta name="twitter:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)Java环境检查Java版本号检查在terminal里输入如下指令可以查看Java版本1$ java -version 如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样 1234$ j">
+<meta name="twitter:description" content="最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3)">
 
 
 
@@ -211,6 +211,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -227,6 +237,16 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -353,7 +373,8 @@
 
       
         <p>最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。<br>版本是 Hadoop(3.0.3)</p>
-<h1 id="Hadoop-3-0-3"><a href="#Hadoop-3-0-3" class="headerlink" title="Hadoop(3.0.3)"></a>Hadoop(3.0.3)</h1><h2 id="Java环境检查"><a href="#Java环境检查" class="headerlink" title="Java环境检查"></a>Java环境检查</h2><h3 id="Java版本号检查"><a href="#Java版本号检查" class="headerlink" title="Java版本号检查"></a>Java版本号检查</h3><p>在terminal里输入如下指令可以查看Java版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br></pre></td></tr></table></figure></p>
+<h1 id="Hadoop-3-0-3"><a href="#Hadoop-3-0-3" class="headerlink" title="Hadoop(3.0.3)"></a>Hadoop(3.0.3)</h1><a id="more"></a>
+<h2 id="Java环境检查"><a href="#Java环境检查" class="headerlink" title="Java环境检查"></a>Java环境检查</h2><h3 id="Java版本号检查"><a href="#Java版本号检查" class="headerlink" title="Java版本号检查"></a>Java版本号检查</h3><p>在terminal里输入如下指令可以查看Java版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br></pre></td></tr></table></figure></p>
 <p>如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br></pre></td></tr></table></figure>
 <h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><p>Java安装网址</p>
@@ -443,6 +464,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/06/23/SQL语法整理/" rel="prev" title="SQL语法整理">
+                SQL语法整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -518,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -529,7 +554,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -540,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -565,12 +590,12 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://stackoverflow.com/users/story/9633995" target="_blank" title="Stackoverflow">
+                <a href="https://stackoverflow.com/users/story/9633995" target="_blank" title="StackOverflow">
                   
-                    <i class="fa fa-fw fa-globe"></i>
+                    <i class="fa fa-fw fa-stack-overflow"></i>
                   
                     
-                      Stackoverflow
+                      StackOverflow
                     
                 </a>
               </span>
