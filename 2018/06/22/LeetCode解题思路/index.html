@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Leetcode解题思路">
+<meta name="description" content="Leetcode解题思路 在日常刷LeetCode题时，对自己思路做一些记录语言主要为Python Github上也有我上传好的代码: Github_Peihan’s LeetCode">
 <meta name="keywords" content="LeetCode,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode解题思路">
 <meta property="og:url" content="http://yoursite.com/2018/06/22/LeetCode解题思路/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="Leetcode解题思路">
+<meta property="og:description" content="Leetcode解题思路 在日常刷LeetCode题时，对自己思路做一些记录语言主要为Python Github上也有我上传好的代码: Github_Peihan’s LeetCode">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-23T05:09:41.032Z">
+<meta property="og:updated_time" content="2018-06-23T09:29:24.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode解题思路">
-<meta name="twitter:description" content="Leetcode解题思路">
+<meta name="twitter:description" content="Leetcode解题思路 在日常刷LeetCode题时，对自己思路做一些记录语言主要为Python Github上也有我上传好的代码: Github_Peihan’s LeetCode">
 
 
 
@@ -241,6 +241,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -372,8 +382,10 @@
       
 
       
-        <p>Leetcode解题思路<br><a id="more"></a><br>在日常刷LeetCode题时，对自己思路做一些记录<br>语言主要为Python</p>
+        <p>Leetcode解题思路</p>
+<p>在日常刷LeetCode题时，对自己思路做一些记录<br>语言主要为Python</p>
 <p>Github上也有我上传好的代码: <a href="https://github.com/OliverLPH/Python-program-journal/tree/LeetCode-update/LeetCode" target="_blank" rel="noopener">Github_Peihan’s LeetCode</a></p>
+<a id="more"></a>
 <h1 id="LeetCode"><a href="#LeetCode" class="headerlink" title="LeetCode"></a>LeetCode</h1><h2 id="Leetcode-1-Title-Two-Sum-两数之和"><a href="#Leetcode-1-Title-Two-Sum-两数之和" class="headerlink" title="Leetcode #1 Title: Two Sum(两数之和)"></a>Leetcode #1 Title: Two Sum(两数之和)</h2><p><a href="https://leetcode-cn.com/problems/two-sum/description/" target="_blank" rel="noopener">#1题目描述</a></p>
 <details><br>    <summary>代码</summary><br>    <p><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums, target):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type nums: List[int]</span><br><span class="line">        :type target: int</span><br><span class="line">        :rtype: List[int]</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        for num in nums:</span><br><span class="line">            remain_num = target - num</span><br><span class="line">            if remain_num in nums:</span><br><span class="line">                x = nums.index(remain_num)</span><br><span class="line">                y = nums.index(num)</span><br><span class="line">                if x != y:</span><br><span class="line">                    result = [x,y]</span><br><span class="line">                elif x == y:</span><br><span class="line">                    nums[x] = None</span><br><span class="line">                    if remain_num in nums:</span><br><span class="line">                        y = nums.index(num)</span><br><span class="line">                        result = [x,y]</span><br><span class="line">                    else:</span><br><span class="line">                        pass</span><br><span class="line">            </span><br><span class="line">        return result</span><br></pre></td></tr></table></figure><br><br></p><br></details>
 
@@ -385,6 +397,10 @@
 <h2 id="Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串"><a href="#Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串" class="headerlink" title="Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)"></a>Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)</h2><p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="noopener">#3题目描述</a></p>
 <details><br>    <summary>代码</summary><br>    <p><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def lengthOfLongestSubstring(self, s):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type s: str</span><br><span class="line">        :rtype: int</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        seen_map = &#123;&#125;</span><br><span class="line">        max_len = 0</span><br><span class="line">        len_last = 0</span><br><span class="line">        for i in range(len(s)):</span><br><span class="line">            l = s[i]</span><br><span class="line">            if l in seen_map:</span><br><span class="line">                len_last = min(i - seen_map[l] - 1, len_last) + 1</span><br><span class="line">                seen_map[l] = i </span><br><span class="line">            else:</span><br><span class="line">                len_last += 1</span><br><span class="line">                seen_map[l] = i</span><br><span class="line">            if len_last &gt;= max_len:</span><br><span class="line">                max_len = len_last</span><br><span class="line">        return max_len</span><br></pre></td></tr></table></figure><br><br></p><br></details>
 
+
+<h2 id="Leetcode-9-Title-Palindrome-Number-回文数"><a href="#Leetcode-9-Title-Palindrome-Number-回文数" class="headerlink" title="Leetcode #9 Title: Palindrome Number(回文数)"></a>Leetcode #9 Title: Palindrome Number(回文数)</h2><p><a href="https://leetcode-cn.com/problems/palindrome-number/description/" target="_blank" rel="noopener">#9题目描述</a></p>
+<p>这道题可以用一句话解决问题。但是仍然把integer转换成了character。<br>    思路如下：<br>    比如输入是 x = 123456<br>    str(x)表示 ‘123456’<br>    str(x)[::-1]表示反向的str(x),就是顺序相反，所以输出为 ‘654321’<br>    因为回文数的特征，所以直接str(x)==str(x)[::-1]就说明是回文数了</p>
+<details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isPalindrome(self, x):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type x: int</span><br><span class="line">        :rtype: bool</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return str(x)==str(x)[::-1]</span><br></pre></td></tr></table></figure><br><br></p><br></details>
 
 
 
@@ -601,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode"><span class="nav-number">1.</span> <span class="nav-text">LeetCode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-1-Title-Two-Sum-两数之和"><span class="nav-number">1.1.</span> <span class="nav-text">Leetcode #1 Title: Two Sum(两数之和)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-2-Title-Add-Two-Numbers-两数相加"><span class="nav-number">1.2.</span> <span class="nav-text">Leetcode #2 Title: Add Two Numbers(两数相加)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串"><span class="nav-number">1.3.</span> <span class="nav-text">Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode"><span class="nav-number">1.</span> <span class="nav-text">LeetCode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-1-Title-Two-Sum-两数之和"><span class="nav-number">1.1.</span> <span class="nav-text">Leetcode #1 Title: Two Sum(两数之和)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-2-Title-Add-Two-Numbers-两数相加"><span class="nav-number">1.2.</span> <span class="nav-text">Leetcode #2 Title: Add Two Numbers(两数相加)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串"><span class="nav-number">1.3.</span> <span class="nav-text">Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode-9-Title-Palindrome-Number-回文数"><span class="nav-number">1.4.</span> <span class="nav-text">Leetcode #9 Title: Palindrome Number(回文数)</span></a></li></ol></li></ol></div>
             
 
           </div>
