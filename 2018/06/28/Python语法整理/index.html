@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="Python语法整理(更新日期 2018/6/28)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T03:57:34.556Z">
+<meta property="og:updated_time" content="2018-06-28T07:02:05.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
 <meta name="twitter:description" content="Python语法整理(更新日期 2018/6/28)">
@@ -455,17 +455,17 @@
 <li><p>对象，Mutable和Immutable对象<br> Muatble对象:  list, dict, set<br> Immutable对象: strings, tuples, numbers</p>
 <p> 1.1. 区分Muatble对象和Immutable对象</p>
 <p> 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。<br> 查找对象位置id().<br> 比如</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [1]: a = 1</span><br><span class="line">In [2]: id(a)</span><br><span class="line">Out[2]: 4345522256</span><br><span class="line">In [3]: a = 2</span><br><span class="line">In [4]: id(a)</span><br><span class="line">Out[4]: 4345522288</span><br><span class="line">In [5]: id(2)</span><br><span class="line">Out[5]: 4345522288</span><br></pre></td></tr></table></figure>
-<p> 从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。</p>
-<blockquote>
-<p>immutable 并不是绝对的不可变。</p>
-<blockquote>
-<p>比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。</p>
-</blockquote>
-</blockquote>
-<p> 1.2 immutable data的作用</p>
-<p> 像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了）</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: a = <span class="number">1</span></span><br><span class="line">In [<span class="number">2</span>]: id(a)</span><br><span class="line">Out[<span class="number">2</span>]: <span class="number">4345522256</span></span><br><span class="line">In [<span class="number">3</span>]: a = <span class="number">2</span></span><br><span class="line">In [<span class="number">4</span>]: id(a)</span><br><span class="line">Out[<span class="number">4</span>]: <span class="number">4345522288</span></span><br><span class="line">In [<span class="number">5</span>]: id(<span class="number">2</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">4345522288</span></span><br></pre></td></tr></table></figure>
 </li>
+</ol>
+<pre><code>从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。
+&gt;immutable 并不是绝对的不可变。
+&gt;&gt; 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。
+
+1.2 immutable data的作用
+
+像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了）
+</code></pre><ol start="2">
 <li><p>first class functions<br>可以理解为面向对象编程</p>
 </li>
 <li><p>尾递归优化<br>Python不支持尾递归优化</p>
@@ -478,15 +478,24 @@
 <p>举几个简单的例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])</span><br><span class="line">&gt;&gt; print(list(length))</span><br><span class="line">&gt;&gt; [3, 3, 3] #输出</span><br></pre></td></tr></table></figure>
 <p>Map函数还可以和lambda函数一起使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_list = map(lambda x:x*x, [1,2,3,4,5,10])</span><br><span class="line">&gt;&gt; print(list(square_list))</span><br><span class="line">&gt;&gt; [1, 4, 9, 16, 25, 100] #输出</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_list = map(<span class="keyword">lambda</span> x:x*x, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">10</span>])</span><br><span class="line">&gt;&gt; print(list(square_list))</span><br><span class="line">&gt;&gt; [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">100</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
 <p>Map函数用来批量开根号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_root_list = map(lambda x:pow(x,0.5), [4,9,16,25,36,2,3])</span><br><span class="line">&gt;&gt; print(list(square_root_list))</span><br><span class="line">&gt;&gt; [2.0, 3.0, 4.0, 5.0, 6.0, 1.4142135623730951, 1.7320508075688772] #输出</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_root_list = map(<span class="keyword">lambda</span> x:pow(x,<span class="number">0.5</span>), [<span class="number">4</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">25</span>,<span class="number">36</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">&gt;&gt; print(list(square_root_list))</span><br><span class="line">&gt;&gt; [<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">1.4142135623730951</span>, <span class="number">1.7320508075688772</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
 <p>然后就是reduce函数怎么用</p>
 <p>在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数：</p>
 <p>举个例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; #必须要先从functool里面调用才可以用</span><br><span class="line">&gt;&gt; from functools import reduce</span><br><span class="line">&gt;&gt; factorial = reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])</span><br><span class="line">&gt;&gt; print(factorial)</span><br><span class="line">&gt;&gt; 15 #输出</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="comment">#必须要先从functool里面调用才可以用</span></span><br><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; factorial = reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">&gt;&gt; print(factorial)</span><br><span class="line">&gt;&gt; <span class="number">15</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
 <p>这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。</p>
 <p>因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; itera = reduce(<span class="keyword">lambda</span> x,y: x*y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">&gt;&gt; print(itera)</span><br><span class="line">&gt;&gt; <span class="number">720</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码就是输出了6的阶乘</p>
+<p>参考网页: <a href="https://coolshell.cn/articles/10822.html" target="_blank" rel="noopener">函数式编程</a><br>这个例子是从该网页看到的</p>
+<p>还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。</p>
+<p>计算数组中正数的平均值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">num =[<span class="number">2</span>, <span class="number">-5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">-2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-3</span>, <span class="number">8</span>]</span><br><span class="line">positive_num_cnt = <span class="number">0</span></span><br><span class="line">positive_num_sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">    <span class="keyword">if</span> num[i] &gt; <span class="number">0</span>:</span><br><span class="line">        positive_num_cnt += <span class="number">1</span></span><br><span class="line">        positive_num_sum += num[i]</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> positive_num_cnt &gt; <span class="number">0</span>:</span><br><span class="line">    average = positive_num_sum / positive_num_cnt</span><br><span class="line"> </span><br><span class="line">print(average) <span class="comment">#输出5</span></span><br></pre></td></tr></table></figure>
+<p>如果采用函数式编程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">positive_num = filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, num)</span><br><span class="line">average = reduce(<span class="keyword">lambda</span> x,y: x+y, positive_num) / len( positive_num )</span><br></pre></td></tr></table></figure>
+<p>如上面的代码所示，两句话就把这个问题解决了</p>
 <ol start="2">
 <li><p>Pipeline </p>
 </li>
