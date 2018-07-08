@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据挖掘,机器学习," />
+  <meta name="keywords" content="数据挖掘,Python,机器学习," />
 
 
 
@@ -95,14 +95,14 @@
 
 
 <meta name="description" content="常见机器学习算法和模型">
-<meta name="keywords" content="数据挖掘,机器学习">
+<meta name="keywords" content="数据挖掘,Python,机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见机器学习算法">
 <meta property="og:url" content="https://oliverlph.github.io/2018/06/23/常见机器学习算法/index.html">
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="常见机器学习算法和模型">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-23T05:10:02.142Z">
+<meta property="og:updated_time" content="2018-07-08T03:39:49.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见机器学习算法">
 <meta name="twitter:description" content="常见机器学习算法和模型">
@@ -439,6 +439,38 @@
 
       
         <p>常见机器学习算法和模型<br><a id="more"></a></p>
+<p>一般来说我们使用机器学习，就是为了分类。那么对于数据类型的不同，我们就要采用不同的分类方法。</p>
+<p>首先说得最多的就是监督学习了。</p>
+<h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h1><p>对于监督学习，我们一般有两个数据集，一个是训练集，一个是数据集。训练集用来训练模型，测试集用来测试模型的准确度。</p>
+<h2 id="感知器-Perceptron-和支持向量机-SVM"><a href="#感知器-Perceptron-和支持向量机-SVM" class="headerlink" title="感知器(Perceptron)和支持向量机(SVM)"></a>感知器(Perceptron)和支持向量机(SVM)</h2><p>感知器和支持向量机均是基于线性规划来的。</p>
+<h3 id="感知器-Perceptron"><a href="#感知器-Perceptron" class="headerlink" title="感知器(Perceptron)"></a>感知器(Perceptron)</h3><p>感知器的学习是错误驱使的。<br>我们使用感知器的过程中，因为普遍是二分类问题，而且是凸优化，那么我们就通过错分的sample，来不断学习到新的gradient，直到完全正确的分类。当然，我们也可以提前结束学习的过程，因为也有可能遇到outlier，然后严重影响我们的分类</p>
+<h3 id="支持向量机-Support-vector-machine"><a href="#支持向量机-Support-vector-machine" class="headerlink" title="支持向量机(Support vector machine)"></a>支持向量机(Support vector machine)</h3><ol>
+<li><p>它是针对线性可分情况进行分析，对于线性不可分的情况，通过使用非线性映射算法将低维输入空间线性不可分的样本转化为高维特征空间使其线性可分，从而使得高维特征空间采用线性算法对样本的非线性特征进行线性分析成为可能。</p>
+</li>
+<li><p>它基于结构风险最小化理论之上在特征空间中构建最优超平面，使得学习器得到全局最优化，并且在整个样本空间的期望以某个概率满足一定上界。</p>
+</li>
+</ol>
+<h4 id="HARD-MARGIN-AND-SOFT-MARGIN-支持向量机"><a href="#HARD-MARGIN-AND-SOFT-MARGIN-支持向量机" class="headerlink" title="HARD MARGIN AND SOFT MARGIN 支持向量机"></a>HARD MARGIN AND SOFT MARGIN 支持向量机</h4><h4 id="Non-linear-SVM"><a href="#Non-linear-SVM" class="headerlink" title="Non-linear SVM"></a>Non-linear SVM</h4><h3 id="支持向量机-Python实现与调参"><a href="#支持向量机-Python实现与调参" class="headerlink" title="支持向量机 Python实现与调参"></a>支持向量机 Python实现与调参</h3><p>SVM 怎样能得到好的结果 </p>
+<ol>
+<li>对数据做归一化（simple scaling） </li>
+<li>应用 RBF(Radial Basis Function) kernel </li>
+<li>用cross-validation和grid-search 得到最优的c和g </li>
+<li>用得到的最优c和g训练训练数据 </li>
+<li>测试</li>
+</ol>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><h2 id="逻辑斯特回归-logistic-regression"><a href="#逻辑斯特回归-logistic-regression" class="headerlink" title="逻辑斯特回归(logistic regression)"></a>逻辑斯特回归(logistic regression)</h2><p>逻辑斯特回归是机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。</p>
+<h3 id="逻辑回归的定义"><a href="#逻辑回归的定义" class="headerlink" title="逻辑回归的定义"></a>逻辑回归的定义</h3><p>逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。</p>
+<h4 id="逻辑回归的基本假设"><a href="#逻辑回归的基本假设" class="headerlink" title="逻辑回归的基本假设"></a>逻辑回归的基本假设</h4><p>伯努利分布</p>
+<p>$$h_\theta(x;\theta)=p$$</p>
+<p>$$p=\frac{1}{1+e^{-\theta^Tx}}$$</p>
+<p>$$h_\theta(x;\theta)=\frac{1}{1+e^{-\theta^Tx}}$$</p>
+<p>逻辑回归的损失函数</p>
+<p>$$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$</p>
+<p>求解逻辑回归</p>
+<p>逻辑回归的分类</p>
+<p>scikit-learn库中逻辑回归的使用</p>
+<h2 id="朴素贝叶斯-Naive-Bayes"><a href="#朴素贝叶斯-Naive-Bayes" class="headerlink" title="朴素贝叶斯(Naive Bayes)"></a>朴素贝叶斯(Naive Bayes)</h2><h2 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h2><h1 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h1><h1 id="半监督学习"><a href="#半监督学习" class="headerlink" title="半监督学习"></a>半监督学习</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h1><h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><p>特征工程在做机器学习的过程中是尤其重要的。因为在现在数据越来越多的情况下，使用正确的特征，是至关重要的。</p>
+<p>然后sklearn中也已经包含了许多的方法可以直接调用。</p>
 
       
     </div>
@@ -475,6 +507,8 @@
         <div class="post-tags">
           
             <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
@@ -560,8 +594,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -658,6 +701,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#监督学习"><span class="nav-number">1.</span> <span class="nav-text">监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知器-Perceptron-和支持向量机-SVM"><span class="nav-number">1.1.</span> <span class="nav-text">感知器(Perceptron)和支持向量机(SVM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感知器-Perceptron"><span class="nav-number">1.1.1.</span> <span class="nav-text">感知器(Perceptron)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Support-vector-machine"><span class="nav-number">1.1.2.</span> <span class="nav-text">支持向量机(Support vector machine)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HARD-MARGIN-AND-SOFT-MARGIN-支持向量机"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">HARD MARGIN AND SOFT MARGIN 支持向量机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Non-linear-SVM"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Non-linear SVM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Python实现与调参"><span class="nav-number">1.1.3.</span> <span class="nav-text">支持向量机 Python实现与调参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">1.2.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑斯特回归-logistic-regression"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑斯特回归(logistic regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的定义"><span class="nav-number">1.3.1.</span> <span class="nav-text">逻辑回归的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归的基本假设"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">逻辑回归的基本假设</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯-Naive-Bayes"><span class="nav-number">1.4.</span> <span class="nav-text">朴素贝叶斯(Naive Bayes)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KNN"><span class="nav-number">1.5.</span> <span class="nav-text">KNN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无监督学习"><span class="nav-number">2.</span> <span class="nav-text">无监督学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#半监督学习"><span class="nav-number">3.</span> <span class="nav-text">半监督学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强化学习"><span class="nav-number">4.</span> <span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习"><span class="nav-number">5.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习"><span class="nav-number">6.</span> <span class="nav-text">深度学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程"><span class="nav-number">7.</span> <span class="nav-text">特征工程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
