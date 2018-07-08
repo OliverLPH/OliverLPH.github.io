@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据挖掘,Python,机器学习," />
+  <meta name="keywords" content="Python,数据挖掘,机器学习," />
 
 
 
@@ -95,14 +95,14 @@
 
 
 <meta name="description" content="常见机器学习算法和模型">
-<meta name="keywords" content="数据挖掘,Python,机器学习">
+<meta name="keywords" content="Python,数据挖掘,机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见机器学习算法">
 <meta property="og:url" content="https://oliverlph.github.io/2018/07/08/常见机器学习算法/index.html">
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="常见机器学习算法和模型">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-08T07:09:42.022Z">
+<meta property="og:updated_time" content="2018-07-08T07:38:12.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见机器学习算法">
 <meta name="twitter:description" content="常见机器学习算法和模型">
@@ -458,7 +458,39 @@
 <li>用得到的最优c和g训练训练数据 </li>
 <li>测试</li>
 </ol>
-<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><h2 id="逻辑斯特回归-logistic-regression"><a href="#逻辑斯特回归-logistic-regression" class="headerlink" title="逻辑斯特回归(logistic regression)"></a>逻辑斯特回归(logistic regression)</h2><p>逻辑斯特回归是机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。</p>
+<h4 id="SVM的优缺点"><a href="#SVM的优缺点" class="headerlink" title="SVM的优缺点"></a>SVM的优缺点</h4><p>优点</p>
+<ol>
+<li>解决小样本下机器学习问题。</li>
+<li>解决非线性问题。</li>
+<li>无局部极小值问题。（相对于神经网络等算法）</li>
+<li>可以很好的处理高维数据集。</li>
+<li>泛化能力比较强。</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>对于核函数的高维映射解释力不强，尤其是径向基函数。</li>
+<li>对缺失数据敏感。</li>
+</ol>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><h4 id="决策树的优缺点及改进措施"><a href="#决策树的优缺点及改进措施" class="headerlink" title="决策树的优缺点及改进措施"></a>决策树的优缺点及改进措施</h4><p>优点</p>
+<ol>
+<li>决策树易于理解和解释，可以可视化分析，容易提取出规则。</li>
+<li>可以同时处理标称型和数值型数据。</li>
+<li>测试数据集时，运行速度比较快。</li>
+<li>决策树可以很好的扩展到大型数据库中，同时它的大小独立于数据库大小。</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>对缺失数据处理比较困难。</li>
+<li>容易出现过拟合问题。</li>
+<li>忽略数据集中属性的相互关联。</li>
+<li>ID3算法计算信息增益时结果偏向数值比较多的特征。</li>
+</ol>
+<p>改进措施</p>
+<ol>
+<li>对决策树进行剪枝。可以采用交叉验证法和加入正则化的方法。</li>
+<li>使用基于决策树的combination算法，如bagging算法，随即森林(randomforest)算法，可以解决过拟合的问题</li>
+</ol>
+<h2 id="逻辑斯特回归-logistic-regression"><a href="#逻辑斯特回归-logistic-regression" class="headerlink" title="逻辑斯特回归(logistic regression)"></a>逻辑斯特回归(logistic regression)</h2><p>逻辑斯特回归是机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。</p>
 <h3 id="逻辑回归的定义"><a href="#逻辑回归的定义" class="headerlink" title="逻辑回归的定义"></a>逻辑回归的定义</h3><p>逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。</p>
 <h4 id="逻辑回归的基本假设"><a href="#逻辑回归的基本假设" class="headerlink" title="逻辑回归的基本假设"></a>逻辑回归的基本假设</h4><p>伯努利分布</p>
 <p>$$h_\theta(x;\theta)=p$$</p>
@@ -469,7 +501,38 @@
 <p>求解逻辑回归</p>
 <p>逻辑回归的分类</p>
 <p>scikit-learn库中逻辑回归的使用</p>
-<h2 id="朴素贝叶斯-Naive-Bayes"><a href="#朴素贝叶斯-Naive-Bayes" class="headerlink" title="朴素贝叶斯(Naive Bayes)"></a>朴素贝叶斯(Naive Bayes)</h2><h2 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h2><h1 id="无监督学习-Unsupervised-Learning"><a href="#无监督学习-Unsupervised-Learning" class="headerlink" title="无监督学习(Unsupervised Learning)"></a>无监督学习(Unsupervised Learning)</h1><p>现实生活中常常会有这样的问题：缺乏足够的先验知识，因此难以人工标注类别或进行人工类别标注的成本太高。很自然地，我们希望计算机能代我们完成这些工作，或至少提供一些帮助。根据类别未知(没有被标记)的训练样本解决模式识别中的各种问题，称之为无监督学习。</p>
+<h4 id="逻辑斯特回归的优缺点"><a href="#逻辑斯特回归的优缺点" class="headerlink" title="逻辑斯特回归的优缺点"></a>逻辑斯特回归的优缺点</h4><p>优点</p>
+<ol>
+<li>计算代价不高，易于理解和实现</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>容易产生欠拟合。</li>
+<li>分类精度不高。</li>
+</ol>
+<h2 id="朴素贝叶斯-Naive-Bayes"><a href="#朴素贝叶斯-Naive-Bayes" class="headerlink" title="朴素贝叶斯(Naive Bayes)"></a>朴素贝叶斯(Naive Bayes)</h2><h4 id="朴素贝叶斯的优缺点"><a href="#朴素贝叶斯的优缺点" class="headerlink" title="朴素贝叶斯的优缺点"></a>朴素贝叶斯的优缺点</h4><p>优点</p>
+<ol>
+<li>对大数量训练和查询时具有较高的速度。即使使用超大规模的训练集，针对每个项目通常也只会有相对较少的特征数，并且对项目的训练和分类也仅仅是特征概率的数学运算而已。</li>
+<li>支持增量式运算。即可以实时的对新增的样本进行训练。</li>
+<li>朴素贝叶斯对结果解释容易理解。</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>由于使用了样本属性独立性的假设，所以如果样本属性有关联时其效果不好。</li>
+</ol>
+<h2 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h2><h4 id="KNN的优缺点"><a href="#KNN的优缺点" class="headerlink" title="KNN的优缺点"></a>KNN的优缺点</h4><p>优点</p>
+<ol>
+<li>KNN是一种在线技术，新数据可以直接加入数据集而不必进行重新训练</li>
+<li>KNN理论简单，容易实现</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>对于样本容量大的数据集计算量比较大。</li>
+<li>样本不平衡时，预测偏差比较大。如：某一类的样本比较少，而其它类样本比较多。</li>
+<li>KNN每一次分类都会重新进行一次全局运算。</li>
+<li>k值大小的选择。</li>
+</ol>
+<h1 id="无监督学习-Unsupervised-Learning"><a href="#无监督学习-Unsupervised-Learning" class="headerlink" title="无监督学习(Unsupervised Learning)"></a>无监督学习(Unsupervised Learning)</h1><p>现实生活中常常会有这样的问题：缺乏足够的先验知识，因此难以人工标注类别或进行人工类别标注的成本太高。很自然地，我们希望计算机能代我们完成这些工作，或至少提供一些帮助。根据类别未知(没有被标记)的训练样本解决模式识别中的各种问题，称之为无监督学习。</p>
 <h2 id="聚类-clustering"><a href="#聚类-clustering" class="headerlink" title="聚类(clustering)"></a>聚类(clustering)</h2><h1 id="半监督学习"><a href="#半监督学习" class="headerlink" title="半监督学习"></a>半监督学习</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h1><h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h2 id="卷积神经网络-Convolutional-nerual-network-CNN"><a href="#卷积神经网络-Convolutional-nerual-network-CNN" class="headerlink" title="卷积神经网络(Convolutional nerual network) CNN"></a>卷积神经网络(Convolutional nerual network) CNN</h2><h2 id="循环神经网络-Recurrent-Neural-Network-RNN"><a href="#循环神经网络-Recurrent-Neural-Network-RNN" class="headerlink" title="循环神经网络(Recurrent Neural Network) RNN"></a>循环神经网络(Recurrent Neural Network) RNN</h2><h3 id="长短期记忆网络-Long-Short-Term-Memory-LSTM"><a href="#长短期记忆网络-Long-Short-Term-Memory-LSTM" class="headerlink" title="长短期记忆网络(Long Short-Term Memory) LSTM"></a>长短期记忆网络(Long Short-Term Memory) LSTM</h3><h3 id="Gated-Recurrent-Unit-GRU"><a href="#Gated-Recurrent-Unit-GRU" class="headerlink" title="Gated Recurrent Unit(GRU)"></a>Gated Recurrent Unit(GRU)</h3><h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><h2 id="深度神经网络"><a href="#深度神经网络" class="headerlink" title="深度神经网络"></a>深度神经网络</h2><h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><p>特征工程在做机器学习的过程中是尤其重要的。因为在现在数据越来越多的情况下，使用正确的特征，是至关重要的。</p>
 <p>然后sklearn中也已经包含了许多的方法可以直接调用。</p>
 <h2 id="数据的预处理"><a href="#数据的预处理" class="headerlink" title="数据的预处理"></a>数据的预处理</h2><ol>
@@ -505,7 +568,7 @@
 <li>信息冗余：对于某些定量特征，其包含的有效信息为区间划分，例如学习成绩，假若只关心“及格”或不“及格”，那么需要将定量的考分，转换成“1”和“0”表示及格和未及格。二值化可以解决这一问题。</li>
 </ol>
 <h3 id="对定量特征二值化"><a href="#对定量特征二值化" class="headerlink" title="对定量特征二值化"></a>对定量特征二值化</h3><p>定量特征二值化的核心在于设定一个阈值，大于阈值的赋值为1，小于等于阈值的赋值为0，公式表达如下：</p>
-<p>$$ x^{‘}=\left{<br>\begin{aligned}<br>1,x &amp; &gt; threshold \<br>0,x &amp; \leq threshold \<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$ x^{‘}=\left {<br>\begin{aligned}<br>1,x  &gt; threshold \<br>0,x  \leq threshold<br>\end{aligned}\right.<br>$$</p>
 <p>使用preproccessing库的Binarizer类对数据进行二值化的代码如下:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Binarizer   </span><br><span class="line"><span class="comment">#二值化，阈值设置为3，返回值为二值化后的数据  </span></span><br><span class="line">Binarizer(threshold=<span class="number">3</span>).fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
 <ol start="3">
@@ -629,9 +692,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
@@ -830,7 +893,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#监督学习-supervised-Learning"><span class="nav-number">1.</span> <span class="nav-text">监督学习(supervised Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知器-Perceptron-和支持向量机-SVM"><span class="nav-number">1.1.</span> <span class="nav-text">感知器(Perceptron)和支持向量机(SVM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感知器-Perceptron"><span class="nav-number">1.1.1.</span> <span class="nav-text">感知器(Perceptron)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Support-vector-machine"><span class="nav-number">1.1.2.</span> <span class="nav-text">支持向量机(Support vector machine)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HARD-MARGIN-AND-SOFT-MARGIN-支持向量机"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">HARD MARGIN AND SOFT MARGIN 支持向量机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Non-linear-SVM"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Non-linear SVM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Python实现与调参"><span class="nav-number">1.1.3.</span> <span class="nav-text">支持向量机 Python实现与调参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">1.2.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑斯特回归-logistic-regression"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑斯特回归(logistic regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的定义"><span class="nav-number">1.3.1.</span> <span class="nav-text">逻辑回归的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归的基本假设"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">逻辑回归的基本假设</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯-Naive-Bayes"><span class="nav-number">1.4.</span> <span class="nav-text">朴素贝叶斯(Naive Bayes)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KNN"><span class="nav-number">1.5.</span> <span class="nav-text">KNN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无监督学习-Unsupervised-Learning"><span class="nav-number">2.</span> <span class="nav-text">无监督学习(Unsupervised Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类-clustering"><span class="nav-number">2.1.</span> <span class="nav-text">聚类(clustering)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#半监督学习"><span class="nav-number">3.</span> <span class="nav-text">半监督学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强化学习"><span class="nav-number">4.</span> <span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习"><span class="nav-number">5.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习"><span class="nav-number">6.</span> <span class="nav-text">深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络-Convolutional-nerual-network-CNN"><span class="nav-number">6.1.</span> <span class="nav-text">卷积神经网络(Convolutional nerual network) CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络-Recurrent-Neural-Network-RNN"><span class="nav-number">6.2.</span> <span class="nav-text">循环神经网络(Recurrent Neural Network) RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#长短期记忆网络-Long-Short-Term-Memory-LSTM"><span class="nav-number">6.2.1.</span> <span class="nav-text">长短期记忆网络(Long Short-Term Memory) LSTM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gated-Recurrent-Unit-GRU"><span class="nav-number">6.2.2.</span> <span class="nav-text">Gated Recurrent Unit(GRU)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向RNN"><span class="nav-number">6.2.3.</span> <span class="nav-text">双向RNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度神经网络"><span class="nav-number">6.3.</span> <span class="nav-text">深度神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程"><span class="nav-number">7.</span> <span class="nav-text">特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的预处理"><span class="nav-number">7.1.</span> <span class="nav-text">数据的预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化的方法"><span class="nav-number">7.1.1.</span> <span class="nav-text">标准化的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间缩放法的方法"><span class="nav-number">7.1.2.</span> <span class="nav-text">区间缩放法的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化与归一化的区别"><span class="nav-number">7.1.3.</span> <span class="nav-text">标准化与归一化的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对定量特征二值化"><span class="nav-number">7.1.4.</span> <span class="nav-text">对定量特征二值化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对定性特征哑编码"><span class="nav-number">7.1.5.</span> <span class="nav-text">对定性特征哑编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺失值计算"><span class="nav-number">7.1.6.</span> <span class="nav-text">缺失值计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据变换"><span class="nav-number">7.1.7.</span> <span class="nav-text">数据变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能和说明的总结"><span class="nav-number">7.1.8.</span> <span class="nav-text">功能和说明的总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征的选择"><span class="nav-number">7.2.</span> <span class="nav-text">特征的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter-筛选器"><span class="nav-number">7.2.1.</span> <span class="nav-text">Filter 筛选器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方差选择法"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">方差选择法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关系数法"><span class="nav-number">7.2.1.2.</span> <span class="nav-text">相关系数法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卡方检验"><span class="nav-number">7.2.1.3.</span> <span class="nav-text">卡方检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互信息法"><span class="nav-number">7.2.1.4.</span> <span class="nav-text">互信息法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wrapper"><span class="nav-number">7.2.2.</span> <span class="nav-text">wrapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeded"><span class="nav-number">7.2.3.</span> <span class="nav-text">Embeded</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维"><span class="nav-number">7.3.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主成分分析-Principal-Component-Analysis-PCA"><span class="nav-number">7.3.1.</span> <span class="nav-text">主成分分析 Principal Component Analysis(PCA)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奇异值分解-Singular-Value-Decomposition-SVD"><span class="nav-number">7.3.2.</span> <span class="nav-text">奇异值分解 Singular Value Decomposition(SVD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性判别分析-Linear-Discriminant-Analysis-LDA"><span class="nav-number">7.3.3.</span> <span class="nav-text">线性判别分析 Linear Discriminant Analysis(LDA)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程在kaggle的应用"><span class="nav-number">7.4.</span> <span class="nav-text">特征工程在kaggle的应用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#监督学习-supervised-Learning"><span class="nav-number">1.</span> <span class="nav-text">监督学习(supervised Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知器-Perceptron-和支持向量机-SVM"><span class="nav-number">1.1.</span> <span class="nav-text">感知器(Perceptron)和支持向量机(SVM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感知器-Perceptron"><span class="nav-number">1.1.1.</span> <span class="nav-text">感知器(Perceptron)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Support-vector-machine"><span class="nav-number">1.1.2.</span> <span class="nav-text">支持向量机(Support vector machine)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HARD-MARGIN-AND-SOFT-MARGIN-支持向量机"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">HARD MARGIN AND SOFT MARGIN 支持向量机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Non-linear-SVM"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Non-linear SVM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机-Python实现与调参"><span class="nav-number">1.1.3.</span> <span class="nav-text">支持向量机 Python实现与调参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SVM的优缺点"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">SVM的优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">1.2.</span> <span class="nav-text">决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#决策树的优缺点及改进措施"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">决策树的优缺点及改进措施</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑斯特回归-logistic-regression"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑斯特回归(logistic regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的定义"><span class="nav-number">1.3.1.</span> <span class="nav-text">逻辑回归的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归的基本假设"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">逻辑回归的基本假设</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑斯特回归的优缺点"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">逻辑斯特回归的优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯-Naive-Bayes"><span class="nav-number">1.4.</span> <span class="nav-text">朴素贝叶斯(Naive Bayes)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#朴素贝叶斯的优缺点"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">朴素贝叶斯的优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KNN"><span class="nav-number">1.5.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KNN的优缺点"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">KNN的优缺点</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无监督学习-Unsupervised-Learning"><span class="nav-number">2.</span> <span class="nav-text">无监督学习(Unsupervised Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类-clustering"><span class="nav-number">2.1.</span> <span class="nav-text">聚类(clustering)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#半监督学习"><span class="nav-number">3.</span> <span class="nav-text">半监督学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强化学习"><span class="nav-number">4.</span> <span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习"><span class="nav-number">5.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习"><span class="nav-number">6.</span> <span class="nav-text">深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络-Convolutional-nerual-network-CNN"><span class="nav-number">6.1.</span> <span class="nav-text">卷积神经网络(Convolutional nerual network) CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络-Recurrent-Neural-Network-RNN"><span class="nav-number">6.2.</span> <span class="nav-text">循环神经网络(Recurrent Neural Network) RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#长短期记忆网络-Long-Short-Term-Memory-LSTM"><span class="nav-number">6.2.1.</span> <span class="nav-text">长短期记忆网络(Long Short-Term Memory) LSTM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gated-Recurrent-Unit-GRU"><span class="nav-number">6.2.2.</span> <span class="nav-text">Gated Recurrent Unit(GRU)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向RNN"><span class="nav-number">6.2.3.</span> <span class="nav-text">双向RNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度神经网络"><span class="nav-number">6.3.</span> <span class="nav-text">深度神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程"><span class="nav-number">7.</span> <span class="nav-text">特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的预处理"><span class="nav-number">7.1.</span> <span class="nav-text">数据的预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化的方法"><span class="nav-number">7.1.1.</span> <span class="nav-text">标准化的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间缩放法的方法"><span class="nav-number">7.1.2.</span> <span class="nav-text">区间缩放法的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化与归一化的区别"><span class="nav-number">7.1.3.</span> <span class="nav-text">标准化与归一化的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对定量特征二值化"><span class="nav-number">7.1.4.</span> <span class="nav-text">对定量特征二值化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对定性特征哑编码"><span class="nav-number">7.1.5.</span> <span class="nav-text">对定性特征哑编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺失值计算"><span class="nav-number">7.1.6.</span> <span class="nav-text">缺失值计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据变换"><span class="nav-number">7.1.7.</span> <span class="nav-text">数据变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能和说明的总结"><span class="nav-number">7.1.8.</span> <span class="nav-text">功能和说明的总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征的选择"><span class="nav-number">7.2.</span> <span class="nav-text">特征的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter-筛选器"><span class="nav-number">7.2.1.</span> <span class="nav-text">Filter 筛选器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方差选择法"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">方差选择法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关系数法"><span class="nav-number">7.2.1.2.</span> <span class="nav-text">相关系数法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卡方检验"><span class="nav-number">7.2.1.3.</span> <span class="nav-text">卡方检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互信息法"><span class="nav-number">7.2.1.4.</span> <span class="nav-text">互信息法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wrapper"><span class="nav-number">7.2.2.</span> <span class="nav-text">wrapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeded"><span class="nav-number">7.2.3.</span> <span class="nav-text">Embeded</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维"><span class="nav-number">7.3.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主成分分析-Principal-Component-Analysis-PCA"><span class="nav-number">7.3.1.</span> <span class="nav-text">主成分分析 Principal Component Analysis(PCA)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奇异值分解-Singular-Value-Decomposition-SVD"><span class="nav-number">7.3.2.</span> <span class="nav-text">奇异值分解 Singular Value Decomposition(SVD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性判别分析-Linear-Discriminant-Analysis-LDA"><span class="nav-number">7.3.3.</span> <span class="nav-text">线性判别分析 Linear Discriminant Analysis(LDA)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程在kaggle的应用"><span class="nav-number">7.4.</span> <span class="nav-text">特征工程在kaggle的应用</span></a></li></ol></li></ol></div>
             
 
           </div>
