@@ -1,272 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>Python语法整理（普通算法，机器学习和数据挖掘的应用）</title>
-      <link href="/2018/06/28/Python%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/"/>
-      <url>/2018/06/28/Python%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>Python语法整理(更新日期 2018/6/28)<br><a id="more"></a></p><h1 id="Python语法整理笔记"><a href="#Python语法整理笔记" class="headerlink" title="Python语法整理笔记"></a>Python语法整理笔记</h1><p>Python是目前最常用的语言之一，这里我自己总结一下我在学习的过程中遇到的问题。</p><h2 id="Python基本语法"><a href="#Python基本语法" class="headerlink" title="Python基本语法"></a>Python基本语法</h2><h3 id="Python的函数式编程"><a href="#Python的函数式编程" class="headerlink" title="Python的函数式编程"></a>Python的函数式编程</h3><h4 id="函数式编程的特性"><a href="#函数式编程的特性" class="headerlink" title="函数式编程的特性"></a>函数式编程的特性</h4><ol><li><p>对象，Mutable和Immutable对象<br> Muatble对象:  list, dict, set<br> Immutable对象: strings, tuples, numbers</p><p> 1.1. 区分Muatble对象和Immutable对象</p><p> 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。<br> 查找对象位置id().<br> 比如</p> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: a = <span class="number">1</span></span><br><span class="line">In [<span class="number">2</span>]: id(a)</span><br><span class="line">Out[<span class="number">2</span>]: <span class="number">4345522256</span></span><br><span class="line">In [<span class="number">3</span>]: a = <span class="number">2</span></span><br><span class="line">In [<span class="number">4</span>]: id(a)</span><br><span class="line">Out[<span class="number">4</span>]: <span class="number">4345522288</span></span><br><span class="line">In [<span class="number">5</span>]: id(<span class="number">2</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">4345522288</span></span><br></pre></td></tr></table></figure></li></ol><pre><code>从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。&gt;immutable 并不是绝对的不可变。&gt;&gt; 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。1.2 immutable data的作用像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了）</code></pre><ol start="2"><li><p>first class functions<br>可以理解为面向对象编程</p></li><li><p>尾递归优化<br>Python不支持尾递归优化</p></li></ol><h4 id="函数式编程的方法"><a href="#函数式编程的方法" class="headerlink" title="函数式编程的方法"></a>函数式编程的方法</h4><ol><li>经典函数: Map &amp; Reduce</li></ol><p>在Python中，Map reduce用的非常之多</p><p>举几个简单的例子</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])</span><br><span class="line">&gt;&gt; print(list(length))</span><br><span class="line">&gt;&gt; [3, 3, 3] #输出</span><br></pre></td></tr></table></figure><p>Map函数还可以和lambda函数一起使用</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_list = map(<span class="keyword">lambda</span> x:x*x, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">10</span>])</span><br><span class="line">&gt;&gt; print(list(square_list))</span><br><span class="line">&gt;&gt; [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">100</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure><p>Map函数用来批量开根号</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_root_list = map(<span class="keyword">lambda</span> x:pow(x,<span class="number">0.5</span>), [<span class="number">4</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">25</span>,<span class="number">36</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">&gt;&gt; print(list(square_root_list))</span><br><span class="line">&gt;&gt; [<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">1.4142135623730951</span>, <span class="number">1.7320508075688772</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure><p>然后就是reduce函数怎么用</p><p>在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数：</p><p>举个例子</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="comment">#必须要先从functool里面调用才可以用</span></span><br><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; factorial = reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">&gt;&gt; print(factorial)</span><br><span class="line">&gt;&gt; <span class="number">15</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure><p>这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。</p><p>因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; itera = reduce(<span class="keyword">lambda</span> x,y: x*y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">&gt;&gt; print(itera)</span><br><span class="line">&gt;&gt; <span class="number">720</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure><p>上面的代码就是输出了6的阶乘</p><p>参考网页: <a href="https://coolshell.cn/articles/10822.html" target="_blank" rel="noopener">函数式编程</a><br>这个例子是从该网页看到的</p><p>还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。</p><p>计算数组中正数的平均值</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">num =[<span class="number">2</span>, <span class="number">-5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">-2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-3</span>, <span class="number">8</span>]</span><br><span class="line">positive_num_cnt = <span class="number">0</span></span><br><span class="line">positive_num_sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">    <span class="keyword">if</span> num[i] &gt; <span class="number">0</span>:</span><br><span class="line">        positive_num_cnt += <span class="number">1</span></span><br><span class="line">        positive_num_sum += num[i]</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> positive_num_cnt &gt; <span class="number">0</span>:</span><br><span class="line">    average = positive_num_sum / positive_num_cnt</span><br><span class="line"> </span><br><span class="line">print(average) <span class="comment">#输出5</span></span><br></pre></td></tr></table></figure><p>如果采用函数式编程</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">positive_num = filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, num)</span><br><span class="line">average = reduce(<span class="keyword">lambda</span> x,y: x+y, positive_num) / len( positive_num )</span><br></pre></td></tr></table></figure><p>如上面的代码所示，两句话就把这个问题解决了</p><ol start="2"><li><p>Pipeline </p></li><li><p>Recursing </p></li><li><p>currying</p></li><li><p>higher order function  </p></li></ol><h4 id="函数式编程的好处"><a href="#函数式编程的好处" class="headerlink" title="函数式编程的好处"></a>函数式编程的好处</h4><ol><li>parallelization 并行</li><li>lazy evaluation 惰性求值</li><li>determinism 确定性</li></ol><h2 id="Python数据结构"><a href="#Python数据结构" class="headerlink" title="Python数据结构"></a>Python数据结构</h2><h2 id="Python库语法"><a href="#Python库语法" class="headerlink" title="Python库语法"></a>Python库语法</h2><h2 id="Python算法"><a href="#Python算法" class="headerlink" title="Python算法"></a>Python算法</h2>]]></content>
-      
+<search>
+  <entry>
+    <title><![CDATA[Python语法整理（普通算法，机器学习和数据挖掘的应用）]]></title>
+    <url>%2F2018%2F06%2F28%2FPython%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[Python语法整理(更新日期 2018/6/28) Python语法整理笔记Python是目前最常用的语言之一，这里我自己总结一下我在学习的过程中遇到的问题。 Python基本语法Python的函数式编程函数式编程的特性 对象，Mutable和Immutable对象 Muatble对象: list, dict, set Immutable对象: strings, tuples, numbers 1.1. 区分Muatble对象和Immutable对象 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。 查找对象位置id(). 比如 12345678In [1]: a = 1In [2]: id(a)Out[2]: 4345522256In [3]: a = 2In [4]: id(a)Out[4]: 4345522288In [5]: id(2)Out[5]: 4345522288 从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。 &gt;immutable 并不是绝对的不可变。 &gt;&gt; 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。 1.2 immutable data的作用 像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了） first class functions可以理解为面向对象编程 尾递归优化Python不支持尾递归优化 函数式编程的方法 经典函数: Map &amp; Reduce 在Python中，Map reduce用的非常之多 举几个简单的例子 123&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])&gt;&gt; print(list(length))&gt;&gt; [3, 3, 3] #输出 Map函数还可以和lambda函数一起使用 123&gt;&gt; square_list = map(lambda x:x*x, [1,2,3,4,5,10])&gt;&gt; print(list(square_list))&gt;&gt; [1, 4, 9, 16, 25, 100] #输出 Map函数用来批量开根号 123&gt;&gt; square_root_list = map(lambda x:pow(x,0.5), [4,9,16,25,36,2,3])&gt;&gt; print(list(square_root_list))&gt;&gt; [2.0, 3.0, 4.0, 5.0, 6.0, 1.4142135623730951, 1.7320508075688772] #输出 然后就是reduce函数怎么用 在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数： 举个例子 12345&gt;&gt; #必须要先从functool里面调用才可以用&gt;&gt; from functools import reduce&gt;&gt; factorial = reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])&gt;&gt; print(factorial)&gt;&gt; 15 #输出 这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。 因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。 1234&gt;&gt; from functools import reduce&gt;&gt; itera = reduce(lambda x,y: x*y, [1,2,3,4,5,6])&gt;&gt; print(itera)&gt;&gt; 720 #输出 上面的代码就是输出了6的阶乘 参考网页: 函数式编程这个例子是从该网页看到的 还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。 计算数组中正数的平均值 123456789101112num =[2, -5, 9, 7, -2, 5, 3, 1, 0, -3, 8]positive_num_cnt = 0positive_num_sum = 0for i in range(len(num)): if num[i] &gt; 0: positive_num_cnt += 1 positive_num_sum += num[i] if positive_num_cnt &gt; 0: average = positive_num_sum / positive_num_cnt print(average) #输出5 如果采用函数式编程 12positive_num = filter(lambda x: x&gt;0, num)average = reduce(lambda x,y: x+y, positive_num) / len( positive_num ) 如上面的代码所示，两句话就把这个问题解决了 Pipeline Recursing currying higher order function 函数式编程的好处 parallelization 并行 lazy evaluation 惰性求值 determinism 确定性 Python数据结构Python库语法Python算法]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
-          <category> Python </category>
-          
+        <category>机器学习和数据挖掘</category>
+        <category>Python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> Python </tag>
-            
-            <tag> 机器学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Latex语法整理</title>
-      <link href="/2018/06/23/Latex%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/"/>
-      <url>/2018/06/23/Latex%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>Latex语法整理<br><a id="more"></a></p>]]></content>
-      
+      <tags>
+        <tag>数据挖掘</tag>
+        <tag>Python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Latex语法整理]]></title>
+    <url>%2F2018%2F06%2F23%2FLatex%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[Latex语法整理]]></content>
       <categories>
-          
-          <category> Latex </category>
-          
+        <category>Latex</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Latex </tag>
-            
-            <tag> 论文编辑 </tag>
-            
-            <tag> 数学公式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>常见机器学习算法</title>
-      <link href="/2018/06/23/%E5%B8%B8%E8%A7%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-      <url>/2018/06/23/%E5%B8%B8%E8%A7%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/</url>
-      <content type="html"><![CDATA[<p>常见机器学习算法和模型<br><a id="more"></a></p><p>一般来说我们使用机器学习，就是为了分类。那么对于数据类型的不同，我们就要采用不同的分类方法。</p><p>首先说得最多的就是监督学习了。</p><h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h1><p>对于监督学习，我们一般有两个数据集，一个是训练集，一个是数据集。训练集用来训练模型，测试集用来测试模型的准确度。</p><h2 id="感知器-Perceptron-和支持向量机-SVM"><a href="#感知器-Perceptron-和支持向量机-SVM" class="headerlink" title="感知器(Perceptron)和支持向量机(SVM)"></a>感知器(Perceptron)和支持向量机(SVM)</h2><p>感知器和支持向量机均是基于线性规划来的。</p><h3 id="感知器-Perceptron"><a href="#感知器-Perceptron" class="headerlink" title="感知器(Perceptron)"></a>感知器(Perceptron)</h3><p>感知器的学习是错误驱使的。<br>我们使用感知器的过程中，因为普遍是二分类问题，而且是凸优化，那么我们就通过错分的sample，来不断学习到新的gradient，直到完全正确的分类。当然，我们也可以提前结束学习的过程，因为也有可能遇到outlier，然后严重影响我们的分类</p><h3 id="支持向量机-Support-vector-machine"><a href="#支持向量机-Support-vector-machine" class="headerlink" title="支持向量机(Support vector machine)"></a>支持向量机(Support vector machine)</h3><ol><li><p>它是针对线性可分情况进行分析，对于线性不可分的情况，通过使用非线性映射算法将低维输入空间线性不可分的样本转化为高维特征空间使其线性可分，从而使得高维特征空间采用线性算法对样本的非线性特征进行线性分析成为可能。</p></li><li><p>它基于结构风险最小化理论之上在特征空间中构建最优超平面，使得学习器得到全局最优化，并且在整个样本空间的期望以某个概率满足一定上界。</p></li></ol><h4 id="HARD-MARGIN-AND-SOFT-MARGIN-支持向量机"><a href="#HARD-MARGIN-AND-SOFT-MARGIN-支持向量机" class="headerlink" title="HARD MARGIN AND SOFT MARGIN 支持向量机"></a>HARD MARGIN AND SOFT MARGIN 支持向量机</h4><h4 id="Non-linear-SVM"><a href="#Non-linear-SVM" class="headerlink" title="Non-linear SVM"></a>Non-linear SVM</h4><h3 id="支持向量机-Python实现与调参"><a href="#支持向量机-Python实现与调参" class="headerlink" title="支持向量机 Python实现与调参"></a>支持向量机 Python实现与调参</h3><p>SVM 怎样能得到好的结果 </p><ol><li>对数据做归一化（simple scaling） </li><li>应用 RBF(Radial Basis Function) kernel </li><li>用cross-validation和grid-search 得到最优的c和g </li><li>用得到的最优c和g训练训练数据 </li><li>测试</li></ol><h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><h2 id="逻辑斯特回归-logistic-regression"><a href="#逻辑斯特回归-logistic-regression" class="headerlink" title="逻辑斯特回归(logistic regression)"></a>逻辑斯特回归(logistic regression)</h2><p>逻辑斯特回归是机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。</p><h3 id="逻辑回归的定义"><a href="#逻辑回归的定义" class="headerlink" title="逻辑回归的定义"></a>逻辑回归的定义</h3><p>逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。</p><h4 id="逻辑回归的基本假设"><a href="#逻辑回归的基本假设" class="headerlink" title="逻辑回归的基本假设"></a>逻辑回归的基本假设</h4><p>伯努利分布</p><p>$$h_\theta(x;\theta)=p$$</p><p>$$p=\frac{1}{1+e^{-\theta^Tx}}$$</p><p>$$h_\theta(x;\theta)=\frac{1}{1+e^{-\theta^Tx}}$$</p><p>逻辑回归的损失函数</p><p>$$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$</p><p>求解逻辑回归</p><p>逻辑回归的分类</p><p>scikit-learn库中逻辑回归的使用</p><h2 id="朴素贝叶斯-Naive-Bayes"><a href="#朴素贝叶斯-Naive-Bayes" class="headerlink" title="朴素贝叶斯(Naive Bayes)"></a>朴素贝叶斯(Naive Bayes)</h2><h2 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h2><h1 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h1><h1 id="半监督学习"><a href="#半监督学习" class="headerlink" title="半监督学习"></a>半监督学习</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h1><h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><p>特征工程在做机器学习的过程中是尤其重要的。因为在现在数据越来越多的情况下，使用正确的特征，是至关重要的。</p><p>然后sklearn中也已经包含了许多的方法可以直接调用。</p>]]></content>
-      
+      <tags>
+        <tag>Latex</tag>
+        <tag>论文编辑</tag>
+        <tag>数学公式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[常见机器学习算法]]></title>
+    <url>%2F2018%2F06%2F23%2F%E5%B8%B8%E8%A7%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[常见机器学习算法和模型 一般来说我们使用机器学习，就是为了分类。那么对于数据类型的不同，我们就要采用不同的分类方法。 首先说得最多的就是监督学习了。 监督学习对于监督学习，我们一般有两个数据集，一个是训练集，一个是数据集。训练集用来训练模型，测试集用来测试模型的准确度。 感知器(Perceptron)和支持向量机(SVM)感知器和支持向量机均是基于线性规划来的。 感知器(Perceptron)感知器的学习是错误驱使的。我们使用感知器的过程中，因为普遍是二分类问题，而且是凸优化，那么我们就通过错分的sample，来不断学习到新的gradient，直到完全正确的分类。当然，我们也可以提前结束学习的过程，因为也有可能遇到outlier，然后严重影响我们的分类 支持向量机(Support vector machine) 它是针对线性可分情况进行分析，对于线性不可分的情况，通过使用非线性映射算法将低维输入空间线性不可分的样本转化为高维特征空间使其线性可分，从而使得高维特征空间采用线性算法对样本的非线性特征进行线性分析成为可能。 它基于结构风险最小化理论之上在特征空间中构建最优超平面，使得学习器得到全局最优化，并且在整个样本空间的期望以某个概率满足一定上界。 HARD MARGIN AND SOFT MARGIN 支持向量机Non-linear SVM支持向量机 Python实现与调参SVM 怎样能得到好的结果 对数据做归一化（simple scaling） 应用 RBF(Radial Basis Function) kernel 用cross-validation和grid-search 得到最优的c和g 用得到的最优c和g训练训练数据 测试 决策树逻辑斯特回归(logistic regression)逻辑斯特回归是机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。 逻辑回归的定义逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。 逻辑回归的基本假设伯努利分布 $$h_\theta(x;\theta)=p$$ $$p=\frac{1}{1+e^{-\theta^Tx}}$$ $$h_\theta(x;\theta)=\frac{1}{1+e^{-\theta^Tx}}$$ 逻辑回归的损失函数 $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 求解逻辑回归 逻辑回归的分类 scikit-learn库中逻辑回归的使用 朴素贝叶斯(Naive Bayes)KNN无监督学习半监督学习强化学习迁移学习深度学习特征工程特征工程在做机器学习的过程中是尤其重要的。因为在现在数据越来越多的情况下，使用正确的特征，是至关重要的。 然后sklearn中也已经包含了许多的方法可以直接调用。 数据的预处理 对数据规格的统一，这里有个名词叫（不属于同一量纲）即特征的规格不一样，不能够放在一起比较。 方法：无量纲化 无量纲化使不同规格的数据转换到同一规格。常见的无量纲化方法有标准化和区间缩放法。 标准化的前提是特征值服从正态分布，标准化后，其转换成标准正态分布。 区间缩放法利用了边界值信息，将特征的取值区间缩放到某个特点的范围，例如[0, 1]等。 标准化的方法计算出数据集的均值$ \bar x$和标准差$S $ $$x^{‘}=\frac{x-\bar x}{S}$$ 使用preproccessing库的StandardScaler类对数据进行标准化： 123from sklearn.preprocessing import StandardScaler #标准化，返回值为标准化后的数据 StandardScaler().fit_transform(iris.data) 区间缩放法的方法区间缩放法的思路有多种，常见的一种为利用两个最值进行缩放，公式表达为：$$x^{‘}=\frac{x-Min}{Max-Min}$$ 123from sklearn.preprocessing import MinMaxScaler #区间缩放，返回值为缩放到[0, 1]区间的数据 MinMaxScaler().fit_transform(iris.data) 标准化与归一化的区别简单来说，标准化是依照特征矩阵的列处理数据，其通过求z-score的方法，将样本的特征值转换到同一量纲下。归一化是依照特征矩阵的行处理数据，其目的在于样本向量在点乘运算或其他核函数计算相似性时，拥有统一的标准，也就是说都转化为“单位向量”。规则为l2的归一化公式如下： $$x^{‘}=\frac{x}{\sqrt{\sum_j^m {x[j]}^2}}$$ 123from sklearn.preprocessing import Normalizer #归一化，返回值为归一化后的数据 Normalizer().fit_transform(iris.data) 信息冗余：对于某些定量特征，其包含的有效信息为区间划分，例如学习成绩，假若只关心“及格”或不“及格”，那么需要将定量的考分，转换成“1”和“0”表示及格和未及格。二值化可以解决这一问题。 对定量特征二值化定量特征二值化的核心在于设定一个阈值，大于阈值的赋值为1，小于等于阈值的赋值为0，公式表达如下： $$ x^{‘}=\left{\begin{aligned}1,x &amp; &gt; threshold \0,x &amp; \leq threshold \\end{aligned}\right.$$ 使用preproccessing库的Binarizer类对数据进行二值化的代码如下: 123from sklearn.preprocessing import Binarizer #二值化，阈值设置为3，返回值为二值化后的数据 Binarizer(threshold=3).fit_transform(iris.data) 定性特征不能直接使用：某些机器学习算法和模型只能接受定量特征的输入，那么需要将定性特征转换为定量特征。最简单的方式是为每一种定性值指定一个定量值，但是这种方式过于灵活，增加了调参的工作。通常使用哑编码的方式将定性特征转换为定量特征：假设有N种定性值，则将这一个特征扩展为N种特征，当原始特征值为第i种定性值时，第i个扩展特征赋值为1，其他扩展特征赋值为0。哑编码的方式相比直接指定的方式，不用增加调参的工作，对于线性模型来说，使用哑编码后的特征可达到非线性的效果。 对定性特征哑编码（暂时未填坑，还没懂什么是哑编码） 存在缺失值：缺失值需要补充。 缺失值计算 信息利用率低：不同的机器学习算法和模型对数据中信息的利用是不同的，之前提到在线性模型中，使用对定性特征哑编码可以达到非线性的效果。类似地，对定量变量多项式化，或者进行其他的转换，都能达到非线性的效果。 数据变换功能和说明的总结 类 功能 说明 StandardScaler 无量纲化 标准化，基于特征矩阵的列，将特征值转换至服从标准正态分布 MinMaxScaler 无量纲化 区间缩放，基于最大最小值，将特征值转换到[0, 1]区间上 Normalizer 归一化 基于特征矩阵的行，将样本向量转换为“单位向量” Binarizer 二值化 基于给定阈值，将定量特征按阈值划分 OneHotEncoder 哑编码 将定性数据编码为定量数据 Imputer 缺失值计算 计算缺失值，缺失值可填充为均值等 PolynomialFeatures 多项式数据转换 多项式数据转换 FunctionTransformer 自定义单元数据转换 使用单变元的函数来转换数据 特征的选择当数据预处理完成后，我们需要选择有意义的特征输入机器学习的算法和模型进行训练。通常来说，从两个方面考虑来选择特征： 1、特征是否发散：如果一个特征不发散，例如方差接近于0，也就是说样本在这个特征上基本上没有差异，这个特征对于样本的区分并没有什么用。 2、特征与目标的相关性：这点比较显见，与目标相关性高的特征，应当优选选择。除方差法外，本文介绍的其他方法均从相关性考虑。 根据特征选择的形式又可以将特征选择方法分为3种： 1、Filter：过滤法，按照发散性或者相关性对各个特征进行评分，设定阈值或者待选择阈值的个数，选择特征。 2、Wrapper：包装法，根据目标函数（通常是预测效果评分），每次选择若干特征，或者排除若干特征。 3、Embedded：嵌入法，先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣。 我们使用sklearn中的feature_selection库来进行特征选择。 降维特征工程在kaggle的应用]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
+        <category>机器学习和数据挖掘</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> Python </tag>
-            
-            <tag> 机器学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>常见数据挖掘算法</title>
-      <link href="/2018/06/23/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95/"/>
-      <url>/2018/06/23/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95/</url>
-      <content type="html"><![CDATA[<p>#常见数据挖掘算法</p><p>这篇文章主要总结了我在学习数据挖掘中的一些知识点<br><a id="more"></a></p><p>其中大类包含</p><h3 id="Association-rules"><a href="#Association-rules" class="headerlink" title="Association rules"></a>Association rules</h3><h3 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h3><h3 id="Page-Rank"><a href="#Page-Rank" class="headerlink" title="Page Rank"></a>Page Rank</h3><h3 id="Decision-tree"><a href="#Decision-tree" class="headerlink" title="Decision tree"></a>Decision tree</h3><h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><p>Apriori algorithm 先验算法</p><p>Apriori算法是一种最有影响的挖掘布尔关联规则频繁项集的算法。其核心是基于两阶段频集思想的递推算法。该关联规则在分类上属于单维、单层、布尔关联规则。在这里，所有支持度大于最小支持度的项集称为频繁项集，简称频集。</p><p>Park-Chen-Yu Algorithm</p>]]></content>
-      
+      <tags>
+        <tag>数据挖掘</tag>
+        <tag>Python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[常见数据挖掘算法]]></title>
+    <url>%2F2018%2F06%2F23%2F%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[#常见数据挖掘算法 这篇文章主要总结了我在学习数据挖掘中的一些知识点 其中大类包含 Association rulesClusteringPage RankDecision treeNaive BayesApriori algorithm 先验算法 Apriori算法是一种最有影响的挖掘布尔关联规则频繁项集的算法。其核心是基于两阶段频集思想的递推算法。该关联规则在分类上属于单维、单层、布尔关联规则。在这里，所有支持度大于最小支持度的项集称为频繁项集，简称频集。 Park-Chen-Yu Algorithm]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
+        <category>机器学习和数据挖掘</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> 机器学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>SQL语法整理</title>
-      <link href="/2018/06/23/SQL%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/"/>
-      <url>/2018/06/23/SQL%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>SQL语法<br><a id="more"></a></p>]]></content>
-      
+      <tags>
+        <tag>数据挖掘</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SQL语法整理]]></title>
+    <url>%2F2018%2F06%2F23%2FSQL%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[SQL语法]]></content>
       <categories>
-          
-          <category> 数据库 </category>
-          
+        <category>数据库</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> SQL </tag>
-            
-            <tag> MySQL </tag>
-            
-            <tag> 数据库 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hadoop(3.0.3)安装和配置过程（Mac）</title>
-      <link href="/2018/06/23/Hadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/"/>
-      <url>/2018/06/23/Hadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/</url>
-      <content type="html"><![CDATA[<p>最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。<br>版本是 Hadoop(3.0.3)</p><h1 id="Hadoop-3-0-3"><a href="#Hadoop-3-0-3" class="headerlink" title="Hadoop(3.0.3)"></a>Hadoop(3.0.3)</h1><a id="more"></a><h2 id="Java环境检查"><a href="#Java环境检查" class="headerlink" title="Java环境检查"></a>Java环境检查</h2><h3 id="Java版本号检查"><a href="#Java版本号检查" class="headerlink" title="Java版本号检查"></a>Java版本号检查</h3><p>在terminal里输入如下指令可以查看Java版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br></pre></td></tr></table></figure></p><p>如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br></pre></td></tr></table></figure><h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><p>如果你没有Java，在这网址里可以安装<br><a href="https://www.java.com/zh_CN/" target="_blank" rel="noopener">Java安装网址</a><br>JDK的安装就搜索一下就有</p><h3 id="Java的的系统环境变量"><a href="#Java的的系统环境变量" class="headerlink" title="Java的的系统环境变量"></a>Java的的系统环境变量</h3><p>Java的系统环境变量是如下指令查询的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure></p><p>查询成功会反馈类似的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure></p><p>该路径一会配置环境变量会用得上</p><h2 id="Hadoop下载"><a href="#Hadoop下载" class="headerlink" title="Hadoop下载"></a>Hadoop下载</h2><p><a href="http://hadoop.apache.org/releases.html" target="_blank" rel="noopener">Hadoop下载链接</a><br>我是在这里下载的3.0.3版本号。和之前2.x的版本有些许不一样。然后我是下载的编译好的binary版本。<br><a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz" target="_blank" rel="noopener">Hadoop3.0.3下载链接</a><br>进来之后任意选择镜像下载就可以了。</p><p>然后把解压后的文件夹hadoop-3.0.3存放到一个路径，比如我就把该文件夹放在documents下面。路径如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3</span><br></pre></td></tr></table></figure></p><h2 id="配置Mac-os环境"><a href="#配置Mac-os环境" class="headerlink" title="配置Mac os环境"></a>配置Mac os环境</h2><h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>这里就是我遇到问题最奇怪的地方</p><p>按照别人讲的教程大概有如下三种方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure></p><p>然后查看是否登陆成功,登陆成功讯息如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br><span class="line">MBP:hadoop-3.0.3 Oliver$ ssh localhost</span><br><span class="line">Last login: Sat Jun 23 10:42:58 2018</span><br></pre></td></tr></table></figure></p><p>如果这里不是直接输出如上讯息，那么看是否需要输入密码，就根据提示一步一步来。<br>如果还是不成功，那么看如下方法</p><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><blockquote><p>打开系统偏好设置</p><blockquote><p>–&gt; 共享<br>–&gt; 勾选远程登录<br>–&gt; 设置允许访问：所有用户</p></blockquote></blockquote><p>然后再次在terminal里输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure></p><p>参考网址：<a href="https://www.jianshu.com/p/de7eb61c983a" target="_blank" rel="noopener">Mac 系统安装Hadoop 2.7.3</a><br>参考网址：<a href="http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html" target="_blank" rel="noopener">Setting up Hadoop 2.6 on Mac OS X Yosemite</a></p><p>如果以上方法不成功</p><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>生成一个ssh key并储存和拷贝，方法比较笨</p><hr><ol><li><p>先输入如下指令，生成ssh key</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure><p> 然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa</span><br></pre></td></tr></table></figure><p> 其中id_rsa就是我们要的文件。</p></li></ol><hr><ol start="2"><li><p>键入如下指令</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure><p> 其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key</p></li></ol><hr><ol start="3"><li><p>最后我们再试着输入</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure><p> 此时应该就可以成功了</p></li></ol><hr><p>参考网址：<a href="https://stackoverflow.com/questions/15211848/hadoop-start-dfs-sh-permission-denied" target="_blank" rel="noopener">Hadoop: start-dfs.sh permission denied</a></p><h4 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h4><p>此方法还未经过验证（未完成）</p><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><h4 id="总环境变量配置"><a href="#总环境变量配置" class="headerlink" title="总环境变量配置"></a>总环境变量配置</h4><p>打开terminal</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br><span class="line">$ vim ~/.bash_profile</span><br></pre></td></tr></table></figure><p>执行以上代码可以进入Vim编辑器，编辑环境变量。<br>添加如下代码<br>键入 i 可以开始编辑（详情可以搜索Vim的命令）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Hadoop</span><br><span class="line">export HADOOP_HOME=/Users/Oliver/Documents/hadoop-3.0.3(这个是Hadoop distribution的路径，根据自己设定的来调)</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br></pre></td></tr></table></figure></p><p>然后保存再退出，以下是部分Vim的指令，其余指令可以自行搜索一下</p><table><thead><tr><th>命令</th><th>简单说明</th></tr></thead><tbody><tr><td>:w</td><td>保存编辑后的文件内容，但不退出vim编辑器</td></tr><tr><td>:wq</td><td>保存文件内容后退出vim编辑器</td></tr><tr><td>:q</td><td>在未做任何编辑处理而准备退出vim时，可以使用此命令</td></tr></tbody></table><p>退出Vim界面之后，在terminal里输入如下命令使变量立即生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure></p><p>我们就成功的配置好了Hadoop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop version</span><br></pre></td></tr></table></figure></p><p>用该语句来确认Hadoop配置,此时可以查看</p><h4 id="Hadoop文件配置"><a href="#Hadoop文件配置" class="headerlink" title="Hadoop文件配置"></a>Hadoop文件配置</h4><p>打开如下路径里的文件进行更改, 将代码复制进去</p><ol><li><p>etc/hadoop/core-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/hdfs-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/mapred-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/yarn-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure><p> 参考网址：<a href="http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html" target="_blank" rel="noopener">Setting up Hadoop 2.6 on Mac OS X Yosemite</a></p></li></ol><ol start="5"><li><p>/etc/hadoop/hadoop-env.sh handoop环境<br>添加这段代码就可以了，注意就是Java的系统环境变量的路径</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure><p> 可以看到前面一开始提到的用如下指令查询</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure></li></ol><h3 id="执行-start-hdfs-and-yarn"><a href="#执行-start-hdfs-and-yarn" class="headerlink" title="执行 start hdfs and yarn"></a>执行 start hdfs and yarn</h3><ol><li><p>在terminal里进入hadoop distribution的文件夹</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd 到hadoop的文件夹，比如下面路径就是我的Hadoop</span><br><span class="line">$ cd /users/Oliver/documents/hadoop-3.0.3/</span><br></pre></td></tr></table></figure></li><li><p>对Namenode执行格式化操作 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop namenode -format</span><br></pre></td></tr></table></figure></li><li><p>启动hadoop</p><p> 启动NameNode和DataNode</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-dfs.sh</span><br></pre></td></tr></table></figure><p> 成功后出现</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [localhost]</span><br><span class="line">Starting datanodes</span><br><span class="line">Starting secondary namenodes [xiaohuobandeMBP.local]</span><br></pre></td></tr></table></figure><p> 启动ResourceManager和NodeManager</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-yarn.sh</span><br></pre></td></tr></table></figure><p> 成功后出现</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Starting resourcemanager</span><br><span class="line">Starting nodemanagers</span><br></pre></td></tr></table></figure></li><li><p>检查hadoop是否启动成功</p><p> 在terminal里输入</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jps</span><br></pre></td></tr></table></figure><p> 会显示</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">18739 Jps</span><br><span class="line">18133 NameNode</span><br><span class="line">18375 SecondaryNameNode</span><br><span class="line">18568 ResourceManager</span><br><span class="line">18665 NodeManager</span><br></pre></td></tr></table></figure><p> 则表示启动成功。<br> 此时在浏览器中访问localhost:8088和localhost:9870(hadoop3.x版本)，可以看到Hadoop的界面<br> localhost:50070(Hadoop2.x版本)</p></li></ol><p><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面1.png" alt="hadoop界面"><br><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面2.png" alt="hadoop界面"></p><hr><p>到此为止，Hadoop就已经完成配置了，接下来就是使用Hadoop了</p>]]></content>
-      
+      <tags>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop(3.0.3)安装和配置过程（Mac）]]></title>
+    <url>%2F2018%2F06%2F23%2FHadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3) Java环境检查Java版本号检查在terminal里输入如下指令可以查看Java版本1$ java -version 如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样 1234$ java -versionjava version &quot;1.8.0_161&quot;Java(TM) SE Runtime Environment (build 1.8.0_161-b12)Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode) Java安装如果你没有Java，在这网址里可以安装Java安装网址JDK的安装就搜索一下就有 Java的的系统环境变量Java的系统环境变量是如下指令查询的1$ /usr/libexec/java_home 查询成功会反馈类似的路径1/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home 该路径一会配置环境变量会用得上 Hadoop下载Hadoop下载链接我是在这里下载的3.0.3版本号。和之前2.x的版本有些许不一样。然后我是下载的编译好的binary版本。Hadoop3.0.3下载链接进来之后任意选择镜像下载就可以了。 然后把解压后的文件夹hadoop-3.0.3存放到一个路径，比如我就把该文件夹放在documents下面。路径如下1/Users/Oliver/Documents/hadoop-3.0.3 配置Mac os环境SSH这里就是我遇到问题最奇怪的地方 按照别人讲的教程大概有如下三种方法1$ ssh localhost 然后查看是否登陆成功,登陆成功讯息如下123$ ssh localhostMBP:hadoop-3.0.3 Oliver$ ssh localhostLast login: Sat Jun 23 10:42:58 2018 如果这里不是直接输出如上讯息，那么看是否需要输入密码，就根据提示一步一步来。如果还是不成功，那么看如下方法 方法一 打开系统偏好设置 –&gt; 共享–&gt; 勾选远程登录–&gt; 设置允许访问：所有用户 然后再次在terminal里输入1$ ssh localhost 参考网址：Mac 系统安装Hadoop 2.7.3参考网址：Setting up Hadoop 2.6 on Mac OS X Yosemite 如果以上方法不成功 方法二生成一个ssh key并储存和拷贝，方法比较笨 先输入如下指令，生成ssh key 1$ ssh-keygen 然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内 1/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa 其中id_rsa就是我们要的文件。 键入如下指令 1cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys 其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key 最后我们再试着输入 1$ ssh localhost 此时应该就可以成功了 参考网址：Hadoop: start-dfs.sh permission denied 方法三此方法还未经过验证（未完成） 配置环境变量总环境变量配置打开terminal 12$ touch ~/.bash_profile$ vim ~/.bash_profile 执行以上代码可以进入Vim编辑器，编辑环境变量。添加如下代码键入 i 可以开始编辑（详情可以搜索Vim的命令）123# Hadoopexport HADOOP_HOME=/Users/Oliver/Documents/hadoop-3.0.3(这个是Hadoop distribution的路径，根据自己设定的来调)export PATH=$PATH:$HADOOP_HOME/bin 然后保存再退出，以下是部分Vim的指令，其余指令可以自行搜索一下 命令 简单说明 :w 保存编辑后的文件内容，但不退出vim编辑器 :wq 保存文件内容后退出vim编辑器 :q 在未做任何编辑处理而准备退出vim时，可以使用此命令 退出Vim界面之后，在terminal里输入如下命令使变量立即生效1$ source ~/.bash_profile 我们就成功的配置好了Hadoop1$ hadoop version 用该语句来确认Hadoop配置,此时可以查看 Hadoop文件配置打开如下路径里的文件进行更改, 将代码复制进去 etc/hadoop/core-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;fs.defaultFS&lt;/name&gt; &lt;value&gt;hdfs://localhost:9000&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/hdfs-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/mapred-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;mapreduce.framework.name&lt;/name&gt; &lt;value&gt;yarn&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/yarn-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; &lt;value&gt;mapreduce_shuffle&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 参考网址：Setting up Hadoop 2.6 on Mac OS X Yosemite /etc/hadoop/hadoop-env.sh handoop环境添加这段代码就可以了，注意就是Java的系统环境变量的路径 1export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home 可以看到前面一开始提到的用如下指令查询 1$ /usr/libexec/java_home 执行 start hdfs and yarn 在terminal里进入hadoop distribution的文件夹 12$ cd 到hadoop的文件夹，比如下面路径就是我的Hadoop$ cd /users/Oliver/documents/hadoop-3.0.3/ 对Namenode执行格式化操作 1$ hadoop namenode -format 启动hadoop 启动NameNode和DataNode 1$ sbin/start-dfs.sh 成功后出现 123Starting namenodes on [localhost]Starting datanodesStarting secondary namenodes [xiaohuobandeMBP.local] 启动ResourceManager和NodeManager 1$ sbin/start-yarn.sh 成功后出现 12Starting resourcemanagerStarting nodemanagers 检查hadoop是否启动成功 在terminal里输入 1$ jps 会显示 1234518739 Jps18133 NameNode18375 SecondaryNameNode18568 ResourceManager18665 NodeManager 则表示启动成功。 此时在浏览器中访问localhost:8088和localhost:9870(hadoop3.x版本)，可以看到Hadoop的界面 localhost:50070(Hadoop2.x版本) 到此为止，Hadoop就已经完成配置了，接下来就是使用Hadoop了]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
+        <category>机器学习和数据挖掘</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hadoop </tag>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> 分布式计算 </tag>
-            
-            <tag> 工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Leetcode解题思路</title>
-      <link href="/2018/06/22/LeetCode%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/"/>
-      <url>/2018/06/22/LeetCode%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/</url>
-      <content type="html"><![CDATA[<p>Leetcode解题思路</p><p>在日常刷LeetCode题时，对自己思路做一些记录<br>语言主要为Python</p><p>Github上也有我上传好的代码: <a href="https://github.com/OliverLPH/Python-program-journal/tree/LeetCode-update/LeetCode" target="_blank" rel="noopener">Github_Peihan’s LeetCode</a></p><a id="more"></a><h1 id="LeetCode"><a href="#LeetCode" class="headerlink" title="LeetCode"></a>LeetCode</h1><h2 id="Leetcode-1-Title-Two-Sum-两数之和"><a href="#Leetcode-1-Title-Two-Sum-两数之和" class="headerlink" title="Leetcode #1 Title: Two Sum(两数之和)"></a>Leetcode #1 Title: Two Sum(两数之和)</h2><p><a href="https://leetcode-cn.com/problems/two-sum/description/" target="_blank" rel="noopener">#1题目描述</a></p><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            remain_num = target - num</span><br><span class="line">            <span class="keyword">if</span> remain_num <span class="keyword">in</span> nums:</span><br><span class="line">                x = nums.index(remain_num)</span><br><span class="line">                y = nums.index(num)</span><br><span class="line">                <span class="keyword">if</span> x != y:</span><br><span class="line">                    result = [x,y]</span><br><span class="line">                <span class="keyword">elif</span> x == y:</span><br><span class="line">                    nums[x] = <span class="keyword">None</span></span><br><span class="line">                    <span class="keyword">if</span> remain_num <span class="keyword">in</span> nums:</span><br><span class="line">                        y = nums.index(num)</span><br><span class="line">                        result = [x,y]</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure><br><br></p><br></details><h2 id="Leetcode-2-Title-Add-Two-Numbers-两数相加"><a href="#Leetcode-2-Title-Add-Two-Numbers-两数相加" class="headerlink" title="Leetcode #2 Title: Add Two Numbers(两数相加)"></a>Leetcode #2 Title: Add Two Numbers(两数相加)</h2><p><a href="https://leetcode-cn.com/problems/add-two-numbers/description/" target="_blank" rel="noopener">#2题目描述</a></p><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        dummy = cur = ListNode(<span class="number">0</span>)</span><br><span class="line">        carry = <span class="number">0</span> <span class="comment">#进位</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">or</span> l2 <span class="keyword">or</span> carry:</span><br><span class="line">            <span class="keyword">if</span> l1:</span><br><span class="line">                carry += l1.val</span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">if</span> l2:</span><br><span class="line">                carry += l2.val</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            cur.next = ListNode(carry%<span class="number">10</span>)</span><br><span class="line">            cur = cur.next</span><br><span class="line">            carry //= <span class="number">10</span></span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure><br><br></p><br></details><h2 id="Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串"><a href="#Leetcode-3-Title-Longest-Substring-Without-Repeating-Characters-无重复字符的最长子串" class="headerlink" title="Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)"></a>Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)</h2><p><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="noopener">#3题目描述</a></p><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        seen_map = &#123;&#125;</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        len_last = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            l = s[i]</span><br><span class="line">            <span class="keyword">if</span> l <span class="keyword">in</span> seen_map:</span><br><span class="line">                len_last = min(i - seen_map[l] - <span class="number">1</span>, len_last) + <span class="number">1</span></span><br><span class="line">                seen_map[l] = i </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                len_last += <span class="number">1</span></span><br><span class="line">                seen_map[l] = i</span><br><span class="line">            <span class="keyword">if</span> len_last &gt;= max_len:</span><br><span class="line">                max_len = len_last</span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure><br><br></p><br></details><h2 id="Leetcode-9-Title-Palindrome-Number-回文数"><a href="#Leetcode-9-Title-Palindrome-Number-回文数" class="headerlink" title="Leetcode #9 Title: Palindrome Number(回文数)"></a>Leetcode #9 Title: Palindrome Number(回文数)</h2><p><a href="https://leetcode-cn.com/problems/palindrome-number/description/" target="_blank" rel="noopener">#9题目描述</a></p><p>这道题可以用一句话解决问题。但是仍然把integer转换成了character。<br>    思路如下：<br>    比如输入是 x = 123456<br>    str(x)表示 ‘123456’<br>    str(x)[::-1]表示反向的str(x),就是顺序相反，所以输出为 ‘654321’<br>    因为回文数的特征，所以直接str(x)==str(x)[::-1]就说明是回文数了</p><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type x: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> str(x)==str(x)[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><br><br></p><br></details><h2 id="Leetcode-11-Title-Container-With-Most-Water-盛最多水的容器"><a href="#Leetcode-11-Title-Container-With-Most-Water-盛最多水的容器" class="headerlink" title="Leetcode #11 Title: Container With Most Water(盛最多水的容器)"></a>Leetcode #11 Title: Container With Most Water(盛最多水的容器)</h2><p><a href="https://leetcode-cn.com/problems/container-with-most-water/description/" target="_blank" rel="noopener">#11题目描述</a></p><p>这道题目的难点在于时间复杂度，如果直接使用两个循环，那么很容易就超时了。<br>因此我们将思路拓展一下，能够构成最大面积的值是怎么得到的。</p><p>比如输入是[1,2,1,4,2,1]</p><p>那么此时点的位置则是{(1,1),(2,2),(3,1),(4,4),(5,2),(6,1)}</p><p>然后我们就开始从两边的数字可以构成的面积开始推算，然后每次向中间移动一格。此时我们判断构成“容器”的两端的高度，然后将更矮那一端的 垂线 向中间移动，直到两个垂线相邻。</p><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxArea</span><span class="params">(self, height)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type height: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        max_area = <span class="number">0</span> <span class="comment">#initilize max area</span></span><br><span class="line">        i = <span class="number">0</span> </span><br><span class="line">        j = len(height) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            area = (j-i)*min(height[i], height[j])</span><br><span class="line">            max_area = max(max_area, area)</span><br><span class="line">            <span class="keyword">if</span> height[i] &lt;= height[j]:</span><br><span class="line">                i += <span class="number">1</span> </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> max_area</span><br></pre></td></tr></table></figure><br><br></p><br></details>]]></content>
-      
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>数据挖掘</tag>
+        <tag>分布式计算</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode解题思路]]></title>
+    <url>%2F2018%2F06%2F22%2FLeetCode%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%2F</url>
+    <content type="text"><![CDATA[Leetcode解题思路 在日常刷LeetCode题时，对自己思路做一些记录语言主要为Python Github上也有我上传好的代码: Github_Peihan’s LeetCode LeetCodeLeetcode #1 Title: Two Sum(两数之和)#1题目描述 代码 1234567891011121314151617181920212223class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ for num in nums: remain_num = target - num if remain_num in nums: x = nums.index(remain_num) y = nums.index(num) if x != y: result = [x,y] elif x == y: nums[x] = None if remain_num in nums: y = nums.index(num) result = [x,y] else: pass return result Leetcode #2 Title: Add Two Numbers(两数相加)#2题目描述 代码 1234567891011121314151617181920212223242526# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def addTwoNumbers(self, l1, l2): """ :type l1: ListNode :type l2: ListNode :rtype: ListNode """ dummy = cur = ListNode(0) carry = 0 #进位 while l1 or l2 or carry: if l1: carry += l1.val l1 = l1.next if l2: carry += l2.val l2 = l2.next cur.next = ListNode(carry%10) cur = cur.next carry //= 10 return dummy.next Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)#3题目描述 代码 1234567891011121314151617181920class Solution: def lengthOfLongestSubstring(self, s): """ :type s: str :rtype: int """ seen_map = &#123;&#125; max_len = 0 len_last = 0 for i in range(len(s)): l = s[i] if l in seen_map: len_last = min(i - seen_map[l] - 1, len_last) + 1 seen_map[l] = i else: len_last += 1 seen_map[l] = i if len_last &gt;= max_len: max_len = len_last return max_len Leetcode #9 Title: Palindrome Number(回文数)#9题目描述 这道题可以用一句话解决问题。但是仍然把integer转换成了character。 思路如下： 比如输入是 x = 123456 str(x)表示 ‘123456’ str(x)[::-1]表示反向的str(x),就是顺序相反，所以输出为 ‘654321’ 因为回文数的特征，所以直接str(x)==str(x)[::-1]就说明是回文数了 代码 1234567class Solution: def isPalindrome(self, x): """ :type x: int :rtype: bool """ return str(x)==str(x)[::-1] Leetcode #11 Title: Container With Most Water(盛最多水的容器)#11题目描述 这道题目的难点在于时间复杂度，如果直接使用两个循环，那么很容易就超时了。因此我们将思路拓展一下，能够构成最大面积的值是怎么得到的。 比如输入是[1,2,1,4,2,1] 那么此时点的位置则是{(1,1),(2,2),(3,1),(4,4),(5,2),(6,1)} 然后我们就开始从两边的数字可以构成的面积开始推算，然后每次向中间移动一格。此时我们判断构成“容器”的两端的高度，然后将更矮那一端的 垂线 向中间移动，直到两个垂线相邻。 代码 12345678910111213141516171819class Solution: def maxArea(self, height): """ :type height: List[int] :rtype: int """ max_area = 0 #initilize max area i = 0 j = len(height) - 1 while i &lt; j: area = (j-i)*min(height[i], height[j]) max_area = max(max_area, area) if height[i] &lt;= height[j]: i += 1 else: j -= 1 return max_area]]></content>
       <categories>
-          
-          <category> LeetCode </category>
-          
+        <category>LeetCode</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> LeetCode </tag>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>逻辑回归知识点总结</title>
-      <link href="/2018/06/22/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
-      <url>/2018/06/22/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</url>
-      <content type="html"><![CDATA[<p>逻辑回归知识点总结(未完成)<br><a id="more"></a><br>逻辑回归机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。</p><h2 id="逻辑回归的定义"><a href="#逻辑回归的定义" class="headerlink" title="逻辑回归的定义"></a>逻辑回归的定义</h2><p>逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。</p><h3 id="逻辑回归的基本假设"><a href="#逻辑回归的基本假设" class="headerlink" title="逻辑回归的基本假设"></a>逻辑回归的基本假设</h3><p>伯努利分布</p><p>$$h_\theta(x;\theta)=p$$</p><p>$$p=\frac{1}{1+e^{-\theta^Tx}}$$</p><p>$$h_\theta(x;\theta)=\frac{1}{1+e^{-\theta^Tx}}$$</p><p>逻辑回归的损失函数</p><p>$$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$</p><p>求解逻辑回归</p><p>逻辑回归的分类</p><p>scikit-learn库中逻辑回归的使用</p>]]></content>
-      
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[逻辑回归知识点总结]]></title>
+    <url>%2F2018%2F06%2F22%2F%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%2F</url>
+    <content type="text"><![CDATA[逻辑回归知识点总结(未完成)逻辑回归机器学习中的常见算法，这里我自己总结一下我在学习的过程中总结的知识点。 逻辑回归的定义逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。 逻辑回归的基本假设伯努利分布 $$h_\theta(x;\theta)=p$$ $$p=\frac{1}{1+e^{-\theta^Tx}}$$ $$h_\theta(x;\theta)=\frac{1}{1+e^{-\theta^Tx}}$$ 逻辑回归的损失函数 $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 求解逻辑回归 逻辑回归的分类 scikit-learn库中逻辑回归的使用]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
+        <category>机器学习和数据挖掘</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> Python </tag>
-            
-            <tag> 机器学习 </tag>
-            
-            <tag> 逻辑回归 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>hexo deploy问题</title>
-      <link href="/2018/06/22/hexo-deploy%E9%97%AE%E9%A2%98/"/>
-      <url>/2018/06/22/hexo-deploy%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>Hexo deploy的问题<br><a id="more"></a><br>一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">To github.com:OliverLPH/OliverLPH.github.io</span><br><span class="line"> + a8ea0df...bc3e952 HEAD -&gt; master (forced update)</span><br><span class="line">Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;git@github.com:OliverLPH/OliverLPH.github.io&apos;.</span><br><span class="line">INFO  Deploy done: git</span><br><span class="line">xiaohuobandeMBP:source Oliver$ hexo clean</span><br><span class="line">INFO  Deleted database.</span><br><span class="line">INFO  Deleted public folder.</span><br></pre></td></tr></table></figure><p>然后如上面的代码所示，hexo显示nothing to commit, working tree clean。</p><p>在网上搜索后发现有的几种方案</p><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><p>这样就可以清理掉public文件夹，然后重新deploy</p><h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>移除.deploy文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf .deploy</span><br><span class="line">hexo generater</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>]]></content>
-      
+      <tags>
+        <tag>数据挖掘</tag>
+        <tag>Python</tag>
+        <tag>机器学习</tag>
+        <tag>逻辑回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo deploy问题]]></title>
+    <url>%2F2018%2F06%2F22%2Fhexo-deploy%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[Hexo deploy的问题一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub 12345678910111213INFO Deploying: gitINFO Clearing .deploy_git folder...INFO Copying files from public folder...INFO Copying files from extend dirs...On branch masternothing to commit, working tree cleanTo github.com:OliverLPH/OliverLPH.github.io + a8ea0df...bc3e952 HEAD -&gt; master (forced update)Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;git@github.com:OliverLPH/OliverLPH.github.io&apos;.INFO Deploy done: gitxiaohuobandeMBP:source Oliver$ hexo cleanINFO Deleted database.INFO Deleted public folder. 然后如上面的代码所示，hexo显示nothing to commit, working tree clean。 在网上搜索后发现有的几种方案 方案一12hexo cleanhexo d 这样就可以清理掉public文件夹，然后重新deploy 方案二移除.deploy文件夹123rm -rf .deployhexo generaterhexo deploy]]></content>
       <categories>
-          
-          <category> Hello World! </category>
-          
+        <category>Hello World!</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 初次使用 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello World！</title>
-      <link href="/2018/06/22/hello-world/"/>
-      <url>/2018/06/22/hello-world/</url>
-      <content type="html"><![CDATA[<p>Hello World!<br><a id="more"></a><br>终于把个人博客弄好的，菜鸟真是不容易。<br>还是要感谢一下网上的各路大神，都是借鉴了大家的攻略才终于弄好的。</p><h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p>Hexo主题来源: <a href="https://github.com/iissnan/hexo-theme-next/blob/master/README.cn.md" target="_blank" rel="noopener">Next主题</a><br>Hexo配置参考1: <a href="https://baoyuzhang.github.io/2017/05/12/【Hexo搭建独立博客全纪录】（三）使用Hexo搭建博客/" target="_blank" rel="noopener">Hexo搭建独立博客全纪录</a><br>Hexo配置参考2: <a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="noopener">Hexo官方文档</a><br>Hexo配置参考3: <a href="http://oyjt.github.io/2016/01/16/hexo博客更换主题/" target="_blank" rel="noopener">hexo博客更换主题</a></p>]]></content>
-      
+      <tags>
+        <tag>初次使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World！]]></title>
+    <url>%2F2018%2F06%2F22%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Hello World!终于把个人博客弄好的，菜鸟真是不容易。还是要感谢一下网上的各路大神，都是借鉴了大家的攻略才终于弄好的。 参考网站Hexo主题来源: Next主题Hexo配置参考1: Hexo搭建独立博客全纪录Hexo配置参考2: Hexo官方文档Hexo配置参考3: hexo博客更换主题]]></content>
       <categories>
-          
-          <category> Hello World! </category>
-          
+        <category>Hello World!</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 初次使用 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>My first post</title>
-      <link href="/2018/06/22/My-First-Post/"/>
-      <url>/2018/06/22/My-First-Post/</url>
-      <content type="html"><![CDATA[<p>Hello World!<br><a id="more"></a><br>测试一下格式</p>]]></content>
-      
+      <tags>
+        <tag>初次使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[My first post]]></title>
+    <url>%2F2018%2F06%2F22%2FMy-First-Post%2F</url>
+    <content type="text"><![CDATA[Hello World!测试一下格式]]></content>
       <categories>
-          
-          <category> Hello World! </category>
-          
+        <category>Hello World!</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 初次使用 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>初次使用</tag>
+      </tags>
+  </entry>
 </search>
