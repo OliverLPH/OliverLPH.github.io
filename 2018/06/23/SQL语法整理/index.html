@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="SQL语法">
+<meta name="description" content="SQL">
 <meta name="keywords" content="SQL,MySQL,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL语法整理">
 <meta property="og:url" content="https://oliverlph.github.io/2018/06/23/SQL语法整理/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="SQL语法">
+<meta property="og:description" content="SQL">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T01:40:39.406Z">
+<meta property="og:updated_time" content="2018-11-05T05:48:37.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL语法整理">
-<meta name="twitter:description" content="SQL语法">
+<meta name="twitter:description" content="SQL">
 
 
 
@@ -438,7 +438,232 @@
       
 
       
-        <p>SQL语法<br><a id="more"></a></p>
+        <p>SQL<br><a id="more"></a><br>SQL的用途十分广泛，其实很多时候也挺复杂的，我的SQL水平并不太好，然后就在这里总结一下除开增，删，改，查等基本操作的常用的一些SQL写法。</p>
+<p>其中也会穿插一些在Leetcode上面做的SQL的题目，和自己的思路。</p>
+<h2 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h2><h3 id="聚合函数-GROUP-BY"><a href="#聚合函数-GROUP-BY" class="headerlink" title="聚合函数 GROUP BY"></a>聚合函数 GROUP BY</h3><p>GROUP BY 语句用于结合聚合函数，根据一个或多个列对结果集进行分组。</p>
+<h4 id="SQL-GROUP-BY-语法"><a href="#SQL-GROUP-BY-语法" class="headerlink" title="SQL GROUP BY 语法"></a>SQL GROUP BY 语法</h4><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name;</span><br></pre></td></tr></table></figure><br><br></p><br></details>
+
+<p>实例演示</p>
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>Class</th>
+<th>Age</th>
+<th>Gender</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oliver</td>
+<td>A</td>
+<td>19</td>
+<td>M</td>
+</tr>
+<tr>
+<td>Allie</td>
+<td>A</td>
+<td>18</td>
+<td>F</td>
+</tr>
+<tr>
+<td>Lee</td>
+<td>B</td>
+<td>20</td>
+<td>M</td>
+</tr>
+<tr>
+<td>Jerry</td>
+<td>A</td>
+<td>19</td>
+<td>M</td>
+</tr>
+<tr>
+<td>Frank</td>
+<td>B</td>
+<td>18</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Class</span>,<span class="keyword">AVG</span>(Age) <span class="keyword">as</span> Avg_age </span><br><span class="line"><span class="keyword">FROM</span> Classes <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">Class</span>;</span><br></pre></td></tr></table></figure>
+<p>以班级为聚合目标来进行聚合，求出班级的平均年龄得到下表。</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Avg_age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>18.6667</td>
+</tr>
+<tr>
+<td>B</td>
+<td>19.0000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HAVING-子句"><a href="#HAVING-子句" class="headerlink" title="HAVING 子句"></a>HAVING 子句</h3><p>在 SQL 中增加 HAVING 子句原因是，WHERE 关键字无法与聚合函数一起使用。HAVING 子句可以让我们筛选分组后的各组数据。</p>
+<h4 id="SQL-HAVING-语法"><a href="#SQL-HAVING-语法" class="headerlink" title="SQL HAVING 语法"></a>SQL HAVING 语法</h4><details><br>    <summary>代码</summary><br>    <p><br><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br><span class="line"><span class="keyword">HAVING</span> aggregate_function(column_name) <span class="keyword">operator</span> <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure><br><br></p><br></details>
+
+
+<p>参考网址：<a href="http://www.runoob.com/sql/sql-having.html" target="_blank" rel="noopener">菜鸟教程SQL Having语法</a></p>
+<p>实例演示</p>
+<p>“Websites”表的数据</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>url</th>
+<th>alexa</th>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Google</td>
+<td><a href="https://www.google.cm/" target="_blank" rel="noopener">https://www.google.cm/</a></td>
+<td>1</td>
+<td>USA</td>
+</tr>
+<tr>
+<td>2</td>
+<td>淘宝</td>
+<td><a href="https://www.taobao.com/" target="_blank" rel="noopener">https://www.taobao.com/</a></td>
+<td>13</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>菜鸟教程</td>
+<td><a href="http://www.runoob.com/" target="_blank" rel="noopener">http://www.runoob.com/</a></td>
+<td>4689</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>4</td>
+<td>微博</td>
+<td><a href="http://weibo.com/" target="_blank" rel="noopener">http://weibo.com/</a></td>
+<td>20</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Facebook</td>
+<td><a href="https://www.facebook.com/" target="_blank" rel="noopener">https://www.facebook.com/</a></td>
+<td>3</td>
+<td>USA</td>
+</tr>
+<tr>
+<td>7</td>
+<td>stackoverflow</td>
+<td><a href="http://stackoverflow.com/" target="_blank" rel="noopener">http://stackoverflow.com/</a></td>
+<td>0</td>
+<td>IND</td>
+</tr>
+</tbody>
+</table>
+<p>“access_log”网站访问记录表的数据</p>
+<table>
+<thead>
+<tr>
+<th>aid</th>
+<th>site_id</th>
+<th>count</th>
+<th>date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>45</td>
+<td>2016-05-10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>100</td>
+<td>2016-05-13</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>230</td>
+<td>2016-05-14</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>10</td>
+<td>2016-05-14</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>205</td>
+<td>2016-05-14</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>13</td>
+<td>2016-05-15</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3</td>
+<td>220</td>
+<td>2016-05-15</td>
+</tr>
+<tr>
+<td>8</td>
+<td>5</td>
+<td>545</td>
+<td>2016-05-16</td>
+</tr>
+<tr>
+<td>9</td>
+<td>3</td>
+<td>201</td>
+<td>2016-05-17</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们想要查找总访问量大于 200 的网站。<br>我们使用下面的 SQL 语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Websites.name, Websites.url, <span class="keyword">SUM</span>(access_log.count) <span class="keyword">AS</span> nums <span class="keyword">FROM</span> (access_log</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Websites</span><br><span class="line"><span class="keyword">ON</span> access_log.site_id=Websites.id)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Websites.name</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(access_log.count) &gt; <span class="number">200</span>;</span><br></pre></td></tr></table></figure>
+<p>得出了访问量大于200的网站</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>url</th>
+<th>nums</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Facebook</td>
+<td><a href="https://www.facebook.com/" target="_blank" rel="noopener">https://www.facebook.com/</a></td>
+<td>750</td>
+</tr>
+<tr>
+<td>Google</td>
+<td><a href="https://www.google.cm/" target="_blank" rel="noopener">https://www.google.cm/</a></td>
+<td>275</td>
+</tr>
+<tr>
+<td>菜鸟教程</td>
+<td><a href="http://www.runoob.com/" target="_blank" rel="noopener">http://www.runoob.com/</a></td>
+<td>521</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -562,8 +787,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -660,6 +894,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内置函数"><span class="nav-number">1.</span> <span class="nav-text">内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合函数-GROUP-BY"><span class="nav-number">1.1.</span> <span class="nav-text">聚合函数 GROUP BY</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-GROUP-BY-语法"><span class="nav-number">1.1.1.</span> <span class="nav-text">SQL GROUP BY 语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAVING-子句"><span class="nav-number">1.2.</span> <span class="nav-text">HAVING 子句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-HAVING-语法"><span class="nav-number">1.2.1.</span> <span class="nav-text">SQL HAVING 语法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
