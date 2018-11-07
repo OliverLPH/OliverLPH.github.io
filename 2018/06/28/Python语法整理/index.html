@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据挖掘,Python,机器学习," />
+  <meta name="keywords" content="机器学习,数据挖掘,Python," />
 
 
 
@@ -95,14 +95,14 @@
 
 
 <meta name="description" content="Python语法整理(更新日期 2018/6/28)">
-<meta name="keywords" content="数据挖掘,Python,机器学习">
+<meta name="keywords" content="机器学习,数据挖掘,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
 <meta property="og:url" content="https://oliverlph.github.io/2018/06/28/Python语法整理/index.html">
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="Python语法整理(更新日期 2018/6/28)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-23T11:22:39.530Z">
+<meta property="og:updated_time" content="2018-11-07T03:05:06.050Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
 <meta name="twitter:description" content="Python语法整理(更新日期 2018/6/28)">
@@ -511,7 +511,11 @@
 <li>lazy evaluation 惰性求值</li>
 <li>determinism 确定性</li>
 </ol>
-<h2 id="Python数据结构"><a href="#Python数据结构" class="headerlink" title="Python数据结构"></a>Python数据结构</h2><h2 id="Python模块常用语法"><a href="#Python模块常用语法" class="headerlink" title="Python模块常用语法"></a>Python模块常用语法</h2><h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式是一个非常常用的模块，然后，可以模糊的匹配出所需要的模组</p>
+<h2 id="Python数据结构"><a href="#Python数据结构" class="headerlink" title="Python数据结构"></a>Python数据结构</h2><h3 id="堆-ADT"><a href="#堆-ADT" class="headerlink" title="堆 ADT"></a>堆 ADT</h3><p>python的堆，可以用内置库实现priority queue algorithm优先级队列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"><span class="comment">#内置堆默认为小根堆</span></span><br><span class="line"><span class="comment">#初始化堆</span></span><br><span class="line">PriorityQueue = [] <span class="comment">#用列表来做储存的数据结构</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#增，往堆里添加item</span></span><br><span class="line"><span class="comment">#heapq.heappush(heap, item)</span></span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">6</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">1</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">3</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">4</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">5</span>)</span><br><span class="line">print(PriorityQueue)</span><br><span class="line"><span class="comment">#以上的代码往堆里压入了6，1，3，4，5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#弹出堆里的最小值</span></span><br><span class="line"><span class="comment">#heapq.heappop(heap)</span></span><br><span class="line">min_heap = heapq.heappop(PriorityQueue)</span><br><span class="line">print(min_heap)</span><br><span class="line">print(PriorityQueue)</span><br><span class="line"><span class="comment">#push和pop两个操作一起进行,push item进去，pop最小值出来</span></span><br><span class="line"><span class="comment">#heapq.heappushpop(heap, item)</span></span><br><span class="line"><span class="comment">#该操作效率相比于 分别进行 push &amp; pop更高</span></span><br><span class="line">min_heap2 = heapq.heappushpop(PriorityQueue, <span class="number">100</span>)</span><br><span class="line">print(min_heap2)</span><br><span class="line">print(PriorityQueue)</span><br></pre></td></tr></table></figure>
+<p>堆排序也可以基于内置的heapq库来进行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapsort</span><span class="params">(iterable)</span>:</span></span><br><span class="line">	h = []</span><br><span class="line">	<span class="keyword">for</span> value <span class="keyword">in</span> iterable:</span><br><span class="line">		heapq.heappush(h, value)</span><br><span class="line">	<span class="keyword">return</span> [heapq.heappop(h) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(h))]</span><br><span class="line"></span><br><span class="line">list_ = [<span class="number">100</span>,<span class="number">200</span>,<span class="number">50</span>,<span class="number">4</span>,<span class="number">15</span>,<span class="number">666</span>,<span class="number">333</span>]</span><br><span class="line">print(heapsort(list_))</span><br></pre></td></tr></table></figure>
+<h2 id="Python模块常用语法"><a href="#Python模块常用语法" class="headerlink" title="Python模块常用语法"></a>Python模块常用语法</h2><h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式是一个非常常用的模块，然后，可以模糊的匹配出所需要的模组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = &lt;正则表达式&gt;</span><br><span class="line">info = <span class="string">'&lt;&gt;'</span>(str)</span><br><span class="line">re.match(regex,info)</span><br></pre></td></tr></table></figure>
 <p>语法比较简单，但是里面匹配的时候，有一些特殊符号的作用</p>
 <p>()只负责提取括号内的内容</p>
@@ -579,11 +583,11 @@ $ 限定结尾
       
         <div class="post-tags">
           
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
             <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
           
             <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -596,8 +600,8 @@ $ 限定结尾
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/23/Latex语法整理/" rel="next" title="Latex语法整理">
-                <i class="fa fa-chevron-left"></i> Latex语法整理
+              <a href="/2018/06/23/SQL语法整理/" rel="next" title="SQL语法整理">
+                <i class="fa fa-chevron-left"></i> SQL语法整理
               </a>
             
           </div>
@@ -692,7 +696,7 @@ $ 限定结尾
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -703,7 +707,7 @@ $ 限定结尾
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -714,7 +718,7 @@ $ 限定结尾
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -784,7 +788,7 @@ $ 限定结尾
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python语法整理笔记"><span class="nav-number">1.</span> <span class="nav-text">Python语法整理笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">Python基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python的函数式编程"><span class="nav-number">1.1.1.</span> <span class="nav-text">Python的函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的特性"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">函数式编程的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的方法"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">函数式编程的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的好处"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">函数式编程的好处</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">Python数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python模块常用语法"><span class="nav-number">1.3.</span> <span class="nav-text">Python模块常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.3.1.</span> <span class="nav-text">正则表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python算法"><span class="nav-number">1.4.</span> <span class="nav-text">Python算法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python语法整理笔记"><span class="nav-number">1.</span> <span class="nav-text">Python语法整理笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">Python基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python的函数式编程"><span class="nav-number">1.1.1.</span> <span class="nav-text">Python的函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的特性"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">函数式编程的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的方法"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">函数式编程的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的好处"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">函数式编程的好处</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">Python数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆-ADT"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆 ADT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python模块常用语法"><span class="nav-number">1.3.</span> <span class="nav-text">Python模块常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.3.1.</span> <span class="nav-text">正则表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python算法"><span class="nav-number">1.4.</span> <span class="nav-text">Python算法</span></a></li></ol></li></ol></div>
             
 
           </div>
