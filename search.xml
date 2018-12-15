@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Jupyter添加新kernel(Mac)]]></title>
+    <url>%2F2018%2F12%2F15%2FJupyter%E6%B7%BB%E5%8A%A0%E6%96%B0kernel-Mac%2F</url>
+    <content type="text"><![CDATA[在 Anaconda中创建了新的虚拟环境，但是在Jupyter Notebook或者Jupyter lab里却看不见，然后以下是解决办法。 创建虚拟环境首先打开 Terminal界面，创建新环境 “”new_env_” 1$ conda create -n new_env 查询当前 conda包含的虚拟环境 1$ conda env list 变更当前环境至指定虚拟环境 1$ source activate new_env 将虚拟环境添加到Jupyter在Terminal里首先需要切换到需要添加的环境中，然后输入以下命令 1$ python -m ipykernel install --name new_env 此时如果 提示缺失 ipykernel，则返回 conda进行安装。 如果 提示缺失权限，则 添加 sudo 然后输入密码则可以完成添加。 1$ sudo python -m ipykernel install --name new_env]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Python</tag>
+        <tag>Jupyter Notebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo常用命令（一）]]></title>
     <url>%2F2018%2F12%2F15%2FHexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41%2F</url>
     <content type="text"><![CDATA[Hexo 的相关常用命令 Hexo 常用命令（一）命令常用的 hexo简写命令 hexo new draft &quot;new draft&quot; #创建草稿 hexo publish [layout] &lt;filename&gt; #将草稿升级为文章 hexo n &quot;new_post&quot;==hexo new &quot;new_post&quot; #直接创建文章 hexo p==hexo publish #发布文章，将草稿升级为文章 hexo g==hexo generate #生成 hexo s==hexo server #在本地服务器预览，可修改localhost端口hexo d==hexo deploy #部署到远端服务器 hexo clean #清除本地文件]]></content>
