@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hexo常用命令]]></title>
+    <title><![CDATA[Hexo常用命令（一）]]></title>
     <url>%2F2018%2F12%2F15%2FHexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41%2F</url>
-    <content type="text"><![CDATA[Hexo 常用命令（一）命令常用的 hexo简写命令 hexo new draft &quot;new draft&quot; #创建草稿 hexo publish [layout] &lt;filename&gt; #将草稿升级为文章 hexo n &quot;new_post&quot;==hexo new &quot;new_post&quot; #直接创建文章 hexo p==hexo publish #发布文章，将草稿升级为文章 hexo g==hexo generate #生成 hexo s==hexo server #在本地服务器预览，可修改localhost端口hexo d==hexo deploy #部署到远端服务器 hexo clean #清除本地文件]]></content>
+    <content type="text"><![CDATA[Hexo 的相关常用命令 Hexo 常用命令（一）命令常用的 hexo简写命令 hexo new draft &quot;new draft&quot; #创建草稿 hexo publish [layout] &lt;filename&gt; #将草稿升级为文章 hexo n &quot;new_post&quot;==hexo new &quot;new_post&quot; #直接创建文章 hexo p==hexo publish #发布文章，将草稿升级为文章 hexo g==hexo generate #生成 hexo s==hexo server #在本地服务器预览，可修改localhost端口hexo d==hexo deploy #部署到远端服务器 hexo clean #清除本地文件]]></content>
       <categories>
         <category>Hexo</category>
       </categories>
@@ -31,9 +31,9 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
+        <tag>数据挖掘</tag>
         <tag>Python</tag>
         <tag>机器学习</tag>
-        <tag>数据挖掘</tag>
       </tags>
   </entry>
   <entry>
@@ -44,8 +44,8 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>数据挖掘</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -57,9 +57,9 @@
         <category>Python</category>
       </categories>
       <tags>
+        <tag>数据挖掘</tag>
         <tag>Python</tag>
         <tag>机器学习</tag>
-        <tag>数据挖掘</tag>
       </tags>
   </entry>
   <entry>
@@ -83,8 +83,8 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>数据挖掘</tag>
         <tag>Hadoop</tag>
+        <tag>数据挖掘</tag>
         <tag>分布式计算</tag>
         <tag>工具</tag>
       </tags>
