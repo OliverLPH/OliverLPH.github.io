@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hexo常用命令]]></title>
+    <url>%2F2018%2F12%2F15%2FHexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41%2F</url>
+    <content type="text"><![CDATA[Hexo 常用命令（一）命令常用的 hexo简写命令 hexo new draft &quot;new draft&quot; #创建草稿 hexo publish [layout] &lt;filename&gt; #将草稿升级为文章 hexo n &quot;new_post&quot;==hexo new &quot;new_post&quot; #直接创建文章 hexo p==hexo publish #发布文章，将草稿升级为文章 hexo g==hexo generate #生成 hexo s==hexo server #在本地服务器预览，可修改localhost端口hexo d==hexo deploy #部署到远端服务器 hexo clean #清除本地文件]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Leetcode解题思路]]></title>
     <url>%2F2018%2F11%2F14%2FLeetCode%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%2F</url>
     <content type="text"><![CDATA[Leetcode解题思路 在日常刷LeetCode题时，对自己思路做一些记录语言主要为Python Github上也有我上传好的代码: Github_Peihan’s LeetCode LeetCodeLeetcode #1 Title: Two Sum(两数之和)#1题目描述 代码 1234567891011121314151617181920212223class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ for num in nums: remain_num = target - num if remain_num in nums: x = nums.index(remain_num) y = nums.index(num) if x != y: result = [x,y] elif x == y: nums[x] = None if remain_num in nums: y = nums.index(num) result = [x,y] else: pass return result Leetcode #2 Title: Add Two Numbers(两数相加)#2题目描述 代码 1234567891011121314151617181920212223242526# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def addTwoNumbers(self, l1, l2): """ :type l1: ListNode :type l2: ListNode :rtype: ListNode """ dummy = cur = ListNode(0) carry = 0 #进位 while l1 or l2 or carry: if l1: carry += l1.val l1 = l1.next if l2: carry += l2.val l2 = l2.next cur.next = ListNode(carry%10) cur = cur.next carry //= 10 return dummy.next Leetcode #3 Title: Longest Substring Without Repeating Characters(无重复字符的最长子串)#3题目描述 代码 1234567891011121314151617181920class Solution: def lengthOfLongestSubstring(self, s): """ :type s: str :rtype: int """ seen_map = &#123;&#125; max_len = 0 len_last = 0 for i in range(len(s)): l = s[i] if l in seen_map: len_last = min(i - seen_map[l] - 1, len_last) + 1 seen_map[l] = i else: len_last += 1 seen_map[l] = i if len_last &gt;= max_len: max_len = len_last return max_len Leetcode #9 Title: Palindrome Number(回文数)#9题目描述 这道题可以用一句话解决问题。但是仍然把integer转换成了character。 思路如下： 比如输入是 x = 123456 str(x)表示 ‘123456’ str(x)[::-1]表示反向的str(x),就是顺序相反，所以输出为 ‘654321’ 因为回文数的特征，所以直接str(x)==str(x)[::-1]就说明是回文数了 代码 1234567class Solution: def isPalindrome(self, x): """ :type x: int :rtype: bool """ return str(x)==str(x)[::-1] Leetcode #11 Title: Container With Most Water(盛最多水的容器)#11题目描述 这道题目的难点在于时间复杂度，如果直接使用两个循环，那么很容易就超时了。因此我们将思路拓展一下，能够构成最大面积的值是怎么得到的。 比如输入是[1,2,1,4,2,1] 那么此时点的位置则是{(1,1),(2,2),(3,1),(4,4),(5,2),(6,1)} 然后我们就开始从两边的数字可以构成的面积开始推算，然后每次向中间移动一格。此时我们判断构成“容器”的两端的高度，然后将更矮那一端的 垂线 向中间移动，直到两个垂线相邻。 代码 12345678910111213141516171819class Solution: def maxArea(self, height): """ :type height: List[int] :rtype: int """ max_area = 0 #initilize max area i = 0 j = len(height) - 1 while i &lt; j: area = (j-i)*min(height[i], height[j]) max_area = max(max_area, area) if height[i] &lt;= height[j]: i += 1 else: j -= 1 return max_area Leetcode #200 Title: Number of Islands(岛屿的个数)#200题目描述 这题的思路就是使用一个额外的感染函数。遍历数组的时候，当遇到1则将其周围的所有1感染为2，依次感染下去，直到没有1。 代码 12345678910111213141516171819202122232425class Solution: def numIslands(self, grid): if not grid: return 0 count = 0 n = len(grid) m = len(grid[0]) for i in range(n): for j in range(m): if grid[i][j] == '1': grid = self.helper(grid,i,j,n,m) count +=1 else: pass return count def helper(self,grid,i,j,n,m): if i&lt;0 or i &gt;=n or j&lt;0 or j &gt;=m or grid[i][j] != '1': return grid grid[i][j] = '2' self.helper(grid,i,j+1,n,m) self.helper(grid,i+1,j,n,m) self.helper(grid,i-1,j,n,m) self.helper(grid,i,j-1,n,m) return grid]]></content>
@@ -20,9 +31,9 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>数据挖掘</tag>
         <tag>Python</tag>
         <tag>机器学习</tag>
+        <tag>数据挖掘</tag>
       </tags>
   </entry>
   <entry>
@@ -33,8 +44,8 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>数据挖掘</tag>
         <tag>机器学习</tag>
+        <tag>数据挖掘</tag>
       </tags>
   </entry>
   <entry>
@@ -46,9 +57,9 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>数据挖掘</tag>
         <tag>Python</tag>
         <tag>机器学习</tag>
+        <tag>数据挖掘</tag>
       </tags>
   </entry>
   <entry>
@@ -72,8 +83,8 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>Hadoop</tag>
         <tag>数据挖掘</tag>
+        <tag>Hadoop</tag>
         <tag>分布式计算</tag>
         <tag>工具</tag>
       </tags>
@@ -86,6 +97,7 @@
         <category>Hello World!</category>
       </categories>
       <tags>
+        <tag>Hexo</tag>
         <tag>初次使用</tag>
       </tags>
   </entry>
