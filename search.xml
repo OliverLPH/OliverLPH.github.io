@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Markdown常用语法（一）]]></title>
+    <url>%2F2019%2F01%2F17%2FMarkdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Markdown 的相关常用命令 Markdown 常用语法（一）插入命令常用的 Markdown的插入命令 插入图片1![插入图片的名字](https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG) 但是上面这个方式无法选择图片显示的位置，和选择图片的大小。 1&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt; 这个代码可以修改图片的大小。 12345&lt;div align=center&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;&lt;div align=left&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;&lt;div align=right&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt; 这个代码可以修改图片的位置。 插入视频12&lt;video src=&quot;https://www.bilibili.com/video/av2271112&quot; width=&quot;320&quot; height=&quot;180&quot; controls=&quot;controls&quot;&gt;&lt;/video&gt; 上面的代码可以插入视频，这个视频是雷总的著名歌曲。 插入音乐Markdown支持插入 在线音乐的外链，网易云音乐是可以的。 参考: markdown插入网易云音乐 插入公式Markdown插入公式的操作比较简单，将latex格式的公式放在”$”里面就可以了 1$$L_\theta(x)=\prod^m_&#123;i=1&#125;h_\theta(x^i;\theta)^&#123;yi&#125; \cdot (1-h_\theta(x^i;\theta))^&#123;1-y^i&#125;$$ $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 插入表格表格的插入操作也比较简单，但是Markdown貌似不支持合并单元格。 1234567| Student | Class | Age | Gender || --- | --- | --- | --- || Oliver | A | 19 | M || Allie | A | 18 | F || Lee | B | 20 | M || Jerry | A | 19 | M || Frank | B | 18 | F | Student Class Age Gender Oliver A 19 M Allie A 18 F Lee B 20 M Jerry A 19 M Frank B 18 F]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Jupyter添加新kernel(Mac)]]></title>
     <url>%2F2018%2F12%2F15%2FJupyter%E6%B7%BB%E5%8A%A0%E6%96%B0kernel-Mac%2F</url>
     <content type="text"><![CDATA[在 Anaconda中创建了新的虚拟环境，但是在Jupyter Notebook或者Jupyter lab里却看不见，然后以下是解决办法。 创建虚拟环境首先打开 Terminal界面，创建新环境 “”new_env_” 1$ conda create -n new_env 查询当前 conda包含的虚拟环境 1$ conda env list 变更当前环境至指定虚拟环境 1$ source activate new_env 将虚拟环境添加到Jupyter在Terminal里首先需要切换到需要添加的环境中，然后输入以下命令 1$ python -m ipykernel install --name new_env 此时如果 提示缺失 ipykernel，则返回 conda进行安装。 如果 提示缺失权限，则 添加 sudo 然后输入密码则可以完成添加。 1$ sudo python -m ipykernel install --name new_env]]></content>
