@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Python Grammar - Regular Expression]]></title>
+    <url>%2F2019%2F01%2F30%2FPython%20Grammar4%2F</url>
+    <content type="text"><![CDATA[Python的正则表达式语法总结和小抄 Python Grammar - Regular Expression正则表达式正则表达式是一个非常常用的模块，在各个语言中均有很广泛的用途。 用正则表达式可以模糊的匹配出所需要的内容。 1234import reregex = &lt;正则表达式&gt;info = '&lt;&gt;'(str)re.match(regex,info) 语法比较简单，但是里面匹配的时候，有一些特殊符号的作用 ()只负责提取括号内的内容 group(0): 代表提取出最外层括号的内容 group(1): 代表提取出第一个括号内的内容，然后数字叠加以此内推 ​​ ^ 限定开头​ $ 限定结尾​ * 限定字符出现任意多次​ . 表示任意字符​ ? 取消贪婪模式，从左往右寻找数字​ + 限定字符多出现1次​ {2}​ {2,5} []: 中括号的内容中括号有三个用途 区间， 任意字符出现 [.*]不包含其他含义的字符，中括号里面的.就是普通的点 中括号里只要出现任意一个，都是可以匹配到的。常用在匹配电话号码中。比如任意 电话 150 565 56735 130 565 56735 137 565 56735模糊匹配 1[357]0 565 56735可以把他们都匹配得到 \s 表示空格 \S 表示不为空格都可以,但是只能表示一个字符 \w 表示[0-9,a-z,A-Z,_这些字符] （数字，字符，下划线） \W 表示非以上字符 ​ [\u4E00-\u9FA5]汉字区间，表示所有的汉字，均可以匹配出来​ \d 表示数字]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python Grammar - data structures]]></title>
+    <url>%2F2019%2F01%2F30%2FPython%20Grammar3%2F</url>
+    <content type="text"><![CDATA[Python的数据结构语法总结和小抄 Python Grammar - Data StructuresPython数据结构堆 ADTpython的堆，可以用内置库实现priority queue algorithm优先级队列 1234567891011121314151617181920212223242526import heapq#内置堆默认为小根堆#初始化堆PriorityQueue = [] #用列表来做储存的数据结构#增，往堆里添加item#heapq.heappush(heap, item)heapq.heappush(PriorityQueue,6)heapq.heappush(PriorityQueue,1)heapq.heappush(PriorityQueue,3)heapq.heappush(PriorityQueue,4)heapq.heappush(PriorityQueue,5)print(PriorityQueue)#以上的代码往堆里压入了6，1，3，4，5#弹出堆里的最小值#heapq.heappop(heap)min_heap = heapq.heappop(PriorityQueue)print(min_heap)print(PriorityQueue)#push和pop两个操作一起进行,push item进去，pop最小值出来#heapq.heappushpop(heap, item)#该操作效率相比于 分别进行 push &amp; pop更高min_heap2 = heapq.heappushpop(PriorityQueue, 100)print(min_heap2)print(PriorityQueue) 堆排序也可以基于内置的heapq库来进行 123456789#堆排序def heapsort(iterable): h = [] for value in iterable: heapq.heappush(h, value) return [heapq.heappop(h) for i in range(len(h))]list_ = [100,200,50,4,15,666,333]print(heapsort(list_))]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python Grammar - functions]]></title>
+    <url>%2F2019%2F01%2F30%2FPython%20Grammar2%2F</url>
+    <content type="text"><![CDATA[Python的函数式编程语法总结和小抄 Python Grammar - FunctionsPython的函数式编程函数式编程的特性 对象，Mutable和Immutable对象Muatble对象: list, dict, setImmutable对象: strings, tuples, numbers 1.1. 区分Muatble对象和Immutable对象 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。查找对象位置id().比如 12345678In [1]: a = 1In [2]: id(a)Out[2]: 4345522256In [3]: a = 2In [4]: id(a)Out[4]: 4345522288In [5]: id(2)Out[5]: 4345522288 从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。 immutable 并不是绝对的不可变。 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。 1.2 immutable data的作用 像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了） first class functions可以理解为面向对象编程 尾递归优化Python不支持尾递归优化 函数式编程的方法 经典函数: Map &amp; Reduce 在Python中，Map reduce用的非常之多 举几个简单的例子 123&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])&gt;&gt; print(list(length))&gt;&gt; [3, 3, 3] #输出 Map函数还可以和lambda函数一起使用 123&gt;&gt; square_list = map(lambda x:x*x, [1,2,3,4,5,10])&gt;&gt; print(list(square_list))&gt;&gt; [1, 4, 9, 16, 25, 100] #输出 Map函数用来批量开根号 123&gt;&gt; square_root_list = map(lambda x:pow(x,0.5), [4,9,16,25,36,2,3])&gt;&gt; print(list(square_root_list))&gt;&gt; [2.0, 3.0, 4.0, 5.0, 6.0, 1.4142135623730951, 1.7320508075688772] #输出 然后就是reduce函数怎么用 在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数： 举个例子 12345&gt;&gt; #必须要先从functool里面调用才可以用&gt;&gt; from functools import reduce&gt;&gt; factorial = reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])&gt;&gt; print(factorial)&gt;&gt; 15 #输出 这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。 因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。 1234&gt;&gt; from functools import reduce&gt;&gt; itera = reduce(lambda x,y: x*y, [1,2,3,4,5,6])&gt;&gt; print(itera)&gt;&gt; 720 #输出 上面的代码就是输出了6的阶乘 参考网页: 函数式编程这个例子是从该网页看到的 还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。 计算数组中正数的平均值 123456789101112num =[2, -5, 9, 7, -2, 5, 3, 1, 0, -3, 8]positive_num_cnt = 0positive_num_sum = 0for i in range(len(num)): if num[i] &gt; 0: positive_num_cnt += 1 positive_num_sum += num[i] if positive_num_cnt &gt; 0: average = positive_num_sum / positive_num_cnt print(average) #输出5 如果采用函数式编程 12positive_num = filter(lambda x: x&gt;0, num)average = reduce(lambda x,y: x+y, positive_num) / len( positive_num ) 如上面的代码所示，两句话就把这个问题解决了 Pipeline Recursing currying higher order function 函数式编程的好处 parallelization 并行 lazy evaluation 惰性求值 determinism 确定性]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python Grammar - Basic]]></title>
+    <url>%2F2019%2F01%2F30%2FPython%20Grammar1%2F</url>
+    <content type="text"><![CDATA[Python基础语法总结和小抄 Python Grammar - BasicPython基本语法数据格式 Data Types123456a = 1 # 整数(integer)b = 2.0 # 浮点数(float)c = 3.3e6 # 指数(exponential)d = 1.9 + 0.5j # 复数(complex)e = 3 &gt; 5 # 布尔(boolean)f = 'test' # 字符串(string) 列表 Lists1234567891011121314151617a = ['red', 'blue', 'green'] # manually initializationb = list(range(5)) # initialize from iteratablec = [num**2 for num in b] # list comprehensiond = [num**2 for num in b if num &lt; 3] # conditioned list comprehensione = c[0] # access elementf = c[1:2] # access a slice of the listg = c[-1] # access last elementh = ['re', 'bl'] + ['gr'] # list concatenationi = ['re'] * 5 # repeat a list['re', 'bl'].index('re') # returns index of 're'a.append('yellow') # add new element to end of lista.extend(b) # add elements from list `b` to end of list `a`a.insert(1, 'yellow') # insert element in specified position're' in ['re', 'bl'] # true if 're' in list'fi' not in ['re', 'bl'] # true if 'fi' not in listsorted([3, 2, 1]) # returns sorted lista.pop(2) # remove and return item at index (default last) 字典 Dictionaries123456789101112a = &#123;'red': 'rouge', 'blue': 'bleu'&#125; # dictionaryb = a['red'] # translate item'red' in a # true if dictionary a contains key 'red'c = [value for key, value in a.items()] # loop through contentsd = a.get('yellow', 'no translation found') # return defaulta.setdefault('extra', []).append('cyan') # init key with defaulta.update(&#123;'green': 'vert', 'brown': 'brun'&#125;) # update dictionary by data from another onea.keys() # get list of keysa.values() # get list of valuesa.items() # get list of key-value pairsdel a['red'] # delete key and associated with it valuea.pop('blue') # remove specified key and return the corresponding value 集合 Sets123456789101112131415161718a = &#123;1, 2, 3&#125; # initialize manuallyb = set(range(5)) # initialize from iteratablea.add(13) # add new element to seta.discard(13) # discard element from seta.update([21, 22, 23]) # update set with elements from iterablea.pop() # remove and return an arbitrary set element2 in &#123;1, 2, 3&#125; # true if 2 in set5 not in &#123;1, 2, 3&#125; # true if 5 not in seta.issubset(b) # test whether every element in a is in ba &lt;= b # issubset in operator forma.issuperset(b) # test whether every element in b is in aa &gt;= b # issuperset in operator forma.intersection(b) # return the intersection of two sets as a new seta.difference(b) # return the difference of two or more sets as a new seta - b # difference in operator forma.symmetric_difference(b) # return the symmetric difference of two sets as a new seta.union(b) # return the union of sets as a new setc = frozenset() # the same as set but immutable 字符串 Strings12345a = 'red' # assignmentchar = a[2] # access individual characters'red ' + 'blue' # string concatenation'1, 2, three'.split(',') # split string into list'.'.join(['1', '2', 'three']) # concatenate list into string 运算符号 Operators123456789101112131415161718a = 2 # assignmenta += 1 (*=, /=) # change and assign3 + 2 # addition3 / 2 # integer (python2) or float (python3) division3 // 2 # integer division3 * 2 # multiplication3 ** 2 # exponent3 % 2 # remainderabs(a) # absolute value1 == 1 # equal2 &gt; 1 # larger2 &lt; 1 # smaller1 != 2 # not equal1 != 2 and 2 &lt; 3 # logical AND1 != 2 or 2 &lt; 3 # logical ORnot 1 == 2 # logical NOT'a' in b # test if a is in ba is b # test if objects point to the same memory (id) 循环 Control Flowif/elif/else 循环1234567a, b = 1, 2if a + b == 3: print('True')elif a + b == 1: print('False')else: print('?') for 循环1234# fora = ['red', 'blue', 'green']for color in a: print(color) while 循环1234number = 1while number &lt; 10: print(number) number += 1 break123456number = 1while True: print(number) number += 1 if number &gt; 10: break continue1234for i in range(20): if i % 2 == 0: continue print(i) 函数，类，生成器，装饰器 Functions, Classes, Generators, Decorators函数 Functions123456# Function groups code statements and possibly# returns a derived valuedef myfunc(a1, a2): return a1 + a2x = myfunc(a1, a2) 函数 Lambda Expression12# returns a derived value by Lambda Expressionmylambda = lambda a1 : a1 + 1 类，对象 Classes123456789# Class groups attributes (data)# and associated methods (functions)class Point(object): def __init__(self, x): self.x = x def __call__(self): print(self.x)x = Point(3) 生成器 Generators123456789# Generator iterates without# creating all values at oncedef firstn(n): num = 0 while num &lt; n: yield num num += 1x = [i for i in firstn(10)] 装饰器 Decorators1234567891011121314# Decorator can be used to modify# the behaviour of a functionclass myDecorator(object): def __init__(self, f): self.f = f def __call__(self): print("call") self.f()@myDecoratordef my_funct(): print('func')my_funct()]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Markdown常用语法（一）]]></title>
     <url>%2F2019%2F01%2F17%2FMarkdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Markdown 的相关常用命令 Markdown 常用语法（一）插入命令常用的 Markdown的插入命令 插入图片1![插入图片的名字](https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG) 但是上面这个方式无法选择图片显示的位置，和选择图片的大小。 1&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt; 这个代码可以修改图片的大小。 12345&lt;div align=center&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;&lt;div align=left&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;&lt;div align=right&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt; 这个代码可以修改图片的位置。 插入视频12&lt;video src=&quot;https://www.bilibili.com/video/av2271112&quot; width=&quot;320&quot; height=&quot;180&quot; controls=&quot;controls&quot;&gt;&lt;/video&gt; 上面的代码可以插入视频，这个视频是雷总的著名歌曲。 插入音乐Markdown支持插入 在线音乐的外链，网易云音乐是可以的。 参考: markdown插入网易云音乐 插入公式Markdown插入公式的操作比较简单，将latex格式的公式放在”$”里面就可以了 1$$L_\theta(x)=\prod^m_&#123;i=1&#125;h_\theta(x^i;\theta)^&#123;yi&#125; \cdot (1-h_\theta(x^i;\theta))^&#123;1-y^i&#125;$$ $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 插入表格表格的插入操作也比较简单，但是Markdown貌似不支持合并单元格。 1234567| Student | Class | Age | Gender || --- | --- | --- | --- || Oliver | A | 19 | M || Allie | A | 18 | F || Lee | B | 20 | M || Jerry | A | 19 | M || Frank | B | 18 | F | Student Class Age Gender Oliver A 19 M Allie A 18 F Lee B 20 M Jerry A 19 M Frank B 18 F]]></content>
@@ -19,8 +63,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>工具</tag>
         <tag>Python</tag>
+        <tag>工具</tag>
         <tag>Jupyter Notebook</tag>
       </tags>
   </entry>
@@ -43,8 +87,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>LeetCode</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -55,8 +99,8 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
-        <tag>数据挖掘</tag>
         <tag>Python</tag>
+        <tag>数据挖掘</tag>
         <tag>机器学习</tag>
       </tags>
   </entry>
@@ -69,20 +113,6 @@
       </categories>
       <tags>
         <tag>数据挖掘</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Python语法整理（普通算法，机器学习和数据挖掘的应用）]]></title>
-    <url>%2F2018%2F06%2F28%2FPython%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86%2F</url>
-    <content type="text"><![CDATA[Python语法整理(更新日期 2018/6/28) Python语法整理笔记Python是目前最常用的语言之一，这里我自己总结一下我在学习的过程中遇到的问题。 Python基本语法Python的函数式编程函数式编程的特性 对象，Mutable和Immutable对象 Muatble对象: list, dict, set Immutable对象: strings, tuples, numbers 1.1. 区分Muatble对象和Immutable对象 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。 查找对象位置id(). 比如 12345678In [1]: a = 1In [2]: id(a)Out[2]: 4345522256In [3]: a = 2In [4]: id(a)Out[4]: 4345522288In [5]: id(2)Out[5]: 4345522288 从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。 &gt;immutable 并不是绝对的不可变。 &gt;&gt; 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。 1.2 immutable data的作用 像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了） first class functions可以理解为面向对象编程 尾递归优化Python不支持尾递归优化 函数式编程的方法 经典函数: Map &amp; Reduce 在Python中，Map reduce用的非常之多 举几个简单的例子 123&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])&gt;&gt; print(list(length))&gt;&gt; [3, 3, 3] #输出 Map函数还可以和lambda函数一起使用 123&gt;&gt; square_list = map(lambda x:x*x, [1,2,3,4,5,10])&gt;&gt; print(list(square_list))&gt;&gt; [1, 4, 9, 16, 25, 100] #输出 Map函数用来批量开根号 123&gt;&gt; square_root_list = map(lambda x:pow(x,0.5), [4,9,16,25,36,2,3])&gt;&gt; print(list(square_root_list))&gt;&gt; [2.0, 3.0, 4.0, 5.0, 6.0, 1.4142135623730951, 1.7320508075688772] #输出 然后就是reduce函数怎么用 在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数： 举个例子 12345&gt;&gt; #必须要先从functool里面调用才可以用&gt;&gt; from functools import reduce&gt;&gt; factorial = reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])&gt;&gt; print(factorial)&gt;&gt; 15 #输出 这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。 因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。 1234&gt;&gt; from functools import reduce&gt;&gt; itera = reduce(lambda x,y: x*y, [1,2,3,4,5,6])&gt;&gt; print(itera)&gt;&gt; 720 #输出 上面的代码就是输出了6的阶乘 参考网页: 函数式编程这个例子是从该网页看到的 还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。 计算数组中正数的平均值 123456789101112num =[2, -5, 9, 7, -2, 5, 3, 1, 0, -3, 8]positive_num_cnt = 0positive_num_sum = 0for i in range(len(num)): if num[i] &gt; 0: positive_num_cnt += 1 positive_num_sum += num[i] if positive_num_cnt &gt; 0: average = positive_num_sum / positive_num_cnt print(average) #输出5 如果采用函数式编程 12positive_num = filter(lambda x: x&gt;0, num)average = reduce(lambda x,y: x+y, positive_num) / len( positive_num ) 如上面的代码所示，两句话就把这个问题解决了 Pipeline Recursing currying higher order function 函数式编程的好处 parallelization 并行 lazy evaluation 惰性求值 determinism 确定性 Python数据结构堆 ADTpython的堆，可以用内置库实现priority queue algorithm优先级队列 1234567891011121314151617181920212223242526import heapq#内置堆默认为小根堆#初始化堆PriorityQueue = [] #用列表来做储存的数据结构#增，往堆里添加item#heapq.heappush(heap, item)heapq.heappush(PriorityQueue,6)heapq.heappush(PriorityQueue,1)heapq.heappush(PriorityQueue,3)heapq.heappush(PriorityQueue,4)heapq.heappush(PriorityQueue,5)print(PriorityQueue)#以上的代码往堆里压入了6，1，3，4，5#弹出堆里的最小值#heapq.heappop(heap)min_heap = heapq.heappop(PriorityQueue)print(min_heap)print(PriorityQueue)#push和pop两个操作一起进行,push item进去，pop最小值出来#heapq.heappushpop(heap, item)#该操作效率相比于 分别进行 push &amp; pop更高min_heap2 = heapq.heappushpop(PriorityQueue, 100)print(min_heap2)print(PriorityQueue) 堆排序也可以基于内置的heapq库来进行 123456789#堆排序def heapsort(iterable): h = [] for value in iterable: heapq.heappush(h, value) return [heapq.heappop(h) for i in range(len(h))]list_ = [100,200,50,4,15,666,333]print(heapsort(list_)) Python模块常用语法正则表达式正则表达式是一个非常常用的模块，然后，可以模糊的匹配出所需要的模组 1234import reregex = &lt;正则表达式&gt;info = '&lt;&gt;'(str)re.match(regex,info) 语法比较简单，但是里面匹配的时候，有一些特殊符号的作用 ()只负责提取括号内的内容 group(0): 代表提取出最外层括号的内容 group(1): 代表提取出第一个括号内的内容，然后数字叠加以此内推 ^ 限定开头 $ 限定结尾 * 限定字符出现任意多次 . 表示任意字符 ? 取消贪婪模式，从左往右寻找数字 + 限定字符多出现1次 {2} {2,5} []: 中括号的内容中括号有三个用途 区间， 任意字符出现 [.*]不包含其他含义的字符，中括号里面的.就是普通的点 中括号里只要出现任意一个，都是可以匹配到的。常用在匹配电话号码中。比如任意 电话 150 565 56735 130 565 56735 137 565 56735模糊匹配 1[357]0 565 56735可以把他们都匹配得到 \s 表示空格 \S 表示不为空格都可以,但是只能表示一个字符 \w 表示[0-9,a-z,A-Z,_这些字符] （数字，字符，下划线） \W 表示非以上字符 [\u4E00-\u9FA5]汉字区间，表示所有的汉字，均可以匹配出来 \d 表示数字 Python算法]]></content>
-      <categories>
-        <category>机器学习和数据挖掘</category>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>数据挖掘</tag>
-        <tag>Python</tag>
         <tag>机器学习</tag>
       </tags>
   </entry>

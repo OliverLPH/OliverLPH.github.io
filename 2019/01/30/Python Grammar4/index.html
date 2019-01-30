@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据挖掘,Python,机器学习," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Python语法整理(更新日期 2018/6/28)">
-<meta name="keywords" content="数据挖掘,Python,机器学习">
+<meta name="description" content="Python的正则表达式语法总结和小抄">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
-<meta property="og:url" content="https://oliverlph.github.io/2018/06/28/Python语法整理/index.html">
+<meta property="og:title" content="Python Grammar - Regular Expression">
+<meta property="og:url" content="https://oliverlph.github.io/2019/01/30/Python Grammar4/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="Python语法整理(更新日期 2018/6/28)">
+<meta property="og:description" content="Python的正则表达式语法总结和小抄">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-07T03:05:06.050Z">
+<meta property="og:updated_time" content="2019-01-30T08:09:00.291Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
-<meta name="twitter:description" content="Python语法整理(更新日期 2018/6/28)">
+<meta name="twitter:title" content="Python Grammar - Regular Expression">
+<meta name="twitter:description" content="Python的正则表达式语法总结和小抄">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://oliverlph.github.io/2018/06/28/Python语法整理/"/>
+  <link rel="canonical" href="https://oliverlph.github.io/2019/01/30/Python Grammar4/"/>
 
 
 
 
 
-  <title>Python语法整理（普通算法，机器学习和数据挖掘的应用） | Peihan</title>
+  <title>Python Grammar - Regular Expression | Peihan</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://oliverlph.github.io/2018/06/28/Python语法整理/">
+    <link itemprop="mainEntityOfPage" href="https://oliverlph.github.io/2019/01/30/Python Grammar4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Peihan">
@@ -344,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python语法整理（普通算法，机器学习和数据挖掘的应用）</h1>
+          <h1 class="post-title" itemprop="name headline">Python Grammar - Regular Expression</h1>
         
 
         <div class="post-meta">
@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T11:57:04+08:00">
-                2018-06-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T11:59:04+08:00">
+                2019-01-30
               </time>
             
 
@@ -379,18 +379,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习和数据挖掘/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习和数据挖掘</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习和数据挖掘/Python/" itemprop="url" rel="index">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
                     <span itemprop="name">Python</span>
                   </a>
                 </span>
@@ -408,9 +397,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/28/Python语法整理/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/30/Python Grammar4/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/28/Python语法整理/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/01/30/Python Grammar4/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,7 +407,7 @@
 
           
           
-             <span id="/2018/06/28/Python语法整理/" class="leancloud_visitors" data-flag-title="Python语法整理（普通算法，机器学习和数据挖掘的应用）">
+             <span id="/2019/01/30/Python Grammar4/" class="leancloud_visitors" data-flag-title="Python Grammar - Regular Expression">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -449,89 +438,16 @@
       
 
       
-        <p>Python语法整理(更新日期 2018/6/28)<br><a id="more"></a></p>
-<h1 id="Python语法整理笔记"><a href="#Python语法整理笔记" class="headerlink" title="Python语法整理笔记"></a>Python语法整理笔记</h1><p>Python是目前最常用的语言之一，这里我自己总结一下我在学习的过程中遇到的问题。</p>
-<h2 id="Python基本语法"><a href="#Python基本语法" class="headerlink" title="Python基本语法"></a>Python基本语法</h2><h3 id="Python的函数式编程"><a href="#Python的函数式编程" class="headerlink" title="Python的函数式编程"></a>Python的函数式编程</h3><h4 id="函数式编程的特性"><a href="#函数式编程的特性" class="headerlink" title="函数式编程的特性"></a>函数式编程的特性</h4><ol>
-<li><p>对象，Mutable和Immutable对象<br> Muatble对象:  list, dict, set<br> Immutable对象: strings, tuples, numbers</p>
-<p> 1.1. 区分Muatble对象和Immutable对象</p>
-<p> 区别mutable对象和immutable对象的方法很简单，只要看该对象的位置是否发生改变。<br> 查找对象位置id().<br> 比如</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: a = <span class="number">1</span></span><br><span class="line">In [<span class="number">2</span>]: id(a)</span><br><span class="line">Out[<span class="number">2</span>]: <span class="number">4345522256</span></span><br><span class="line">In [<span class="number">3</span>]: a = <span class="number">2</span></span><br><span class="line">In [<span class="number">4</span>]: id(a)</span><br><span class="line">Out[<span class="number">4</span>]: <span class="number">4345522288</span></span><br><span class="line">In [<span class="number">5</span>]: id(<span class="number">2</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">4345522288</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<pre><code>从这段代码可以看出来，当a=2的时候，id(a)的地址是id(2)的地址，因此a自己是没有创建地址的，只是被指向了2的地址。
-&gt;immutable 并不是绝对的不可变。
-&gt;&gt; 比如若是tuple里面包含的是一个mutable object，那么mutable object的值仍然是可变的。但是因为tuple 中的 mutable object 改变的只是 value而不是identity。因此tuple仍然是immutable的object。
-
-1.2 immutable data的作用
-
-像Clojure一样，默认上变量是不可变的，如果你要改变变量，你需要把变量copy出去修改。这样一来，可以让你的程序少很多Bug。因为，程序中的状态不好维护，在并发的时候更不好维护。（你可以试想一下如果你的程序有个复杂的状态，当以后别人改你代码的时候，是很容易出bug的，在并行中这样的问题就更多了）
-</code></pre><ol start="2">
-<li><p>first class functions<br>可以理解为面向对象编程</p>
-</li>
-<li><p>尾递归优化<br>Python不支持尾递归优化</p>
-</li>
-</ol>
-<h4 id="函数式编程的方法"><a href="#函数式编程的方法" class="headerlink" title="函数式编程的方法"></a>函数式编程的方法</h4><ol>
-<li>经典函数: Map &amp; Reduce</li>
-</ol>
-<p>在Python中，Map reduce用的非常之多</p>
-<p>举几个简单的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; length = map(len,[&quot;123&quot;,&quot;425&quot;,&quot;abc&quot;])</span><br><span class="line">&gt;&gt; print(list(length))</span><br><span class="line">&gt;&gt; [3, 3, 3] #输出</span><br></pre></td></tr></table></figure>
-<p>Map函数还可以和lambda函数一起使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_list = map(<span class="keyword">lambda</span> x:x*x, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">10</span>])</span><br><span class="line">&gt;&gt; print(list(square_list))</span><br><span class="line">&gt;&gt; [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">100</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
-<p>Map函数用来批量开根号</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; square_root_list = map(<span class="keyword">lambda</span> x:pow(x,<span class="number">0.5</span>), [<span class="number">4</span>,<span class="number">9</span>,<span class="number">16</span>,<span class="number">25</span>,<span class="number">36</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">&gt;&gt; print(list(square_root_list))</span><br><span class="line">&gt;&gt; [<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">1.4142135623730951</span>, <span class="number">1.7320508075688772</span>] <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
-<p>然后就是reduce函数怎么用</p>
-<p>在Python3中，reduce() 函数已经被从全局名字空间里移除了，它现在被放置在 fucntools 模块里，如果想要使用它，则需要通过引入functools模块来调用 reduce()函数：</p>
-<p>举个例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="comment">#必须要先从functool里面调用才可以用</span></span><br><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; factorial = reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">&gt;&gt; print(factorial)</span><br><span class="line">&gt;&gt; <span class="number">15</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
-<p>这个例子相当于是计算了((1+2)+3)+4)+5),就是叠加了起来。其中 reduce(function, iterable[, initializer]), fucntion函数必须要有两个入参，每次先从第一二个参数开始运算function，然后得出了结论，就可以和第三个参数继续运算。因此符合了Reduce的思想，将运算分割开来了。</p>
-<p>因为reduce的特性，阶乘，叠加，求和等思路的的可以用用reduce。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">&gt;&gt; itera = reduce(<span class="keyword">lambda</span> x,y: x*y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">&gt;&gt; print(itera)</span><br><span class="line">&gt;&gt; <span class="number">720</span> <span class="comment">#输出</span></span><br></pre></td></tr></table></figure>
-<p>上面的代码就是输出了6的阶乘</p>
-<p>参考网页: <a href="https://coolshell.cn/articles/10822.html" target="_blank" rel="noopener">函数式编程</a><br>这个例子是从该网页看到的</p>
-<p>还有一些别函数filter, find, all, any(其它函数式的语言也有),可以让你的代码更简洁,更清楚。</p>
-<p>计算数组中正数的平均值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">num =[<span class="number">2</span>, <span class="number">-5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">-2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-3</span>, <span class="number">8</span>]</span><br><span class="line">positive_num_cnt = <span class="number">0</span></span><br><span class="line">positive_num_sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)):</span><br><span class="line">    <span class="keyword">if</span> num[i] &gt; <span class="number">0</span>:</span><br><span class="line">        positive_num_cnt += <span class="number">1</span></span><br><span class="line">        positive_num_sum += num[i]</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> positive_num_cnt &gt; <span class="number">0</span>:</span><br><span class="line">    average = positive_num_sum / positive_num_cnt</span><br><span class="line"> </span><br><span class="line">print(average) <span class="comment">#输出5</span></span><br></pre></td></tr></table></figure>
-<p>如果采用函数式编程</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">positive_num = filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, num)</span><br><span class="line">average = reduce(<span class="keyword">lambda</span> x,y: x+y, positive_num) / len( positive_num )</span><br></pre></td></tr></table></figure>
-<p>如上面的代码所示，两句话就把这个问题解决了</p>
-<ol start="2">
-<li><p>Pipeline </p>
-</li>
-<li><p>Recursing </p>
-</li>
-<li><p>currying</p>
-</li>
-<li><p>higher order function  </p>
-</li>
-</ol>
-<h4 id="函数式编程的好处"><a href="#函数式编程的好处" class="headerlink" title="函数式编程的好处"></a>函数式编程的好处</h4><ol>
-<li>parallelization 并行</li>
-<li>lazy evaluation 惰性求值</li>
-<li>determinism 确定性</li>
-</ol>
-<h2 id="Python数据结构"><a href="#Python数据结构" class="headerlink" title="Python数据结构"></a>Python数据结构</h2><h3 id="堆-ADT"><a href="#堆-ADT" class="headerlink" title="堆 ADT"></a>堆 ADT</h3><p>python的堆，可以用内置库实现priority queue algorithm优先级队列</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"><span class="comment">#内置堆默认为小根堆</span></span><br><span class="line"><span class="comment">#初始化堆</span></span><br><span class="line">PriorityQueue = [] <span class="comment">#用列表来做储存的数据结构</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#增，往堆里添加item</span></span><br><span class="line"><span class="comment">#heapq.heappush(heap, item)</span></span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">6</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">1</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">3</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">4</span>)</span><br><span class="line">heapq.heappush(PriorityQueue,<span class="number">5</span>)</span><br><span class="line">print(PriorityQueue)</span><br><span class="line"><span class="comment">#以上的代码往堆里压入了6，1，3，4，5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#弹出堆里的最小值</span></span><br><span class="line"><span class="comment">#heapq.heappop(heap)</span></span><br><span class="line">min_heap = heapq.heappop(PriorityQueue)</span><br><span class="line">print(min_heap)</span><br><span class="line">print(PriorityQueue)</span><br><span class="line"><span class="comment">#push和pop两个操作一起进行,push item进去，pop最小值出来</span></span><br><span class="line"><span class="comment">#heapq.heappushpop(heap, item)</span></span><br><span class="line"><span class="comment">#该操作效率相比于 分别进行 push &amp; pop更高</span></span><br><span class="line">min_heap2 = heapq.heappushpop(PriorityQueue, <span class="number">100</span>)</span><br><span class="line">print(min_heap2)</span><br><span class="line">print(PriorityQueue)</span><br></pre></td></tr></table></figure>
-<p>堆排序也可以基于内置的heapq库来进行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapsort</span><span class="params">(iterable)</span>:</span></span><br><span class="line">	h = []</span><br><span class="line">	<span class="keyword">for</span> value <span class="keyword">in</span> iterable:</span><br><span class="line">		heapq.heappush(h, value)</span><br><span class="line">	<span class="keyword">return</span> [heapq.heappop(h) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(h))]</span><br><span class="line"></span><br><span class="line">list_ = [<span class="number">100</span>,<span class="number">200</span>,<span class="number">50</span>,<span class="number">4</span>,<span class="number">15</span>,<span class="number">666</span>,<span class="number">333</span>]</span><br><span class="line">print(heapsort(list_))</span><br></pre></td></tr></table></figure>
-<h2 id="Python模块常用语法"><a href="#Python模块常用语法" class="headerlink" title="Python模块常用语法"></a>Python模块常用语法</h2><h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式是一个非常常用的模块，然后，可以模糊的匹配出所需要的模组</p>
+        <p>Python的正则表达式语法总结和小抄<br><a id="more"></a></p>
+<h1 id="Python-Grammar-Regular-Expression"><a href="#Python-Grammar-Regular-Expression" class="headerlink" title="Python Grammar - Regular Expression"></a>Python Grammar - Regular Expression</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式是一个非常常用的模块，在各个语言中均有很广泛的用途。</p>
+<p>用正则表达式可以模糊的匹配出所需要的内容。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = &lt;正则表达式&gt;</span><br><span class="line">info = <span class="string">'&lt;&gt;'</span>(str)</span><br><span class="line">re.match(regex,info)</span><br></pre></td></tr></table></figure>
 <p>语法比较简单，但是里面匹配的时候，有一些特殊符号的作用</p>
 <p>()只负责提取括号内的内容</p>
 <pre><code>group(0): 代表提取出最外层括号的内容
 group(1): 代表提取出第一个括号内的内容，然后数字叠加以此内推
-
-
-^ 限定开头
-$ 限定结尾
-* 限定字符出现任意多次
-. 表示任意字符
-? 取消贪婪模式，从左往右寻找数字
-+ 限定字符多出现1次
-{2}
-{2,5}
-</code></pre><p>[]: 中括号的内容<br>中括号有三个用途</p>
+</code></pre><p>​<br>​    ^ 限定开头<br>​    $ 限定结尾<br>​    * 限定字符出现任意多次<br>​    . 表示任意字符<br>​    ? 取消贪婪模式，从左往右寻找数字<br>​    + 限定字符多出现1次<br>​    {2}<br>​    {2,5}</p>
+<p>[]: 中括号的内容<br>中括号有三个用途</p>
 <ol>
 <li>区间，</li>
 <li>任意字符出现</li>
@@ -543,12 +459,8 @@ $ 限定结尾
 
 \w 表示[0-9,a-z,A-Z,_这些字符] （数字，字符，下划线）
 \W 表示非以上字符
+</code></pre><p>​    [\u4E00-\u9FA5]汉字区间，表示所有的汉字，均可以匹配出来<br>​<br>    \d 表示数字</p>
 
-
-[\u4E00-\u9FA5]汉字区间，表示所有的汉字，均可以匹配出来
-
-\d 表示数字
-</code></pre><h2 id="Python算法"><a href="#Python算法" class="headerlink" title="Python算法"></a>Python算法</h2>
       
     </div>
     
@@ -568,7 +480,7 @@ $ 限定结尾
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://oliverlph.github.io/2018/06/28/Python语法整理/" title="Python语法整理（普通算法，机器学习和数据挖掘的应用）">https://oliverlph.github.io/2018/06/28/Python语法整理/</a>
+    <a href="https://oliverlph.github.io/2019/01/30/Python Grammar4/" title="Python Grammar - Regular Expression">https://oliverlph.github.io/2019/01/30/Python Grammar4/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -583,11 +495,7 @@ $ 限定结尾
       
         <div class="post-tags">
           
-            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -600,8 +508,8 @@ $ 限定结尾
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/23/SQL语法整理/" rel="next" title="SQL语法整理">
-                <i class="fa fa-chevron-left"></i> SQL语法整理
+              <a href="/2019/01/30/Python Grammar3/" rel="next" title="Python Grammar - data structures">
+                <i class="fa fa-chevron-left"></i> Python Grammar - data structures
               </a>
             
           </div>
@@ -609,10 +517,6 @@ $ 限定结尾
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/05/常见数据挖掘算法/" rel="prev" title="常见数据挖掘算法">
-                常见数据挖掘算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -696,7 +600,7 @@ $ 限定结尾
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -707,7 +611,7 @@ $ 限定结尾
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -799,7 +703,7 @@ $ 限定结尾
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python语法整理笔记"><span class="nav-number">1.</span> <span class="nav-text">Python语法整理笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">Python基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python的函数式编程"><span class="nav-number">1.1.1.</span> <span class="nav-text">Python的函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的特性"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">函数式编程的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的方法"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">函数式编程的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数式编程的好处"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">函数式编程的好处</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">Python数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆-ADT"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆 ADT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python模块常用语法"><span class="nav-number">1.3.</span> <span class="nav-text">Python模块常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.3.1.</span> <span class="nav-text">正则表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python算法"><span class="nav-number">1.4.</span> <span class="nav-text">Python算法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Grammar-Regular-Expression"><span class="nav-number">1.</span> <span class="nav-text">Python Grammar - Regular Expression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.1.</span> <span class="nav-text">正则表达式</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -942,9 +846,9 @@ $ 限定结尾
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://oliverlph.github.io/2018/06/28/Python语法整理/';
-          this.page.identifier = '2018/06/28/Python语法整理/';
-          this.page.title = 'Python语法整理（普通算法，机器学习和数据挖掘的应用）';
+          this.page.url = 'https://oliverlph.github.io/2019/01/30/Python Grammar4/';
+          this.page.identifier = '2019/01/30/Python Grammar4/';
+          this.page.title = 'Python Grammar - Regular Expression';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-oliverlph-github-io.disqus.com/embed.js';
