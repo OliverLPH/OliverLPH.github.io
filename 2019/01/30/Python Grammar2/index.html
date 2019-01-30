@@ -392,17 +392,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/01/30/Python Grammar2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/01/30/Python Grammar2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -589,12 +578,40 @@
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+        <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+        <div id="container" style="display:none"></div>
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        <script>
+        const myTheme = {
+          render(state, instance) {
+            const container = document.createElement('div');
+            container.lang = "en-US";
+            container.className = 'gitment-container gitment-root-container';
+            container.appendChild(instance.renderHeader(state, instance));
+            container.appendChild(instance.renderEditor(state, instance));
+            container.appendChild(instance.renderComments(state, instance));
+            container.appendChild(instance.renderFooter(state, instance));
+            return container;
+          }
+        }
+        function showGitment() {
+          $("#gitment_title").attr("style", "display:none");
+          $("#container").attr("style", "").addClass("gitment_container");
+          var gitment = new Gitment({
+            id: window.location.pathname,
+            theme: myTheme,
+            owner: 'OliverLPH',
+            repo: 'oliverlph.github.io',
+            oauth: {
+              client_id: '1081369b88684ae6ba91',
+              client_secret: '040edf3f79c4c4a3e2b220cac42e89e9bdb69102'
+            }
+          });
+          gitment.render('container');
+        }
+        </script>
+
     
   </div>
 
@@ -882,26 +899,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://https-oliverlph-github-io.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://oliverlph.github.io/2019/01/30/Python Grammar2/';
-          this.page.identifier = '2019/01/30/Python Grammar2/';
-          this.page.title = 'Python Grammar - functions';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-oliverlph-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -914,6 +911,10 @@
   
 
 
+
+
+
+  
 
 
 
