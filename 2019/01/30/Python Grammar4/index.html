@@ -94,18 +94,20 @@
 
 
 
-<meta name="description" content="Python的正则表达式语法总结和小抄">
+<meta name="description" content="正则表达式是一个非常常用而且强大的模块，在各个语言中均有很广泛的用途。  用正则表达式可以模糊的匹配出所需要的内容。">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python Grammar - Regular Expression">
 <meta property="og:url" content="https://oliverlph.github.io/2019/01/30/Python Grammar4/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="Python的正则表达式语法总结和小抄">
+<meta property="og:description" content="正则表达式是一个非常常用而且强大的模块，在各个语言中均有很广泛的用途。  用正则表达式可以模糊的匹配出所需要的内容。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-30T08:09:00.291Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Regex.png">
+<meta property="og:updated_time" content="2019-01-31T13:27:26.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python Grammar - Regular Expression">
-<meta name="twitter:description" content="Python的正则表达式语法总结和小抄">
+<meta name="twitter:description" content="正则表达式是一个非常常用而且强大的模块，在各个语言中均有很广泛的用途。  用正则表达式可以模糊的匹配出所需要的内容。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Regex.png">
 
 
 
@@ -438,28 +440,18 @@
       
 
       
-        <p>Python的正则表达式语法总结和小抄<br><a id="more"></a></p>
-<h1 id="Python-Grammar-Regular-Expression"><a href="#Python-Grammar-Regular-Expression" class="headerlink" title="Python Grammar - Regular Expression"></a>Python Grammar - Regular Expression</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式是一个非常常用的模块，在各个语言中均有很广泛的用途。</p>
+        <p>正则表达式是一个非常常用而且强大的模块，在各个语言中均有很广泛的用途。</p>
+<p><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Regex.png" alt="Regex sample"></p>
 <p>用正则表达式可以模糊的匹配出所需要的内容。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = &lt;正则表达式&gt;</span><br><span class="line">info = <span class="string">'&lt;&gt;'</span>(str)</span><br><span class="line">re.match(regex,info)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="Python-Grammar-Regular-Expression"><a href="#Python-Grammar-Regular-Expression" class="headerlink" title="Python Grammar - Regular Expression"></a>Python Grammar - Regular Expression</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = &lt;正则表达式&gt;</span><br><span class="line">info = <span class="string">'&lt;&gt;'</span>(str)</span><br><span class="line">re.match(regex,info)</span><br></pre></td></tr></table></figure>
 <p>语法比较简单，但是里面匹配的时候，有一些特殊符号的作用</p>
-<p>()只负责提取括号内的内容</p>
-<pre><code>group(0): 代表提取出最外层括号的内容
-group(1): 代表提取出第一个括号内的内容，然后数字叠加以此内推
-</code></pre><p>​<br>​    ^ 限定开头<br>​    $ 限定结尾<br>​    * 限定字符出现任意多次<br>​    . 表示任意字符<br>​    ? 取消贪婪模式，从左往右寻找数字<br>​    + 限定字符多出现1次<br>​    {2}<br>​    {2,5}</p>
-<p>[]: 中括号的内容<br>中括号有三个用途</p>
-<ol>
-<li>区间，</li>
-<li>任意字符出现</li>
-<li>[.*]不包含其他含义的字符，中括号里面的.就是普通的点</li>
-</ol>
-<p>中括号里只要出现任意一个，都是可以匹配到的。<br>常用在匹配电话号码中。<br>比如任意 电话 150 565 56735<br>            130 565 56735<br>            137 565 56735<br>模糊匹配 1[357]0 565 56735<br>可以把他们都匹配得到</p>
-<pre><code>\s 表示空格
-\S 表示不为空格都可以,但是只能表示一个字符
-
-\w 表示[0-9,a-z,A-Z,_这些字符] （数字，字符，下划线）
-\W 表示非以上字符
-</code></pre><p>​    [\u4E00-\u9FA5]汉字区间，表示所有的汉字，均可以匹配出来<br>​<br>    \d 表示数字</p>
+<p>()只负责提取括号内的内容<br>    group(0): 代表提取出最外层括号的内容<br>    group(1): 代表提取出第一个括号内的内容，然后数字叠加以此内推</p>
+<h3 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">^               # 限定开头字符Start of string, or start of line in multi-line pattern</span><br><span class="line">\A              # Start of string</span><br><span class="line">$               # 限定末尾字符End of string, or end of line in multi-line pattern</span><br><span class="line">\Z              # End of string</span><br><span class="line">\b              # Word boundary</span><br><span class="line">\B              # Not word boundary</span><br><span class="line">\&lt;              # Start of word</span><br><span class="line">\&gt;              # End of word</span><br></pre></td></tr></table></figure>
+<h3 id="Quantifiers"><a href="#Quantifiers" class="headerlink" title="Quantifiers"></a>Quantifiers</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*               # 0 or more</span><br><span class="line">+               # 1 or more</span><br><span class="line">?               # 0 or 1</span><br><span class="line">&#123;3&#125;             # Exactly 3</span><br><span class="line">&#123;3,&#125;            # 3 or more</span><br><span class="line">&#123;3,5&#125;           # 3, 4 or 5</span><br><span class="line">&#123;,5&#125;            # 5 or less</span><br></pre></td></tr></table></figure>
+<h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><h4 id="Normal"><a href="#Normal" class="headerlink" title="Normal"></a>Normal</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\c              # Control character</span><br><span class="line">\s              # White space</span><br><span class="line">\S              # Not white space,表示不为空格都可以,但是只能表示一个字符</span><br><span class="line">\d              # Digit 表示数字</span><br><span class="line">\D              # Not digit</span><br><span class="line">\w              # Word,表示[0-9,a-z,A-Z,_这些字符] （数字，字符，下划线）</span><br><span class="line">\W              # Not word</span><br><span class="line">\x              # Hexade-cimal digit</span><br><span class="line">\O              # Octal digit</span><br></pre></td></tr></table></figure>
+<h4 id="Special"><a href="#Special" class="headerlink" title="Special"></a>Special</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\n              # New line</span><br><span class="line">\r              # Carriage return</span><br><span class="line">\t              # Tab</span><br><span class="line">\v              # Vertical tab</span><br><span class="line">\f              # Form feed</span><br><span class="line">\xxx            # Octal character xxx</span><br><span class="line">\xhh            # Hex character hh</span><br></pre></td></tr></table></figure>
+<h3 id="Groups"><a href="#Groups" class="headerlink" title="Groups"></a>Groups</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.               # Any character except new line (\n)</span><br><span class="line">(a|b)           # a or b</span><br><span class="line">(...)           # Group</span><br><span class="line">(?:...)         # Passive (non-c-apt-uring) group</span><br><span class="line">[abc]           # Range (a or b or c)</span><br><span class="line">[^abc]          # Not a or b or c</span><br><span class="line">[a-q]           # Letter from a to q</span><br><span class="line">[A-Q]           # Upper case letter from A to Q</span><br><span class="line">[0-7]           # Digit from 0 to 7</span><br><span class="line">\n              # nth group/-sub-pattern</span><br><span class="line">[\u4E00-\u9FA5] # 汉字区间，表示所有的汉字，均可以匹配出来</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -703,7 +695,7 @@ group(1): 代表提取出第一个括号内的内容，然后数字叠加以此�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Grammar-Regular-Expression"><span class="nav-number">1.</span> <span class="nav-text">Python Grammar - Regular Expression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.1.</span> <span class="nav-text">正则表达式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Grammar-Regular-Expression"><span class="nav-number">1.</span> <span class="nav-text">Python Grammar - Regular Expression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Anchor"><span class="nav-number">1.1.1.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quantifiers"><span class="nav-number">1.1.2.</span> <span class="nav-text">Quantifiers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Character"><span class="nav-number">1.1.3.</span> <span class="nav-text">Character</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">Normal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Special"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">Special</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Groups"><span class="nav-number">1.1.4.</span> <span class="nav-text">Groups</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
