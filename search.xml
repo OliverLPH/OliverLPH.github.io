@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Leetcode刷题打卡2]]></title>
+    <url>%2F2019%2F02%2F25%2FLeetcode%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A12%2F</url>
+    <content type="text"><![CDATA[Leetcode刷题打卡 #2: Add Two Numbers(两数相加) 日常刷LeetCode题时，对自己思路做一些记录，从零开始刷题。语言主要为Python，每道题我会仔细分析一下思路，尝试思考出最优化的方法。 Github上也有我上传好的代码: Github_Peihan’s LeetCode Leetcode #2 Title: Add Two Numbers(两数相加)#2题目描述 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。 示例： 输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4) 输出：7 -&gt; 0 -&gt; 8 原因：342 + 465 = 807 思路分享这题目的整数都是被储存在链表里面的，整体思路和小学加法一样 加减运算 百位 十位 个位 3 4 2 + 4 6 5 ————- ————- ————- ————- 7(carry 1) 0 7 8 0 7 上面这个表格即是加法竖式。在十位上的加法有一个进位（carry）。 在代码里面，就可以用一个变量carry来表示每个位数上的加减法，然后每次结算carry（因为最大的数字为9+9 = 18，进位carry肯定不超过1）。 1234567891011121314151617181920212223242526# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def addTwoNumbers(self, l1, l2): """ :type l1: ListNode :type l2: ListNode :rtype: ListNode """ dummy = cur = ListNode(0) carry = 0 #进位 while l1 or l2 or carry: if l1: carry += l1.val l1 = l1.next if l2: carry += l2.val l2 = l2.next cur.next = ListNode(carry%10) cur = cur.next carry //= 10 return dummy.next]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Leetcode刷题打卡1]]></title>
     <url>%2F2019%2F02%2F21%2FLeetcode%E5%88%B7%E9%A2%98%E6%89%93%E5%8D%A11%2F</url>
     <content type="text"><![CDATA[Leetcode刷题打卡 #1: Two Sum(两数之和) 日常刷LeetCode题时，对自己思路做一些记录，从零开始刷题。语言主要为Python，每道题我会仔细分析一下思路，尝试思考出最优化的方法。 Github上也有我上传好的代码: Github_Peihan’s LeetCode Leetcode #1 Title: Two Sum(两数之和)#1题目描述 给定一个整数数组nums 和一个目标值target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1] 方法一：暴力查找根据题目已知target的数值了，那么就直接查找 target - nums[i] 是否还存在于 nums数组里。 但是因为遍历了两次数组，时间复杂度则是O(n2) 1234567891011121314151617181920212223class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ for num in nums: remain_num = target - num if remain_num in nums: x = nums.index(remain_num) y = nums.index(num) if x != y: result = [x,y] elif x == y: nums[x] = None if remain_num in nums: y = nums.index(num) result = [x,y] else: pass return result 方法二：字典法（哈希表）由于字典的查询速度较快，所以可以构建一个字典，再进行查询。 给定 nums = [2, 7, 11, 15], target = 9 利用python的字典储存num的index 可以得到 nums_dict = {2:0 , 7:1 }然后每次继续增加 因为只遍历了一次数组，时间复杂度则是O(n) 1234567891011121314class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ nums_dict = &#123;&#125; for index, num in enumerate(nums): remain_num = target - num if remain_num in nums_dict: return [nums_dict[remain_num], index] nums_dict[num] = index return None]]></content>
@@ -149,10 +161,10 @@
         <category>机器学习和数据挖掘</category>
       </categories>
       <tags>
+        <tag>工具</tag>
         <tag>Hadoop</tag>
         <tag>数据挖掘</tag>
         <tag>分布式计算</tag>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
