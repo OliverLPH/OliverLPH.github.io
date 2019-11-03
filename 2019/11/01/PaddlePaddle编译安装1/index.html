@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="Peihan">
 <meta property="og:description" content="PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-03T14:05:36.514Z">
+<meta property="og:updated_time" content="2019-11-03T14:08:57.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PaddlePaddle编译安装1">
 <meta name="twitter:description" content="PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我">
@@ -450,28 +450,20 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/PaddlePaddle/Paddle.git</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>然后就可以创建编译环境了，官方提供了配置好部分环境的docker镜像<code>hub.baidubce.com/paddlepaddle/paddle:latest-dev</code><br>这个Ubuntu1604，CUDA8，cuDNN7.3的镜像，里面包含了CMake，python2.7，git等常用的软件。</p>
-<p> 但我更常用的是Nvidia给出的简单版的镜像<br> <code>nvidia/cuda:9.0-cudnn7-devel-centos7</code><br> <code>nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04</code><br> 然后自己构造一下所需环境。</p>
 </li>
 </ol>
-<pre><code>cd到刚刚下载Paddle代码的路径
-如果没有GPU和nvidia-docker则只能使用docker
-</code></pre><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure>
-<pre><code>如果有GPU和nvidia-docker则执行以下代码
-</code></pre><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure>
+<p>但我更常用的是Nvidia给出的简单版的镜像<br><code>nvidia/cuda:9.0-cudnn7-devel-centos7</code><br><code>nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04</code><br>然后自己构造一下所需环境。</p>
+<p>cd到刚刚下载Paddle代码的路径<br>如果没有GPU和nvidia-docker则只能使用docker<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>如果有GPU和nvidia-docker则执行以下代码<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure></p>
 <ol start="3">
-<li><p>然后现在就可以开始编译了</p>
-<p> 首先在 paddle主路径下创建build文件夹并进入。</p>
-</li>
+<li>然后现在就可以开始编译了</li>
 </ol>
-<pre><code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /paddle</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
-
-然后CMake会有一些参数，可以根据自己的需求选择。
-具体的参数可以在[Paddle-CMakeLists](https://github.com/PaddlePaddle/Paddle/    blob/develop/CMakeLists.txt)里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的    PaddlePaddle了。
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DPY_VERSION=3.5 \</span><br><span class="line">        	   -DWITH_GPU=ON \</span><br><span class="line">       	   -DWITH_TESTING=OFF \</span><br><span class="line">            -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
-
+<p>首先在 paddle主路径下创建build文件夹并进入。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /paddle</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+<p>然后CMake里面会有一些参数，可以根据自己的需求选择。<br>具体的参数可以在<a href="https://github.com/PaddlePaddle/Paddle/blob/develop/CMakeLists.txt" target="_blank" rel="noopener">Paddle-CMakeLists</a>里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的PaddlePaddle了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DPY_VERSION=3.5 \</span><br><span class="line">         -DWITH_GPU=ON \</span><br><span class="line">         -DWITH_TESTING=OFF \</span><br><span class="line">         -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j$(nproc)</span><br><span class="line"><span class="meta">#</span><span class="bash"> -j后面可跟数字，指定并行编译的核数</span></span><br></pre></td></tr></table></figure>
-</code></pre><ol start="4">
+<ol start="4">
 <li><p>完成编译之后</p>
 <p>编译出来的whl包就在 <code>python/dist</code>路径下。<br>执行 <code>pip install</code> 即可</p>
 </li>
