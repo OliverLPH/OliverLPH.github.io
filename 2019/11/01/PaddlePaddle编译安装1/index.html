@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="PaddlePaddle编译安装1PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方">
+<meta name="description" content="PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我">
 <meta name="keywords" content="PaddlePaddle,DeepLearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PaddlePaddle编译安装1">
 <meta property="og:url" content="https://oliverlph.github.io/2019/11/01/PaddlePaddle编译安装1/index.html">
 <meta property="og:site_name" content="Peihan">
-<meta property="og:description" content="PaddlePaddle编译安装1PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方">
+<meta property="og:description" content="PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-03T14:01:01.032Z">
+<meta property="og:updated_time" content="2019-11-03T14:05:36.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PaddlePaddle编译安装1">
-<meta name="twitter:description" content="PaddlePaddle编译安装1PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方">
+<meta name="twitter:description" content="PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我">
 
 
 
@@ -427,7 +427,7 @@
       
 
       
-        <h1 id="PaddlePaddle编译安装1"><a href="#PaddlePaddle编译安装1" class="headerlink" title="PaddlePaddle编译安装1"></a>PaddlePaddle编译安装1</h1><p>PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（<a href="https://www.paddlepaddle.org.cn/install/quick）。" target="_blank" rel="noopener">https://www.paddlepaddle.org.cn/install/quick）。</a></p>
+        <p>PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（<a href="https://www.paddlepaddle.org.cn/install/quick）。" target="_blank" rel="noopener">https://www.paddlepaddle.org.cn/install/quick）。</a></p>
 <p>PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。</p>
 <p>但是快速安装的方案肯定不能满足有些用户的需求的，我这里就介绍一些编译Paddle的过程中会遇到的问题，希望能解决一些用户的困惑。</p>
 <a id="more"></a>
@@ -461,15 +461,19 @@
 <ol start="3">
 <li><p>然后现在就可以开始编译了</p>
 <p> 首先在 paddle主路径下创建build文件夹并进入。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /paddle</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
-<p> 然后CMake会有一些参数，可以根据自己的需求选择。<br> 具体的参数可以在<a href="https://github.com/PaddlePaddle/Paddle/blob/develop/CMakeLists.txt" target="_blank" rel="noopener">Paddle-CMakeLists</a>里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的PaddlePaddle了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DPY_VERSION=3.5 \</span><br><span class="line">         -DWITH_GPU=ON \</span><br><span class="line">         -DWITH_TESTING=OFF \</span><br><span class="line">         -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j$(nproc)</span><br><span class="line"><span class="meta">#</span> -j后面可跟数字，指定并行编译的核数</span><br></pre></td></tr></table></figure>
-<ol start="4">
+<pre><code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /paddle</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+
+然后CMake会有一些参数，可以根据自己的需求选择。
+具体的参数可以在[Paddle-CMakeLists](https://github.com/PaddlePaddle/Paddle/    blob/develop/CMakeLists.txt)里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的    PaddlePaddle了。
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DPY_VERSION=3.5 \</span><br><span class="line">        	   -DWITH_GPU=ON \</span><br><span class="line">       	   -DWITH_TESTING=OFF \</span><br><span class="line">            -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j$(nproc)</span><br><span class="line"><span class="meta">#</span><span class="bash"> -j后面可跟数字，指定并行编译的核数</span></span><br></pre></td></tr></table></figure>
+</code></pre><ol start="4">
 <li><p>完成编译之后</p>
-<p> 编译出来的whl包就在 <code>python/dist</code>路径下。<br> 执行 <code>pip install</code> 即可</p>
+<p>编译出来的whl包就在 <code>python/dist</code>路径下。<br>执行 <code>pip install</code> 即可</p>
 </li>
 </ol>
 
@@ -620,7 +624,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -631,7 +635,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -712,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PaddlePaddle编译安装1"><span class="nav-number">1.</span> <span class="nav-text">PaddlePaddle编译安装1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PaddlePaddle源码编译"><span class="nav-number">1.1.</span> <span class="nav-text">PaddlePaddle源码编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker容器内编译"><span class="nav-number">1.1.1.</span> <span class="nav-text">Docker容器内编译</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PaddlePaddle源码编译"><span class="nav-number">1.</span> <span class="nav-text">PaddlePaddle源码编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker容器内编译"><span class="nav-number">1.1.</span> <span class="nav-text">Docker容器内编译</span></a></li></ol></li></ol></div>
             
 
           </div>
