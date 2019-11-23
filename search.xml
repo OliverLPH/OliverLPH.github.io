@@ -13,6 +13,30 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[python源码编译]]></title>
+    <url>%2F2019%2F10%2F26%2Fpython%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%2F</url>
+    <content type="text"><![CDATA[Python源码编译（centos6）最近因为需要用不同gcc版本的python，所以自己手动编了下python，结果遇到一堆问题，所以也记录下自己遇到的问题，和查阅过的文章 Python正常编译流程首先下载下 python的源代码，选择自己需要的版本即可 python源码下载链接 比如我就下载了 python3.7.31234cd Python-3.7.3./configure --prefix=/home/python37/ # 注意configure的时候不会生产prefix的文件make make install # make install才会把python的相关文件安装到 /home/python37/路径下 理论上如果不出错，这里的python就可以用了。可是现实也不是这么容易（苦笑 下面就是我遇到过的问题，然后对应的解决方案 Python编译问题：Failed to build these modules:Python编译过程中可能会遇上以下问题，Failed to build xxx modules，虽然可能这些动态库都是存在于系统的，但是python在编译过程中并没找到 12Failed to build these modules:_sqlite3 _ssl _hashlib 方案一：yum install如果系统中是缺少相关的库，建议直接yum install 安装一遍，网上有的人说安装完下面的lib就可以成功编译python了，但我自己是没弄成功的12345678910yum -y install zlib zlib-devel yum -y install bzip2 bzip2-devel yum -y install ncurses ncurses-devel yum -y install readline readline-devel yum -y install openssl openssl-devel yum -y install openssl-static yum -y install xz lzma xz-devel yum -y install sqlite sqlite-devel yum -y install gdbm gdbm-devel yum -y install tk tk-devel 如果这个不行，建议手动安装缺少的一些库，就是后面的方案二 方案二：手动编译编译sqlite3这个sqlite3缺失，主要方法就是自己下载并编译，然后将其加到python的setup.py中去 sqlite3源码下载链接 sqlite3源码编译，以及python使用 编译opensslopenssl这个很奇怪，我在我的系统中怎么查他都是存在的，但遍python的时候他就是找不到，看下stackoverflow的这个方法就可以解决了 How do I compile Python 3.4 with custom OpenSSL? Python Build Error: failed to build modules _ssl and _hashlib 源码编译安装Python3及问题解决 缺少socket missing _socket after compile python 3.6 自己编译的python安装pip ImportError: No module named pip 可参考资料： python编译安装 编译安装python3]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[gtest模块使用]]></title>
+    <url>%2F2019%2F10%2F21%2Fgtest%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[gtest模块使用 安装GTest (Linux) 下载源代码下载gtest 1git clone https://github.com/google/googletest 编译gtest 1234567891011121314151617181920212223242526272829303132cd googletestmkdir buildcmake ..make``` 此时已经生成了静态库在 build/lib 下面。3. 调整gtest的位置将头文件和库文件放到合适的地方比如创建文件夹 `gtest/lib` 和 `gtest/include`4. 将gtest编译到我们的项目中```cmakeoption(USE_GTEST "Compile demo with GTest." OFF)if (USE_GTEST) include_directories("$&#123;GTEST_PATH&#125;include") link_directories("$&#123;GTEST_PATH&#125;lib")endif()set(DEPS $&#123;DEPS&#125; gtest)add_executable($&#123;DEMO_NAME&#125; $&#123;DEMO_NAME&#125;.cc)target_link_libraries($&#123;DEMO_NAME&#125; $&#123;DEPS&#125;) 主要就是 include_directories, link_directories, target_link_libraries 三连，之后就可以愉快的使用了 安装GTest（Windows）1// TODO 参考链接： GTest的安装与使用]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Markdown常用语法（一）]]></title>
     <url>%2F2019%2F01%2F17%2FMarkdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Markdown 的相关常用命令 Markdown 常用语法（一）插入命令常用的 Markdown的插入命令 插入图片1![插入图片的名字](图片的链接) 但是上面这个方式无法选择图片显示的位置，和选择图片的大小。 1&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt; 这个代码可以修改图片的大小。 12345&lt;div align=center&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt;&lt;div align=left&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt;&lt;div align=right&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt; 这个代码可以修改图片的位置。 插入视频12&lt;video src=&quot;https://www.bilibili.com/video/av2271112&quot; width=&quot;320&quot; height=&quot;180&quot; controls=&quot;controls&quot;&gt;&lt;/video&gt; 上面的代码可以插入视频，这个视频是雷总的著名歌曲。 插入音乐Markdown支持插入 在线音乐的外链，网易云音乐是可以的。 参考: markdown插入网易云音乐 插入公式Markdown插入公式的操作比较简单，将latex格式的公式放在”$”里面就可以了 1$$L_\theta(x)=\prod^m_&#123;i=1&#125;h_\theta(x^i;\theta)^&#123;yi&#125; \cdot (1-h_\theta(x^i;\theta))^&#123;1-y^i&#125;$$ $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 插入表格表格的插入操作也比较简单，但是Markdown貌似不支持合并单元格。 1234567| Student | Class | Age | Gender || --- | --- | --- | --- || Oliver | A | 19 | M || Allie | A | 18 | F || Lee | B | 20 | M || Jerry | A | 19 | M || Frank | B | 18 | F | Student Class Age Gender Oliver A 19 M Allie A 18 F Lee B 20 M Jerry A 19 M Frank B 18 F]]></content>
