@@ -1,168 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>PaddlePaddle编译安装1</title>
-      <link href="/2019/11/01/PaddlePaddle%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%851/"/>
-      <url>/2019/11/01/PaddlePaddle%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%851/</url>
-      <content type="html"><![CDATA[<p>PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（<a href="https://www.paddlepaddle.org.cn/install/quick）。" target="_blank" rel="noopener">https://www.paddlepaddle.org.cn/install/quick）。</a></p><p>PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。</p><p>但是快速安装的方案肯定不能满足有些用户的需求的，我这里就介绍一些编译Paddle的过程中会遇到的问题，希望能解决一些用户的困惑。</p><a id="more"></a><h2 id="PaddlePaddle源码编译"><a href="#PaddlePaddle源码编译" class="headerlink" title="PaddlePaddle源码编译"></a>PaddlePaddle源码编译</h2><p>现在PaddlePaddle支持在Windows, Ubuntu, Centos, OSX等操作系统上进行编译，具体可以参考<a href="https://www.paddlepaddle.org.cn/install/doc/source/ubuntu" target="_blank" rel="noopener">PaddlePaddle官网编译</a>里面的内容介绍。</p><blockquote><p>前置条件</p><ol><li>CMake 3.0+</li><li>GCC 4.8+</li><li>Python(64 bit) 2.7+</li><li>pip(64 bit) 9.0.1+</li><li>Git</li><li>GPU版本：CUDA 8.0+, cuDNN 7.3+</li></ol></blockquote><p>就目前来看，PaddlePaddle在Linux平台下的编译会比较顺畅一些，当然各平台的编译流程也是大同小异的。</p><h3 id="Docker容器内编译"><a href="#Docker容器内编译" class="headerlink" title="Docker容器内编译"></a>Docker容器内编译</h3><p>Docker这个软件非常的好，建议大家在docker中进行编译，因为虚拟化容器跟本地环境是隔离的，可以避免影响本地环境。<br><a href="https://docs.docker.com/install/" target="_blank" rel="noopener">Docker介绍</a><br>如果还不了解docker的朋友，建议也去简单学习一下，这个东西是真的很有用处。<br>接下来就进入正题了。</p><ol><li><p>首先是clone代码库，没有Git的朋友需要先装一下Git，或者在<a href="https://github.com/PaddlePaddle/Paddle" target="_blank" rel="noopener">PaddlePaddle-Github</a>里面下载代码的zip包也是可以的。<br>如果安装了Git，就直接clone代码库到你想要的文件夹里。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/PaddlePaddle/Paddle.git</span><br></pre></td></tr></table></figure></li><li><p>然后就可以创建编译环境了，官方提供了配置好部分环境的docker镜像<code>hub.baidubce.com/paddlepaddle/paddle:latest-dev</code><br>这个Ubuntu1604，CUDA8，cuDNN7.3的镜像，里面包含了CMake，python2.7，git等常用的软件。</p></li></ol><p>但我更常用的是Nvidia给出的简单版的镜像<br><code>nvidia/cuda:9.0-cudnn7-devel-centos7</code><br><code>nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04</code><br>然后自己构造一下所需环境。</p><p>cd到刚刚下载Paddle代码的路径<br>如果没有GPU和nvidia-docker则只能使用docker<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure></p><p>如果有GPU和nvidia-docker则执行以下代码<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash</span><br></pre></td></tr></table></figure></p><ol start="3"><li>然后现在就可以开始编译了</li></ol><p>首先在 paddle主路径下创建build文件夹并进入。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /paddle</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure><p>然后CMake里面会有一些参数，可以根据自己的需求选择。<br>具体的参数可以在<a href="https://github.com/PaddlePaddle/Paddle/blob/develop/CMakeLists.txt" target="_blank" rel="noopener">Paddle-CMakeLists</a>里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的PaddlePaddle了。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DPY_VERSION=3.5 \</span><br><span class="line">         -DWITH_GPU=ON \</span><br><span class="line">         -DWITH_TESTING=OFF \</span><br><span class="line">         -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j$(nproc)</span><br><span class="line"><span class="meta">#</span><span class="bash"> -j后面可跟数字，指定并行编译的核数</span></span><br></pre></td></tr></table></figure><ol start="4"><li><p>完成编译之后</p><p>编译出来的whl包就在 <code>python/dist</code>路径下。<br>执行 <code>pip install</code> 即可</p></li></ol>]]></content>
-      
+<search>
+  <entry>
+    <title><![CDATA[PaddlePaddle编译安装1]]></title>
+    <url>%2F2019%2F11%2F01%2FPaddlePaddle%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%851%2F</url>
+    <content type="text"><![CDATA[PaddlePaddle的安装在官方网站已经比较详尽了，大多数用户可参考链接进行安装（https://www.paddlepaddle.org.cn/install/quick）。 PaddlePaddle目前仅支持Python语言进行训练，Python，C/C++语言进行模型推理。当前对Windows、OSX、Linux等多种操作系统进行支持。 但是快速安装的方案肯定不能满足有些用户的需求的，我这里就介绍一些编译Paddle的过程中会遇到的问题，希望能解决一些用户的困惑。 PaddlePaddle源码编译现在PaddlePaddle支持在Windows, Ubuntu, Centos, OSX等操作系统上进行编译，具体可以参考PaddlePaddle官网编译里面的内容介绍。 前置条件 CMake 3.0+ GCC 4.8+ Python(64 bit) 2.7+ pip(64 bit) 9.0.1+ Git GPU版本：CUDA 8.0+, cuDNN 7.3+ 就目前来看，PaddlePaddle在Linux平台下的编译会比较顺畅一些，当然各平台的编译流程也是大同小异的。 Docker容器内编译Docker这个软件非常的好，建议大家在docker中进行编译，因为虚拟化容器跟本地环境是隔离的，可以避免影响本地环境。Docker介绍如果还不了解docker的朋友，建议也去简单学习一下，这个东西是真的很有用处。接下来就进入正题了。 首先是clone代码库，没有Git的朋友需要先装一下Git，或者在PaddlePaddle-Github里面下载代码的zip包也是可以的。如果安装了Git，就直接clone代码库到你想要的文件夹里。 1git clone https://github.com/PaddlePaddle/Paddle.git 然后就可以创建编译环境了，官方提供了配置好部分环境的docker镜像hub.baidubce.com/paddlepaddle/paddle:latest-dev这个Ubuntu1604，CUDA8，cuDNN7.3的镜像，里面包含了CMake，python2.7，git等常用的软件。 但我更常用的是Nvidia给出的简单版的镜像nvidia/cuda:9.0-cudnn7-devel-centos7nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04然后自己构造一下所需环境。 cd到刚刚下载Paddle代码的路径如果没有GPU和nvidia-docker则只能使用docker1docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash 如果有GPU和nvidia-docker则执行以下代码1nvidia-docker run --name paddle-test -v $PWD:/paddle --network=host -w /paddle -it hub.baidubce.com/paddlepaddle/paddle:latest-dev /bin/bash 然后现在就可以开始编译了 首先在 paddle主路径下创建build文件夹并进入。 123cd /paddlemkdir buildcd build 然后CMake里面会有一些参数，可以根据自己的需求选择。具体的参数可以在Paddle-CMakeLists里查看一下。然后以下命令就可以编译出GPU，Python3.5版本的PaddlePaddle了。 1234cmake .. -DPY_VERSION=3.5 \ -DWITH_GPU=ON \ -DWITH_TESTING=OFF \ -DCMAKE_BUILD_TYPE=Release 12make -j$(nproc)# -j后面可跟数字，指定并行编译的核数 完成编译之后 编译出来的whl包就在 python/dist路径下。执行 pip install 即可]]></content>
       <categories>
-          
-          <category> PaddlePaddle </category>
-          
+        <category>PaddlePaddle</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> PaddlePaddle </tag>
-            
-            <tag> DeepLearning </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Markdown常用语法（一）</title>
-      <link href="/2019/01/17/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-      <url>/2019/01/17/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p>Markdown 的相关常用命令<br><a id="more"></a></p><h1 id="Markdown-常用语法（一）"><a href="#Markdown-常用语法（一）" class="headerlink" title="Markdown 常用语法（一）"></a>Markdown 常用语法（一）</h1><h2 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h2><p>常用的 Markdown的插入命令</p><h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">插入图片的名字</span>](<span class="link">https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG</span>)</span><br></pre></td></tr></table></figure><p>但是上面这个方式无法选择图片显示的位置，和选择图片的大小。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;</span><br></pre></td></tr></table></figure><p>这个代码可以修改图片的大小。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div align=center&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div align=left&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div align=right&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG&quot;/&gt;&lt;div&gt;</span><br></pre></td></tr></table></figure><p>这个代码可以修改图片的位置。</p><p><div align="center"><img width="100" height="90" src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/照片/Skye的晚霞.JPG"><div></div></div></p><h3 id="插入视频"><a href="#插入视频" class="headerlink" title="插入视频"></a>插入视频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;video src=&quot;https://www.bilibili.com/video/av2271112&quot; width=&quot;320&quot; height=&quot;180&quot;</span><br><span class="line"> controls=&quot;controls&quot;&gt;&lt;/video&gt;</span><br></pre></td></tr></table></figure><video src="https://www.bilibili.com/video/av2271112" width="320" height="180" controls="controls"></video><p>上面的代码可以插入视频，这个视频是雷总的著名歌曲。</p><h3 id="插入音乐"><a href="#插入音乐" class="headerlink" title="插入音乐"></a>插入音乐</h3><p>Markdown支持插入 在线音乐的外链，网易云音乐是可以的。</p><p>参考: <a href="https://www.oschina.net/question/866260_2247433?sort=default" target="_blank" rel="noopener">markdown插入网易云音乐</a></p><h3 id="插入公式"><a href="#插入公式" class="headerlink" title="插入公式"></a>插入公式</h3><p>Markdown插入公式的操作比较简单，将latex格式的公式放在”$”里面就可以了</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$L<span class="emphasis">_\theta(x)=\prod^m_</span>&#123;i=1&#125;h<span class="emphasis">_\theta(x^i;\theta)^&#123;yi&#125; \cdot (1-h_</span>\theta(x^i;\theta))^&#123;1-y^i&#125;$$</span><br></pre></td></tr></table></figure><p>$$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$</p><h3 id="插入表格"><a href="#插入表格" class="headerlink" title="插入表格"></a>插入表格</h3><p>表格的插入操作也比较简单，但是Markdown貌似不支持合并单元格。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">| Student | Class | Age | Gender |</span><br><span class="line">| --- | --- | --- | --- |</span><br><span class="line">| Oliver | A | 19 | M |</span><br><span class="line">| Allie | A | 18 | F |</span><br><span class="line">| Lee | B | 20 | M |</span><br><span class="line">| Jerry | A | 19 | M |</span><br><span class="line">| Frank | B | 18 | F |</span><br></pre></td></tr></table></figure><table><thead><tr><th>Student</th><th>Class</th><th>Age</th><th>Gender</th></tr></thead><tbody><tr><td>Oliver</td><td>A</td><td>19</td><td>M</td></tr><tr><td>Allie</td><td>A</td><td>18</td><td>F</td></tr><tr><td>Lee</td><td>B</td><td>20</td><td>M</td></tr><tr><td>Jerry</td><td>A</td><td>19</td><td>M</td></tr><tr><td>Frank</td><td>B</td><td>18</td><td>F</td></tr></tbody></table>]]></content>
-      
+      <tags>
+        <tag>PaddlePaddle</tag>
+        <tag>DeepLearning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Markdown常用语法（一）]]></title>
+    <url>%2F2019%2F01%2F17%2FMarkdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Markdown 的相关常用命令 Markdown 常用语法（一）插入命令常用的 Markdown的插入命令 插入图片1![插入图片的名字](图片的链接) 但是上面这个方式无法选择图片显示的位置，和选择图片的大小。 1&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt; 这个代码可以修改图片的大小。 12345&lt;div align=center&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt;&lt;div align=left&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt;&lt;div align=right&gt;&lt;img width = &quot;100&quot; height =&apos;90&apos; src=&quot;图片的链接&quot;/&gt;&lt;div&gt; 这个代码可以修改图片的位置。 插入视频12&lt;video src=&quot;https://www.bilibili.com/video/av2271112&quot; width=&quot;320&quot; height=&quot;180&quot; controls=&quot;controls&quot;&gt;&lt;/video&gt; 上面的代码可以插入视频，这个视频是雷总的著名歌曲。 插入音乐Markdown支持插入 在线音乐的外链，网易云音乐是可以的。 参考: markdown插入网易云音乐 插入公式Markdown插入公式的操作比较简单，将latex格式的公式放在”$”里面就可以了 1$$L_\theta(x)=\prod^m_&#123;i=1&#125;h_\theta(x^i;\theta)^&#123;yi&#125; \cdot (1-h_\theta(x^i;\theta))^&#123;1-y^i&#125;$$ $$L_\theta(x)=\prod^m_{i=1}h_\theta(x^i;\theta)^{yi} \cdot (1-h_\theta(x^i;\theta))^{1-y^i}$$ 插入表格表格的插入操作也比较简单，但是Markdown貌似不支持合并单元格。 1234567| Student | Class | Age | Gender || --- | --- | --- | --- || Oliver | A | 19 | M || Allie | A | 18 | F || Lee | B | 20 | M || Jerry | A | 19 | M || Frank | B | 18 | F | Student Class Age Gender Oliver A 19 M Allie A 18 F Lee B 20 M Jerry A 19 M Frank B 18 F]]></content>
       <categories>
-          
-          <category> Markdown </category>
-          
+        <category>Markdown</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Markdown </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Jupyter添加新kernel(Mac)</title>
-      <link href="/2018/12/15/Jupyter%E6%B7%BB%E5%8A%A0%E6%96%B0kernel-Mac/"/>
-      <url>/2018/12/15/Jupyter%E6%B7%BB%E5%8A%A0%E6%96%B0kernel-Mac/</url>
-      <content type="html"><![CDATA[<p>在 Anaconda中创建了新的虚拟环境，但是在Jupyter Notebook或者Jupyter lab里却看不见，然后以下是解决办法。</p><a id="more"></a> <h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>首先打开 Terminal界面，创建新环境 “”new_env_”</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n new_env</span><br></pre></td></tr></table></figure><p>查询当前 conda包含的虚拟环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda env list</span><br></pre></td></tr></table></figure><p>变更当前环境至指定虚拟环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source activate new_env</span><br></pre></td></tr></table></figure><h2 id="将虚拟环境添加到Jupyter"><a href="#将虚拟环境添加到Jupyter" class="headerlink" title="将虚拟环境添加到Jupyter"></a>将虚拟环境添加到Jupyter</h2><p>在Terminal里首先需要切换到需要添加的环境中，然后输入以下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m ipykernel install --name new_env</span><br></pre></td></tr></table></figure><ol><li><p>此时如果 提示缺失 ipykernel，则返回 conda进行安装。</p></li><li><p>如果 提示缺失权限，则 添加 sudo 然后输入密码则可以完成添加。</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python -m ipykernel install --name new_env</span><br></pre></td></tr></table></figure>]]></content>
-      
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Jupyter添加新kernel(Mac)]]></title>
+    <url>%2F2018%2F12%2F15%2FJupyter%E6%B7%BB%E5%8A%A0%E6%96%B0kernel-Mac%2F</url>
+    <content type="text"><![CDATA[在 Anaconda中创建了新的虚拟环境，但是在Jupyter Notebook或者Jupyter lab里却看不见，然后以下是解决办法。 创建虚拟环境首先打开 Terminal界面，创建新环境 “”new_env_” 1$ conda create -n new_env 查询当前 conda包含的虚拟环境 1$ conda env list 变更当前环境至指定虚拟环境 1$ source activate new_env 将虚拟环境添加到Jupyter在Terminal里首先需要切换到需要添加的环境中，然后输入以下命令 1$ python -m ipykernel install --name new_env 此时如果 提示缺失 ipykernel，则返回 conda进行安装。 如果 提示缺失权限，则 添加 sudo 然后输入密码则可以完成添加。 1$ sudo python -m ipykernel install --name new_env]]></content>
       <categories>
-          
-          <category> Python </category>
-          
+        <category>Python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-            <tag> Python </tag>
-            
-            <tag> Jupyter Notebook </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hexo常用命令（一）</title>
-      <link href="/2018/12/15/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41/"/>
-      <url>/2018/12/15/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41/</url>
-      <content type="html"><![CDATA[<p>Hexo 的相关常用命令<br><a id="more"></a></p><h1 id="Hexo-常用命令（一）"><a href="#Hexo-常用命令（一）" class="headerlink" title="Hexo 常用命令（一）"></a>Hexo 常用命令（一）</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>常用的 hexo简写命令</p><p><code>hexo new draft &quot;new draft&quot;</code> #创建草稿</p><p><code>hexo publish [layout] &lt;filename&gt;</code> #将草稿升级为文章</p><p><code>hexo n &quot;new_post&quot;</code>==<code>hexo new &quot;new_post&quot;</code> #直接创建文章</p><p><code>hexo p</code>==<code>hexo publish</code>  #发布文章，将草稿升级为文章</p><p><code>hexo g</code>==<code>hexo generate</code> #生成</p><p><code>hexo s</code>==<code>hexo server</code> #在本地服务器预览，可修改localhost端口<br><code>hexo d</code>==<code>hexo deploy</code> #部署到远端服务器</p><p><code>hexo clean</code> #清除本地文件</p>]]></content>
-      
+      <tags>
+        <tag>工具</tag>
+        <tag>Python</tag>
+        <tag>Jupyter Notebook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo常用命令（一）]]></title>
+    <url>%2F2018%2F12%2F15%2FHexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A41%2F</url>
+    <content type="text"><![CDATA[Hexo 的相关常用命令 Hexo 常用命令（一）命令常用的 hexo简写命令 hexo new draft &quot;new draft&quot; #创建草稿 hexo publish [layout] &lt;filename&gt; #将草稿升级为文章 hexo n &quot;new_post&quot;==hexo new &quot;new_post&quot; #直接创建文章 hexo p==hexo publish #发布文章，将草稿升级为文章 hexo g==hexo generate #生成 hexo s==hexo server #在本地服务器预览，可修改localhost端口hexo d==hexo deploy #部署到远端服务器 hexo clean #清除本地文件]]></content>
       <categories>
-          
-          <category> Hexo </category>
-          
+        <category>Hexo</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hadoop(3.0.3)安装和配置过程（Mac）</title>
-      <link href="/2018/06/23/Hadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/"/>
-      <url>/2018/06/23/Hadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/</url>
-      <content type="html"><![CDATA[<p>最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。<br>版本是 Hadoop(3.0.3)</p><h1 id="Hadoop-3-0-3"><a href="#Hadoop-3-0-3" class="headerlink" title="Hadoop(3.0.3)"></a>Hadoop(3.0.3)</h1><a id="more"></a><h2 id="Java环境检查"><a href="#Java环境检查" class="headerlink" title="Java环境检查"></a>Java环境检查</h2><h3 id="Java版本号检查"><a href="#Java版本号检查" class="headerlink" title="Java版本号检查"></a>Java版本号检查</h3><p>在terminal里输入如下指令可以查看Java版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br></pre></td></tr></table></figure></p><p>如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br></pre></td></tr></table></figure><h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><p>如果你没有Java，在这网址里可以安装<br><a href="https://www.java.com/zh_CN/" target="_blank" rel="noopener">Java安装网址</a><br>JDK的安装就搜索一下就有</p><h3 id="Java的的系统环境变量"><a href="#Java的的系统环境变量" class="headerlink" title="Java的的系统环境变量"></a>Java的的系统环境变量</h3><p>Java的系统环境变量是如下指令查询的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure></p><p>查询成功会反馈类似的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure></p><p>该路径一会配置环境变量会用得上</p><h2 id="Hadoop下载"><a href="#Hadoop下载" class="headerlink" title="Hadoop下载"></a>Hadoop下载</h2><p><a href="http://hadoop.apache.org/releases.html" target="_blank" rel="noopener">Hadoop下载链接</a><br>我是在这里下载的3.0.3版本号。和之前2.x的版本有些许不一样。然后我是下载的编译好的binary版本。<br><a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz" target="_blank" rel="noopener">Hadoop3.0.3下载链接</a><br>进来之后任意选择镜像下载就可以了。</p><p>然后把解压后的文件夹hadoop-3.0.3存放到一个路径，比如我就把该文件夹放在documents下面。路径如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3</span><br></pre></td></tr></table></figure></p><h2 id="配置Mac-os环境"><a href="#配置Mac-os环境" class="headerlink" title="配置Mac os环境"></a>配置Mac os环境</h2><h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>这里就是我遇到问题最奇怪的地方</p><p>按照别人讲的教程大概有如下三种方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure></p><p>然后查看是否登陆成功,登陆成功讯息如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br><span class="line">MBP:hadoop-3.0.3 Oliver$ ssh localhost</span><br><span class="line">Last login: Sat Jun 23 10:42:58 2018</span><br></pre></td></tr></table></figure></p><p>如果这里不是直接输出如上讯息，那么看是否需要输入密码，就根据提示一步一步来。<br>如果还是不成功，那么看如下方法</p><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><blockquote><p>打开系统偏好设置</p><blockquote><p>–&gt; 共享<br>–&gt; 勾选远程登录<br>–&gt; 设置允许访问：所有用户</p></blockquote></blockquote><p>然后再次在terminal里输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure></p><p>参考网址：<a href="https://www.jianshu.com/p/de7eb61c983a" target="_blank" rel="noopener">Mac 系统安装Hadoop 2.7.3</a><br>参考网址：<a href="http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html" target="_blank" rel="noopener">Setting up Hadoop 2.6 on Mac OS X Yosemite</a></p><p>如果以上方法不成功</p><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>生成一个ssh key并储存和拷贝，方法比较笨</p><hr><ol><li><p>先输入如下指令，生成ssh key</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure><p> 然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa</span><br></pre></td></tr></table></figure><p> 其中id_rsa就是我们要的文件。</p></li></ol><hr><ol start="2"><li><p>键入如下指令</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure><p> 其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key</p></li></ol><hr><ol start="3"><li><p>最后我们再试着输入</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br></pre></td></tr></table></figure><p> 此时应该就可以成功了</p></li></ol><hr><p>参考网址：<a href="https://stackoverflow.com/questions/15211848/hadoop-start-dfs-sh-permission-denied" target="_blank" rel="noopener">Hadoop: start-dfs.sh permission denied</a></p><h4 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h4><p>此方法还未经过验证（未完成）</p><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><h4 id="总环境变量配置"><a href="#总环境变量配置" class="headerlink" title="总环境变量配置"></a>总环境变量配置</h4><p>打开terminal</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br><span class="line">$ vim ~/.bash_profile</span><br></pre></td></tr></table></figure><p>执行以上代码可以进入Vim编辑器，编辑环境变量。<br>添加如下代码<br>键入 i 可以开始编辑（详情可以搜索Vim的命令）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Hadoop</span><br><span class="line">export HADOOP_HOME=/Users/Oliver/Documents/hadoop-3.0.3(这个是Hadoop distribution的路径，根据自己设定的来调)</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br></pre></td></tr></table></figure></p><p>然后保存再退出，以下是部分Vim的指令，其余指令可以自行搜索一下</p><table><thead><tr><th>命令</th><th>简单说明</th></tr></thead><tbody><tr><td>:w</td><td>保存编辑后的文件内容，但不退出vim编辑器</td></tr><tr><td>:wq</td><td>保存文件内容后退出vim编辑器</td></tr><tr><td>:q</td><td>在未做任何编辑处理而准备退出vim时，可以使用此命令</td></tr></tbody></table><p>退出Vim界面之后，在terminal里输入如下命令使变量立即生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure></p><p>我们就成功的配置好了Hadoop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop version</span><br></pre></td></tr></table></figure></p><p>用该语句来确认Hadoop配置,此时可以查看</p><h4 id="Hadoop文件配置"><a href="#Hadoop文件配置" class="headerlink" title="Hadoop文件配置"></a>Hadoop文件配置</h4><p>打开如下路径里的文件进行更改, 将代码复制进去</p><ol><li><p>etc/hadoop/core-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/hdfs-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/mapred-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>etc/hadoop/yarn-site.xml:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure><p> 参考网址：<a href="http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html" target="_blank" rel="noopener">Setting up Hadoop 2.6 on Mac OS X Yosemite</a></p></li></ol><ol start="5"><li><p>/etc/hadoop/hadoop-env.sh handoop环境<br>添加这段代码就可以了，注意就是Java的系统环境变量的路径</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home</span><br></pre></td></tr></table></figure><p> 可以看到前面一开始提到的用如下指令查询</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/libexec/java_home</span><br></pre></td></tr></table></figure></li></ol><h3 id="执行-start-hdfs-and-yarn"><a href="#执行-start-hdfs-and-yarn" class="headerlink" title="执行 start hdfs and yarn"></a>执行 start hdfs and yarn</h3><ol><li><p>在terminal里进入hadoop distribution的文件夹</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd 到hadoop的文件夹，比如下面路径就是我的Hadoop</span><br><span class="line">$ cd /users/Oliver/documents/hadoop-3.0.3/</span><br></pre></td></tr></table></figure></li><li><p>对Namenode执行格式化操作 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop namenode -format</span><br></pre></td></tr></table></figure></li><li><p>启动hadoop</p><p> 启动NameNode和DataNode</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-dfs.sh</span><br></pre></td></tr></table></figure><p> 成功后出现</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Starting namenodes on [localhost]</span><br><span class="line">Starting datanodes</span><br><span class="line">Starting secondary namenodes [xiaohuobandeMBP.local]</span><br></pre></td></tr></table></figure><p> 启动ResourceManager和NodeManager</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/start-yarn.sh</span><br></pre></td></tr></table></figure><p> 成功后出现</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Starting resourcemanager</span><br><span class="line">Starting nodemanagers</span><br></pre></td></tr></table></figure></li><li><p>检查hadoop是否启动成功</p><p> 在terminal里输入</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jps</span><br></pre></td></tr></table></figure><p> 会显示</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">18739 Jps</span><br><span class="line">18133 NameNode</span><br><span class="line">18375 SecondaryNameNode</span><br><span class="line">18568 ResourceManager</span><br><span class="line">18665 NodeManager</span><br></pre></td></tr></table></figure><p> 则表示启动成功。<br> 此时在浏览器中访问localhost:8088和localhost:9870(hadoop3.x版本)，可以看到Hadoop的界面<br> localhost:50070(Hadoop2.x版本)</p></li></ol><p><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面1.png" alt="hadoop界面"><br><img src="https://raw.githubusercontent.com/OliverLPH/Pictures/master/Blog/Hadoop/hadoop界面2.png" alt="hadoop界面"></p><hr><p>到此为止，Hadoop就已经完成配置了，接下来就是使用Hadoop了</p>]]></content>
-      
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop(3.0.3)安装和配置过程（Mac）]]></title>
+    <url>%2F2018%2F06%2F23%2FHadoop%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[最近想研究一下分布式计算工具，于是瞄上了Hadoop，在网上找了很多教程，但还是遇到了一些问题，在这里就我记录一下遇到的问题。版本是 Hadoop(3.0.3) Hadoop(3.0.3) Java环境检查Java版本号检查在terminal里输入如下指令可以查看Java版本1$ java -version 如果Java已经是安装好了的话，就会出现如下的信息，里面的版本号可能会不一样 1234$ java -versionjava version &quot;1.8.0_161&quot;Java(TM) SE Runtime Environment (build 1.8.0_161-b12)Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode) Java安装如果你没有Java，在这网址里可以安装Java安装网址JDK的安装就搜索一下就有 Java的的系统环境变量Java的系统环境变量是如下指令查询的1$ /usr/libexec/java_home 查询成功会反馈类似的路径1/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home 该路径一会配置环境变量会用得上 Hadoop下载Hadoop下载链接我是在这里下载的3.0.3版本号。和之前2.x的版本有些许不一样。然后我是下载的编译好的binary版本。Hadoop3.0.3下载链接进来之后任意选择镜像下载就可以了。 然后把解压后的文件夹hadoop-3.0.3存放到一个路径，比如我就把该文件夹放在documents下面。路径如下1/Users/Oliver/Documents/hadoop-3.0.3 配置Mac os环境SSH这里就是我遇到问题最奇怪的地方 按照别人讲的教程大概有如下三种方法1$ ssh localhost 然后查看是否登陆成功,登陆成功讯息如下123$ ssh localhostMBP:hadoop-3.0.3 Oliver$ ssh localhostLast login: Sat Jun 23 10:42:58 2018 如果这里不是直接输出如上讯息，那么看是否需要输入密码，就根据提示一步一步来。如果还是不成功，那么看如下方法 方法一 打开系统偏好设置 –&gt; 共享–&gt; 勾选远程登录–&gt; 设置允许访问：所有用户 然后再次在terminal里输入1$ ssh localhost 参考网址：Mac 系统安装Hadoop 2.7.3参考网址：Setting up Hadoop 2.6 on Mac OS X Yosemite 如果以上方法不成功 方法二生成一个ssh key并储存和拷贝，方法比较笨 先输入如下指令，生成ssh key 1$ ssh-keygen 然后会提示将该key储存在哪里，这个路径就随意设置,比如我就储存在hadoop文件夹内 1/Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa 其中id_rsa就是我们要的文件。 键入如下指令 1cp /Users/Oliver/Documents/hadoop-3.0.3/sshkey/id_rsa.pub .ssh/authorized_keys 其中路径要和我们储存key的路径一致。这是为了拷贝新生成的public key 最后我们再试着输入 1$ ssh localhost 此时应该就可以成功了 参考网址：Hadoop: start-dfs.sh permission denied 方法三此方法还未经过验证（未完成） 配置环境变量总环境变量配置打开terminal 12$ touch ~/.bash_profile$ vim ~/.bash_profile 执行以上代码可以进入Vim编辑器，编辑环境变量。添加如下代码键入 i 可以开始编辑（详情可以搜索Vim的命令）123# Hadoopexport HADOOP_HOME=/Users/Oliver/Documents/hadoop-3.0.3(这个是Hadoop distribution的路径，根据自己设定的来调)export PATH=$PATH:$HADOOP_HOME/bin 然后保存再退出，以下是部分Vim的指令，其余指令可以自行搜索一下 命令 简单说明 :w 保存编辑后的文件内容，但不退出vim编辑器 :wq 保存文件内容后退出vim编辑器 :q 在未做任何编辑处理而准备退出vim时，可以使用此命令 退出Vim界面之后，在terminal里输入如下命令使变量立即生效1$ source ~/.bash_profile 我们就成功的配置好了Hadoop1$ hadoop version 用该语句来确认Hadoop配置,此时可以查看 Hadoop文件配置打开如下路径里的文件进行更改, 将代码复制进去 etc/hadoop/core-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;fs.defaultFS&lt;/name&gt; &lt;value&gt;hdfs://localhost:9000&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/hdfs-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/mapred-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;mapreduce.framework.name&lt;/name&gt; &lt;value&gt;yarn&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; etc/hadoop/yarn-site.xml: 123456&lt;configuration&gt; &lt;property&gt; &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; &lt;value&gt;mapreduce_shuffle&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 参考网址：Setting up Hadoop 2.6 on Mac OS X Yosemite /etc/hadoop/hadoop-env.sh handoop环境添加这段代码就可以了，注意就是Java的系统环境变量的路径 1export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home 可以看到前面一开始提到的用如下指令查询 1$ /usr/libexec/java_home 执行 start hdfs and yarn 在terminal里进入hadoop distribution的文件夹 12$ cd 到hadoop的文件夹，比如下面路径就是我的Hadoop$ cd /users/Oliver/documents/hadoop-3.0.3/ 对Namenode执行格式化操作 1$ hadoop namenode -format 启动hadoop 启动NameNode和DataNode 1$ sbin/start-dfs.sh 成功后出现 123Starting namenodes on [localhost]Starting datanodesStarting secondary namenodes [xiaohuobandeMBP.local] 启动ResourceManager和NodeManager 1$ sbin/start-yarn.sh 成功后出现 12Starting resourcemanagerStarting nodemanagers 检查hadoop是否启动成功 在terminal里输入 1$ jps 会显示 1234518739 Jps18133 NameNode18375 SecondaryNameNode18568 ResourceManager18665 NodeManager 则表示启动成功。 此时在浏览器中访问localhost:8088和localhost:9870(hadoop3.x版本)，可以看到Hadoop的界面 localhost:50070(Hadoop2.x版本) 到此为止，Hadoop就已经完成配置了，接下来就是使用Hadoop了]]></content>
       <categories>
-          
-          <category> 机器学习和数据挖掘 </category>
-          
+        <category>机器学习和数据挖掘</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hadoop </tag>
-            
-            <tag> 数据挖掘 </tag>
-            
-            <tag> 分布式计算 </tag>
-            
-            <tag> 工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>hexo deploy问题</title>
-      <link href="/2018/06/22/hexo-deploy%E9%97%AE%E9%A2%98/"/>
-      <url>/2018/06/22/hexo-deploy%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>Hexo deploy的问题<br><a id="more"></a><br>一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">To github.com:OliverLPH/OliverLPH.github.io</span><br><span class="line"> + a8ea0df...bc3e952 HEAD -&gt; master (forced update)</span><br><span class="line">Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;git@github.com:OliverLPH/OliverLPH.github.io&apos;.</span><br><span class="line">INFO  Deploy done: git</span><br><span class="line">xiaohuobandeMBP:source Oliver$ hexo clean</span><br><span class="line">INFO  Deleted database.</span><br><span class="line">INFO  Deleted public folder.</span><br></pre></td></tr></table></figure><p>然后如上面的代码所示，hexo显示nothing to commit, working tree clean。</p><p>在网上搜索后发现有的几种方案</p><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><p>这样就可以清理掉public文件夹，然后重新deploy</p><h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>移除.deploy文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf .deploy</span><br><span class="line">hexo generater</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>]]></content>
-      
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>数据挖掘</tag>
+        <tag>分布式计算</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo deploy问题]]></title>
+    <url>%2F2018%2F06%2F22%2Fhexo-deploy%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[Hexo deploy的问题一开始deploy成功之后，再重新deploy的时候，会发现并没有推送本地的文件到GitHub 12345678910111213INFO Deploying: gitINFO Clearing .deploy_git folder...INFO Copying files from public folder...INFO Copying files from extend dirs...On branch masternothing to commit, working tree cleanTo github.com:OliverLPH/OliverLPH.github.io + a8ea0df...bc3e952 HEAD -&gt; master (forced update)Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;git@github.com:OliverLPH/OliverLPH.github.io&apos;.INFO Deploy done: gitxiaohuobandeMBP:source Oliver$ hexo cleanINFO Deleted database.INFO Deleted public folder. 然后如上面的代码所示，hexo显示nothing to commit, working tree clean。 在网上搜索后发现有的几种方案 方案一12hexo cleanhexo d 这样就可以清理掉public文件夹，然后重新deploy 方案二移除.deploy文件夹123rm -rf .deployhexo generaterhexo deploy]]></content>
       <categories>
-          
-          <category> Hello World! </category>
-          
+        <category>Hello World!</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
-            
-            <tag> 初次使用 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello World！</title>
-      <link href="/2018/06/22/hello-world/"/>
-      <url>/2018/06/22/hello-world/</url>
-      <content type="html"><![CDATA[<p>Hello World!<br><a id="more"></a><br>终于把个人博客弄好的，菜鸟真是不容易。<br>还是要感谢一下网上的各路大神，都是借鉴了大家的攻略才终于弄好的。</p><h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p>Hexo主题来源: <a href="https://github.com/iissnan/hexo-theme-next/blob/master/README.cn.md" target="_blank" rel="noopener">Next主题</a><br>Hexo配置参考1: <a href="https://baoyuzhang.github.io/2017/05/12/【Hexo搭建独立博客全纪录】（三）使用Hexo搭建博客/" target="_blank" rel="noopener">Hexo搭建独立博客全纪录</a><br>Hexo配置参考2: <a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="noopener">Hexo官方文档</a><br>Hexo配置参考3: <a href="http://oyjt.github.io/2016/01/16/hexo博客更换主题/" target="_blank" rel="noopener">hexo博客更换主题</a></p>]]></content>
-      
+      <tags>
+        <tag>Hexo</tag>
+        <tag>初次使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World！]]></title>
+    <url>%2F2018%2F06%2F22%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Hello World!终于把个人博客弄好的，菜鸟真是不容易。还是要感谢一下网上的各路大神，都是借鉴了大家的攻略才终于弄好的。 参考网站Hexo主题来源: Next主题Hexo配置参考1: Hexo搭建独立博客全纪录Hexo配置参考2: Hexo官方文档Hexo配置参考3: hexo博客更换主题]]></content>
       <categories>
-          
-          <category> Hello World! </category>
-          
+        <category>Hello World!</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 初次使用 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>初次使用</tag>
+      </tags>
+  </entry>
 </search>
